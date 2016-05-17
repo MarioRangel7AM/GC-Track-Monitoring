@@ -23,7 +23,7 @@ section.positioned {
 }
 .containerContactForm {
   overflow-y: auto;
-  height: 400px;
+  height: 350px; 
 }
 
 .container{
