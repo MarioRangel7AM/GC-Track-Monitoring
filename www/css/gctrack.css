@@ -154,6 +154,9 @@ th:first-child div{
 .img-user-profile{
 	height: 25px;
 }
+.img-user-contact{
+	height: 25px;
+}
 
 
 .logininput{
@@ -183,15 +186,30 @@ th:first-child div{
 
 
 .contactinput{
-	color:white;
-	height: 120px;
+	color:#FFF;
+	height: 25px;
 	background-color: inherit;
 	border:0px;
 	border-radius: 5px;
 	background: url('../images/bg_input.png');
 	width: 100%;
-	font-size: 24px;
+	font-size: 18px;
 }
+
+
+#textarea{
+	color:#FFF;
+	height: 70px;
+	background-color: inherit;
+	border:0px;
+	border-radius: 5px;
+	background: url('../images/bg_input.png');
+	width: 100%;
+	font-size: 18px;
+}
+
+
+
 .logcont{
 	margin: 10px;
 }
@@ -215,6 +233,17 @@ th:first-child div{
     color: #dd0330;
     font-size: 18px;
 }
+
+.contactbutton{
+	background-color: #eaa7b2;
+    width: 100%;
+    padding: 10px;
+    border: 0px;
+    border-radius: 5px;
+    color: #dd0330;
+    font-size: 18px;
+}
+
 
 
 .logininput::-webkit-input-placeholder { /* Chrome/Opera/Safari */

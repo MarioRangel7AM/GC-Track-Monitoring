@@ -64,15 +64,15 @@
         	<div id="logincont"  class="container loginform" style="margin-top:30px;">
         <div class="row">
             <div class="col-md-2 col-xs-2">
-                <img class="img-user" src="images/login_user.png">
+                <img class="img-user-contact" src="images/login_user.png">
             </div>
             <div class="col-md-10 col-xs-10">
-                <input id="asunto" name="asunto" type="text" class="logininput" placeholder="asunto" value="">
+                <input id="asunto" name="asunto" type="text" class="contactinput" placeholder="asunto" value="">
             </div>
         </div>
         <div class="row" style="margin-top:20px;">
             <div class="col-md-2 col-xs-2">
-                <img class="img-user" src="images/login_pass.png">
+                <img class="img-user-contact" src="images/login_pass.png">
             </div>
             <div class="col-md-10 col-xs-10">
   <textarea name="Message" id="textarea" cols="35" rows="5" placeholder="descripcion" class="contactinput"></textarea>
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="logcont" style="margin-top:25px;">
-            <input type="button" id="contact" class="loginbutton" value="Contactar">
+            <input type="button" id="contact" class="contactbutton" value="Contactar">
         </div>
     </div>
     
@@ -198,6 +198,9 @@ $( document ).ready(function() {
            	       var subject=document.getElementById('asunto').value;
            	       var message=document.getElementById('textarea').value;
 var idTracker= localStorage.getItem("idTrackerToContactSupport"); 
+
+if(validateUserData(subject,message)){
+
 	console.log('ID trackeerr '+idTracker);	  
 alert("Contactado con soporte espere un momento");
 		  $.post( "http://gctrack-alterno.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker})
@@ -210,9 +213,28 @@ alert("Contactado con soporte espere un momento");
               
              });
           
-		   
+		  }
+else{
+alert("debe de llenar los campos");
+
+}		  
 		   
         });
+		
+		
+function validateUserData(asunto, texto){
+	
+			if(asunto.length>0 && texto.length>0){
+				return true;
+			}
+			else{
+				return false;
+			}
+
+	
+	
+	}
+
 
 
  
