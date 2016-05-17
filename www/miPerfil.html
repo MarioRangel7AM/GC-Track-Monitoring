@@ -67,53 +67,53 @@
 	
 <div id="view_tracker_status" style=" margin-top:60px;">
         	<div id="logincont"  class="containerContactForm loginform" style="margin-top:30px;">
-        <div class="row">
+        <div class="row" style="height:25px;" >
             <div class="col-md-2 col-xs-2">
-                <img class="img-user" src="images/login_user.png">
+                <img class="img-user-profile" src="images/login_user.png">
             </div>
             <div class="col-md-10 col-xs-10">
               <div class="formtext">  Nombre usuario</div>
-				<input id="nombre" name="asunto" type="text" class="logininput" placeholder="asunto" value="">
+				<input id="nombre" name="asunto" type="text" class="myprofileinput" placeholder="asunto" value="">
             </div>
         </div>
-        <div class="row" style="margin-top:20px;">
+        <div class="row" style="height:25px;" style="margin-top:20px;">
             <div class="col-md-2 col-xs-2">
-                <img class="img-user" src="images/login_user.png">
+                <img class="img-user-profile" src="images/login_user.png">
             </div>
             <div class="col-md-10 col-xs-10">
 <div class="formtext">Email de Contacto</div>
-			<input id="email" name="asunto" type="text" class="logininput" placeholder="correo" value="" style="font-size:14px;">
+			<input id="email" name="asunto" type="text" class="myprofileinput" placeholder="correo" value="" style="font-size:14px;">
 
             </div>
         </div>
-        <div class="row" style="margin-top:20px;">
+        <div class="row" style="height:25px;" style="margin-top:20px;">
             <div class="col-md-2 col-xs-2">
-                <img class="img-user" src="images/login_user.png">
+                <img class="img-user-profile" src="images/login_user.png">
             </div>
             <div class="col-md-10 col-xs-10">
 <div class="formtext">Telefono</div>
-			<input id="telefono" name="asunto" type="phone" class="logininput" placeholder="telefono" value="" style="font-size:14px;" required="true">
+			<input id="telefono" name="asunto" type="phone" class="myprofileinput" placeholder="telefono" value="" style="font-size:14px;" required="true">
 
             </div>
         </div>
         
-		<div class="row" style="margin-top:20px;">
+		<div class="row" style="height:25px;" style="margin-top:20px;">
             <div class="col-md-2 col-xs-2">
-                <img class="img-user" src="images/login_user.png">
+                <img class="img-user-profile" src="images/login_user.png">
             </div>
             <div class="col-md-10 col-xs-10">
 <div class="formtext">Rol</div>
-			<input id="rol" name="asunto" type="phone" class="logininput" placeholder="Rol" value="" style="font-size:14px;" required="true">
+			<input id="rol" name="asunto" type="phone" class="myprofileinput" placeholder="Rol" value="" style="font-size:14px;" required="true">
 
             </div>
         </div>
-        <div class="row" style="margin-top:20px;">
+        <div class="row" style="height:25px;" style="margin-top:20px;">
             <div class="col-md-2 col-xs-2">
-                <img class="img-user" src="images/login_user.png">
+                <img class="img-user-profile" src="images/login_user.png">
             </div>
             <div class="col-md-10 col-xs-10">
 <div class="formtext">Empresa</div>
-			<input id="empresa" name="asunto" type="phone" class="logininput" placeholder="empresa" value="" style="font-size:14px;" required="true">
+			<input id="empresa" name="asunto" type="phone" class="myprofileinput" placeholder="empresa" value="" style="font-size:14px;" required="true">
 
             </div>
         </div>
@@ -121,7 +121,7 @@
 		
 		
 		<div class="logcont" style="margin-top:25px;">
-            <input type="button" onclick="updateUserData();" class="loginbutton" value="Actualizar">
+            <input type="button" onclick="updateUserData();" class="updatebutton" value="Actualizar">
         </div>
     </div>
 	</table>
@@ -510,7 +510,7 @@ function showPumps(){
     for (var i in locaciones) 
     {
         // imprimimos
-        output+='<div class="row"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
+        output+='<div class="row" style="height:25px;"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
         // guardamos
     }
     output+="";
