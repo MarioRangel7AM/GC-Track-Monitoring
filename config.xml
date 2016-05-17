@@ -18,7 +18,6 @@
   <preference name="auto-hide-splash-screen" value="true"/>
   <preference name="disable-cursor" value="false"/>
   <preference name="android-installLocation" value="auto"/>
-  <preference name="DisallowOverscroll" value="true" />
   <gap:plugin name="org.apache.cordova.media" />
   <gap:plugin name="org.apache.cordova.battery-status"/>
   <gap:plugin name="org.apache.cordova.camera"/>
