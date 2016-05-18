@@ -109,7 +109,7 @@ th:first-child div{
 }
 .fixedContainer{
  overflow-y: auto;
-  height: 900px;
+  height: 200px;
 }
 .locationmark{
 	width: 100%;
