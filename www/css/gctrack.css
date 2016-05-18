@@ -26,6 +26,11 @@ section.positioned {
   height: 400px; 
 }
 
+.iconlist{
+	
+	width:75%;
+}
+
 .container{
   overflow-y: none;
 }
