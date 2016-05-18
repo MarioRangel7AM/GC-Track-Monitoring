@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow-y:hidden;">
 <head>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
@@ -48,11 +48,15 @@ width:105%;
       <div class="item" id="sendReport"><img src="img/iconosendinfogctrack55x55.png" style="margin-top:-15px;"></div><!--send report-->
       <div class="item" id="infoTracker"><img src="img/info55x55.png" style="margin-top:-15px;"></div><!--info-->
       <div class="item" id="goback"><img src="img/iconogoback55x55.png" style="margin-top:-15px;"></div><!--go back-->
-      <div class="item" id="logout"><img src="img/logouticon55x55.png" style="margin-top:-15px;"></div><!--logout-->
-      <div class="item" ><a href="miPerfil.html"><img src="img/iconosupportgctrack55x55.png" style="margin-top:-15px;"></a></div><!--myprofile-->
+      <div class="item" id="logout"><img src="img/iconologout55x55.png" style="margin-top:-15px;"></div><!--logout-->
+      <div class="item" ><a href="miPerfil.html"><img src="img/iconomiperfil55x55.png" style="margin-top:-15px;"></a></div><!--myprofile-->
 
     </div>
 </div>
+
+<div id="fixedcontainer">
+	<table>
+
 	
     <div id="view_tracker_status" style="display:none; margin-top:-30px;">
         <div id="tracker_location">
@@ -71,9 +75,7 @@ width:105%;
             </div>
             
 			
- <div id="fixedcontainer">
-	<table>
-
+ 
 			<div class="container dashmarg">
                 <div class="row">
                     <div class="col-md-3 col-xs-3">
@@ -140,7 +142,7 @@ width:105%;
                 </div>
             </div>
 		</table>
-		</div>
+		
 		
 		</div>
 
@@ -267,7 +269,7 @@ $( document ).ready(function() {
                 $('#listmoretracks').append('<div class="imoretracks"><img src="images/red-bombaelectrica.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Electric Pump</div>');
             }
             if(trackers_location[x].Descripcion=='Diesel'){
-                $('#listmoretracks').append('<div class="imoretracks"><img src="images/red-iconobombadiesel.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Diesel Pump</div>');
+                $('#listmoretracks').append('<div class="imoretracks"><img src="img/iconobombadiesel55x55.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Diesel Pump</div>');
             }
             if(trackers_location[x].Descripcion=='Jockey'){
                 $('#listmoretracks').append('<div class="imoretracks"><img src="images/red-bombajockey.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Jockey Pump</div>');
@@ -582,7 +584,7 @@ function getTracker(idTracker){
                         $('#pumptypename').html('Electric<br>Pump')
                     }
                     if(trackers_location[i].Descripcion=='Diesel'){
-                        $('#pumptypeicon').attr('src','images/iconobombadiesel.png');
+                        $('#pumptypeicon').attr('src','img/iconobombadiesel55x55.png');
                         $('#pumptypename').html('Diesel<br>Pump')
                     }
                     if(trackers_location[i].Descripcion=='Jokey'){
