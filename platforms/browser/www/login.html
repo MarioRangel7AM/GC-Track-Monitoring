@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="css/gctrack.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>GCTrack</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <img id="logologin" class="img-responsive" src="images/login_logo.png">
+    </div>
+    <div id="logincont"  class="container loginform">
+        <div class="row">
+            <div class="col-md-2 col-xs-2">
+                <img class="img-user" src="images/login_user.png">
+            </div>
+            <div class="col-md-10 col-xs-10">
+                <input id="inemail" name="mail" type="email" class="logininput" placeholder="email" value="">
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-2 col-xs-2">
+                <img class="img-user" src="images/login_pass.png">
+            </div>
+            <div class="col-md-10 col-xs-10">
+                <input id="inpass" name="password" type="password" class="logininput" placeholder="password" value="">
+            </div>
+        </div>
+        <div class="logcont" style="margin-top:25px;">
+            <input type="button" id="dologin" class="loginbutton" value="Log In">
+        </div>
+    </div>
+    <div id="offlinediag" style="display:none;">
+        <h2>No connection...</h2>
+    </div>
+    
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+       
+	$( document ).ready(function() {
+          
+		$('#dologin').click(function(){
+            inemail = $('#inemail').val();
+            inpass = $('#inpass').val();
+			
+			if(validarCamposLogin(inemail,inpass)){ 
+			  
+			  $.post( "http://gctrack-beta2.mybluemix.net/auth.php", { email: inemail, pass: inpass })
+				.done(function( data ) {
+					console.log(data);
+					var data = $.parseJSON(data);
+
+					if(data.resp=='Correcto'){
+						window.localStorage.setItem("iduser", data.iduser);
+						window.localStorage.setItem("userName", inemail);
+
+						location.href='dashboard.html';
+					}else{
+						alert( "Datos de inicio incorrectos" );
+					}
+				});
+				
+			}else{
+				alert("debe llenar todos los campos para poder iniciar sesion");
+			}
+	   });
+
+       
+		function validarCamposLogin(User,password){
+
+			if(User.length>0 && password.length>0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+
+ 
+          
+ 
+
+		$.post( "http://gctrack-beta1.mybluemix.net/auth.php", { loging: "Show" })
+		.done(function( data ) {
+
+			var data = $.parseJSON(data);
+
+			if (localStorage.getItem("iduser") === 'loggedout') {
+				alert("tu sesion fue cerrada correctamente");
+				window.localStorage.setItem("iduser", "sesionCerrada");
+			}
+			else{
+				if(data.resp=='Correcto'){
+					window.localStorage.setItem("iduser", data.iduser);
+					location.href='dashboard.html';
+				}else{
+					$('#logincont').fadeIn();
+				}
+			}
+			
+		});
+        
+            
+	});// fin document ready
+    </script>
+</body>
+</html>
