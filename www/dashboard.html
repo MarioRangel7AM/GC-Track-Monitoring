@@ -14,7 +14,7 @@
 <body>
 <div class="container-fluid">
     <img id="logologin" class="img-responsive" src="images/dash_logo.png">
-	<HR width=100% align="center">
+	<HR width=100% align="center" class="division">
 </div>
 
 	
@@ -292,7 +292,7 @@ $( document ).ready(function() {
  
     $('#logout').click(function(){
 
-        $.getJSON( "http://gctrack-beta1.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show"})
+        $.getJSON( "http://gctrack-beta2.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show"})
         .done(function( data ) {
             console.log(data);
 
@@ -329,7 +329,7 @@ $( document ).ready(function() {
 	
     // para mostrar el log
     $('#showlog').click(function(){
-        $.post( "http://gctrack-beta1.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        $.post( "http://gctrack-beta2.mybluemix.net/getlog.php", {id_tracker: ontracker})
              .done(function( data ) {
                 registros = [];
                 console.log(data);
@@ -404,7 +404,7 @@ $( document ).ready(function() {
             var today = dd+'/'+mm+'/'+yyyy+'Hours '+hours;
 
             console.log(tableElement);
-            $.post( "http://gctrack-beta1.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today})
+            $.post( "http://gctrack-beta2.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today})
 
             .done(function( data ) {
                 console.log(data);
@@ -459,7 +459,7 @@ function validateEmail(email) {
 // obtiene todas las bombas por usuario
 function getPumps(){
     console.log('ID DE USUARIO '+userid);
-    $.post( "http://gctrack-beta1.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gctrack-beta2.mybluemix.net/getpumps.php", {id_user: userid})
      .done(function( data ) {
         locaciones = [];
         console.log('deget'+data);
@@ -509,7 +509,7 @@ function viewTrackers (idlocation) {
     //console.log(idtracker);
     // obtenemos los tracker de esa locacion
     trackers_location = [];
-     $.post( "http://gctrack-beta1.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+     $.post( "http://gctrack-beta2.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
      .done(function( data ) {
         console.log('ViewTrackers:'+data);
         var json_obj = $.parseJSON(data);
@@ -554,7 +554,7 @@ function getTracker(idTracker){
     ontracker = idTracker;
 	console.log('ID TRACKER  '+ontracker);
   // window.localStorage.setItem("lasttrack", ontracker); //esta puede ser la linea de codigo que este causando que se quede la informacion de la sesion anterior
-    $.post( "http://gctrack-beta1.mybluemix.net/gettracker.php", {id_tracker: idTracker})
+    $.post( "http://gctrack-beta2.mybluemix.net/gettracker.php", {id_tracker: idTracker})
      .done(function( data ) {
         console.log('gettracker:'+data);
         var json_obj = $.parseJSON(data);
@@ -622,7 +622,7 @@ currentPumpstatus=json_obj.tracker.message;
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
 function checkPump(){
 
-    $.post( "http://gctrack-beta1.mybluemix.net/checkpump.php", {id_user: userid})
+    $.post( "http://gctrack-beta2.mybluemix.net/checkpump.php", {id_user: userid})
      .done(function( data ) {
         //console.log(data);
         listDevices = []; //limpiamos
