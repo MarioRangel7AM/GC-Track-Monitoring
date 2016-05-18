@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="overflow-y:hidden;">
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
@@ -11,7 +11,7 @@
     <link href="assets/css/custom.css" rel="stylesheet">
     <title>GCTrack</title>
 </head>
-<body >
+<body style="overflow-y:hidden;" >
 <div class="container-fluid">
     <img id="logologin" class="img-responsive" src="images/dash_logo.png">
 	<HR width=100% align="center" class="division">
@@ -30,7 +30,6 @@
     text-align: center;
 	height:8px;
 }
-
 .row{
 width:105%;
 }
@@ -52,10 +51,9 @@ width:105%;
       <div class="item" ><a href="miPerfil.html"><img src="img/iconomiperfil55x55.png" style="margin-top:-15px;"></a></div><!--myprofile-->
 
     </div>
-</div><!--fin del div del cintillo-->
+</div>
 
-			
- <div id="fixedcontainer" class="containerContactForm-fluid">
+<div id="fixedcontainer">
 	<table>
 
 	
@@ -70,18 +68,17 @@ width:105%;
             <div class="row" ><div class="locationmark"><h2>Cargando...</h2></div></div>
         </div> 
 
-		
-		
         <div id="pumpstatuscont">
             <div id="listmoretracks" style="display:none;">
 
             </div>
             
-
+			
+ 
 			<div class="container dashmarg">
                 <div class="row">
                     <div class="col-md-3 col-xs-3">
-                        <img id="pumptypeicon" class="iconlist" src="images/icono-pumpressure.png" >
+                        <img id="pumptypeicon" class="iconlist"  src="images/icono-pumpressure.png">
                             
                     </div>
                     <div class="col-md-9 col-xs-9">
@@ -91,8 +88,6 @@ width:105%;
                     </div>
                 </div>
             </div>
-			</div>
-			</table>
 
             <div class="container dashmarg">
                 <div class="row">
@@ -110,10 +105,10 @@ width:105%;
             <div id="statusnormal" class="container dashmarg">
                 <div class="row">
                     <div class="col-md-3 col-xs-3">
-                        <img  id="iconlist" class="img-responsive" src="images/dash_status.png">
+                        <img  id="pumpstatusicon" class="iconlist" src="images/dash_status.png">
                     </div>
                     <div class="col-md-9 col-xs-9">
-                        <div id="iconlist" class="row statsbg statsText">
+                        <div id="pumpstatus" class="row statsbg statsText">
                             Pump Status<br>
                             <span id="pump_status">Normal</span>
                         </div>
@@ -144,14 +139,14 @@ width:105%;
                         </div>
                     </div>
                 </div>
-        
-		
-		</div>
-    	</div>
+            </div>
 		</table>
-		</div>
 		
-        <div id="datalogged" style="display:none; margin-top:40px;">
+		
+		</div>
+
+        
+		<div id="datalogged" style="display:none; margin-top:40px;">
             <table class="table table-fixed-header" id="tblog">
                 <div id="tbheaderfixed" style="visibility:hidden;">
                     <div>Pump pressure</div>
@@ -190,8 +185,6 @@ width:105%;
 
 
 <script type="text/javascript" charset="utf-8">
-
-
 //variables globales de la aplicacion
 var screenpos = 'dashboard';
 var isNotified = 0;
@@ -205,23 +198,18 @@ var ontracker = 0;
 var tableOffset = 0;
 var trackers_location = [];
 var currentPumpstatus='';
-
 document.addEventListener("deviceready", onDeviceReady, false);
-
 // tenemos que guardar en la APP las locaciones
 // guaramos las bombas por locacion
 // actualizamos el estado de las bombas
 // probamos las alertas de las bombas
 // mostremos historial
-
 // metodos que se cargan al iniciar la aplicacion
 function onDeviceReady() {
     // Empty
     console.log(navigator.notification);
     console.log(navigator.vibrate);
 }
-
-
 // cuando cargue la APP aplicamos estos codigos
 $( document ).ready(function() {
     userid = window.localStorage.getItem("iduser");
@@ -231,7 +219,6 @@ $( document ).ready(function() {
     getPumps();
     // mostramos bombas
     showPumps();
-
 	$('#goback').fadeOut();
 	//cargamos cintillo
 	
@@ -241,7 +228,6 @@ $( document ).ready(function() {
         onscreen = 'dashboard';
         $('#view_tracker_status').fadeOut();
         $('#list_trackers').fadeIn();
-
     });
 	
 	 //boton para ir a ver perfil de usuario
@@ -264,7 +250,6 @@ $( document ).ready(function() {
        // touchDrag               : false,
        // mouseDrag               : false
     });
-
   $('#pumptypeicon').click(function(){
     // revisamos cuantas bombas hay y si tiene mas de 2 mostramos el submenu de seleccion
     if(trackers_location.length>1){
@@ -287,7 +272,6 @@ $( document ).ready(function() {
         // no haremos nadsa
     }
     console.log(trackers_location);
-
   });
  
   // Custom Navigation Events
@@ -306,25 +290,20 @@ $( document ).ready(function() {
  
  
     $('#logout').click(function(){
-
         $.getJSON( "http://gctrack-beta2.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show"})
         .done(function( data ) {
             console.log(data);
-
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
-
                 alert( "you have loggedout" );
                 window.localStorage.setItem("iduser", "loggedout");
                 location.href='index.html';
-
             }else{
                 alert( "Session cannot be closed" );
             }
         });
     });
  
-
     var lasttrack = window.localStorage.getItem("lasttrack");
     
     if(1==2){
@@ -338,9 +317,7 @@ $( document ).ready(function() {
         viewLocations();
         $('.dashmarg').fadeOut();
     }
-
     
-
 	
     // para mostrar el log
     $('#showlog').click(function(){
@@ -352,7 +329,6 @@ $( document ).ready(function() {
                 // reseteamos tabla
                 $('#tblog > tbody').html('');
                 /*$('#tblog > tbody').append('<thead class="header" ><tr><th>Date</th><th>Pump status</th><th>Pump Pressure</th></tr></thead><tbody>');*/
-
                 if(json_obj.numresult>0){
                     for (var i in json_obj.logs) 
                     {
@@ -374,19 +350,14 @@ $( document ).ready(function() {
         });
     
     });//din del log
-
     //para regresar
     $('#goback').click(function(){
-
         location.href="dashboard.html";
     });
-
 	//Para refrescar la pantalla
 	 $('#refreshPage').click(function(){
-
         location.reload();
     });
-
     $('#contact').click(function(){
         window.localStorage.setItem("idTrackerToContactSupport", ontracker);
         location.href='contacto.html';
@@ -397,18 +368,14 @@ $( document ).ready(function() {
  	
         var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
         var email = prompt("Please introduce the recipent email for the report", "GCT GROUP");//correo al que se enviara la tabla
-
         var isValidEmail=validateEmail(email);
-
         if(isValidEmail){
             alert("valid email");
             var pump="Tracker id=2; Brand: Firetroll, Model:XFFD322, Status:Ok";
-
             var today = new Date();
             var dd = today.getDate();
             var mm = today.getMonth()+1; //January is 0!
             var hours=today.getHours()
-
             var yyyy = today.getFullYear();
             if(dd<10){
                 dd='0'+dd
@@ -417,21 +384,17 @@ $( document ).ready(function() {
                 mm='0'+mm
             } 
             var today = dd+'/'+mm+'/'+yyyy+'Hours '+hours;
-
             console.log(tableElement);
             $.post( "http://gctrack-beta2.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today})
-
             .done(function( data ) {
                 console.log(data);
                 alert("You report has been sent");
                 //var data = $.parseJSON(data);
             });
-
         }else{
             alert("The email address that you provided is not valid");
         }
     });
-
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
@@ -439,24 +402,18 @@ function validateEmail(email) {
 	
 	
     //revision de scroll
-
     $(window).bind("scroll", function() {
         var tableOffset = $("#tblog").offset().top;
         var offset = $(this).scrollTop();
-
         var w1 = $('#tbheader td:nth-child(1)').width()+20;
         var w2 = $('#tbheader td:nth-child(2)').width()+20;
         var w3 = $('#tbheader td:nth-child(3)').width()+20;
         var h1 = $('#tbheader td:nth-child(1)').height()+20;
-
         $('#tbheaderfixed div:nth-child(1)').css('width',w1);
         $('#tbheaderfixed div:nth-child(2)').css('width',w2);
         $('#tbheaderfixed div:nth-child(3)').css('width',w3);
-
         $('#tbheaderfixed div:nth-child(2)').css('height',h1);
         $('#tbheaderfixed div:nth-child(3)').css('height',h1);
-
-
         if (offset >= tableOffset) {
             $('#tbheader').css('visibility', 'visible');
             $('#tbheaderfixed').css('visibility', 'visible');
@@ -465,12 +422,7 @@ function validateEmail(email) {
             $('#tbheaderfixed').css('visibility', 'hidden');
         }
     });
-
-
-
 });// fin del onready
-
-
 // obtiene todas las bombas por usuario
 function getPumps(){
     console.log('ID DE USUARIO '+userid);
@@ -494,7 +446,6 @@ function getPumps(){
         showPumps();
     });
 }
-
 function showPumps(){
     output = "";
     for (var i in locaciones) 
@@ -507,7 +458,6 @@ function showPumps(){
     // guardamos en contenedor
     $('#list_trackers').html(output);
 }
-
 function viewLocations(){
     
 	
@@ -516,9 +466,6 @@ function viewLocations(){
 	$("#showlog").css("display", "none");
 	
 }
-
-
-
 // para ver los trackers de una locacion
 function viewTrackers (idlocation) {
     //console.log(idtracker);
@@ -545,7 +492,6 @@ function viewTrackers (idlocation) {
                 // mostramos el primer tracker
                 getTracker(json_obj.trackers[0].ID);
             }
-
             
         }else{
             // No hay para mostrar
@@ -553,8 +499,6 @@ function viewTrackers (idlocation) {
         }
     });
 }
-
-
 // para lanzar vision de tracker individual
 function getTracker(idTracker){
     // obtenemos la ultima lectura del tracker
@@ -562,7 +506,6 @@ function getTracker(idTracker){
     $('#datalogged').fadeOut();
     $('#logout').fadeIn();
     $('#goback').fadeOut();
-
     $('.dashmarg').fadeIn();
     $('#listmoretracks').fadeOut();
     onscreen = 'viewtracker';
@@ -577,7 +520,6 @@ function getTracker(idTracker){
             // si hay y tenemos informacion
             $('#presiondata').html(json_obj.tracker.Presion);
             $('#trackdata_id').html(json_obj.tracker.ID);
-
             //cambiamos el tipo de bomba
             console.log('iniciamos ciclo:');
             for(var i in trackers_location){
@@ -596,17 +538,14 @@ function getTracker(idTracker){
                         $('#pumptypeicon').attr('src','images/bombajockey.png');
                         $('#pumptypename').html('Jokey<br>Pump')
                     }
-
                 }
             }
             
             if(json_obj.tracker.Estado==1){
                 $('#pump_status_res').html(json_obj.tracker.message);
-
                 $('#statusnormal').fadeOut();
                 $('#statuserror').fadeIn();
 currentPumpstatus=json_obj.tracker.message;
-
             }else{
                 $('#statusnormal').fadeIn();
                 $('#statuserror').fadeOut();
@@ -614,7 +553,6 @@ currentPumpstatus=json_obj.tracker.message;
             //titulos y sub
             $('#loc_business').html(json_obj.tracker.loc_business);
             $('#loc_pos').html(json_obj.tracker.loc_pos);
-
             
             //mostramos el tracker
             $('#list_trackers').fadeOut();
@@ -627,16 +565,8 @@ currentPumpstatus=json_obj.tracker.message;
         }
     });
 }
-
-
-
-
-
-
-
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
 function checkPump(){
-
     $.post( "http://gctrack-beta2.mybluemix.net/checkpump.php", {id_user: userid})
      .done(function( data ) {
         //console.log(data);
@@ -646,7 +576,6 @@ function checkPump(){
         for (var i in json_obj.tracker) 
         {
             //guardaremos nuestros dispositivos para consulta de estado
-
             device = {
                 ID : json_obj.tracker[i].ID, 
                 pressure : json_obj.tracker[i].pressure ,
@@ -658,7 +587,6 @@ function checkPump(){
             }
             listDevices.push(device);
         }
-
         //revisamos que todo este bien
         var tam = listDevices.length;
         resultpump = 0;
@@ -667,7 +595,6 @@ function checkPump(){
             if(listDevices[i].status!='0'){
                 // encontramos un problema
                 resultpump = 1;
-
                 //revisamos si esta notificado de esto
                 if(isNotified == 1){
                     //no hacemos accion
@@ -681,7 +608,6 @@ function checkPump(){
                 //parese que todo marcha bien
             }
             //actualizamos la vista del tracker que estoy viendo
-
             //console.log("Comparamos - "+parseInt(listDevices[i].ID) +'#'+ parseInt(ontracker));
             if(parseInt(listDevices[i].ID) == parseInt(ontracker)){
                 if(onscreen=='viewtracker'){
@@ -698,13 +624,10 @@ function checkPump(){
                         $('#statusnormal').fadeIn();
                         $('#statuserror').fadeOut();
                     }
-
                 }
             }
             
-
         }
-
         //aqui vemos si le avisamos que ya esta todo correcto despues de tener registrado que hay problemas
         if(resultpump != generalres){
             if(resultpump==1 && generalres==0){
@@ -720,38 +643,26 @@ function checkPump(){
                 } 
             }
         }
-
     });
 }
-
-
 // metodo general para lanzar alertas tipo push
 function showAlert(alertar) {
-
     var now  = new Date().getTime(),
     _5_sec_from_now = new Date(now + 1*1000);
-
     cordova.plugins.notification.local.schedule({
         text: alertar,
         at: _5_sec_from_now,
     });
 }
-
 	
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
-
-
 $('#infoTracker').click(function(){
-
 alert(" IDtracker:  "+ontracker+"Brand: Firetrol, Model:XFFD322, Status: "+currentPumpstatus);
 	 
     });
-
-
-
 // Repetidor de codigo
 var timerId = setInterval(function() {
     checkPump();
@@ -763,18 +674,10 @@ var timerId = setInterval(function() {
         $('#offlinediag').fadeIn();
     }
 }, 3000);
-
-
-
-
-
 // metodo que se activa al dimitir una alerta
 function alertDismissed() {
     // do something
 }
-
-
-
 </script>
 </body>
 </html>
