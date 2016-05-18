@@ -250,6 +250,12 @@ th:first-child div{
 	
 }
 
+.statsText{
+	
+	font-size:12px;
+	
+}
+
 .logininput::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #FFF;
 }
@@ -270,7 +276,7 @@ th:first-child div{
 .statsbg{
 	background: url('../images/bg_input.png');
 	color: #FFF;
-	font-size: 18px;
+	/*font-size: 18px;*/
 	font-weight: bold;
 	padding-left: 35px;
 	margin-left: -15px;
@@ -279,7 +285,7 @@ th:first-child div{
 .statserror{
 	background-color: #FFF;
 	color: #dc1f26;
-	font-size: 18px;
+/*	font-size: 18px;*/
 	font-weight: bold;
 	padding-left: 35px;
 	margin-left: -15px;
