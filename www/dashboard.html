@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow-y:hidden;">
 <head>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
@@ -134,7 +134,7 @@ width:105%;
                         <img class="iconlist" id="statimage" src="images/dash_stadistics.png">
                     </div>
                     <div class="col-md-9 col-xs-9">
-                        <div class="row statsbg">
+                        <div class="row statsbg" style="height:34px;">
                             <p id="dashstats">Data Logged</p>
                         </div>
                     </div>
@@ -259,7 +259,7 @@ $( document ).ready(function() {
                 $('#listmoretracks').append('<div class="imoretracks"><img src="images/red-bombaelectrica.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Electric Pump</div>');
             }
             if(trackers_location[x].Descripcion=='Diesel'){
-                $('#listmoretracks').append('<div class="imoretracks"><img src="img/iconobombadiesel55x55.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Diesel Pump</div>');
+                $('#listmoretracks').append('<div class="imoretracks"><img src="img/checkengineicon55x55.jpg"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Diesel Pump</div>');
             }
             if(trackers_location[x].Descripcion=='Jockey'){
                 $('#listmoretracks').append('<div class="imoretracks"><img src="images/red-bombajockey.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Jockey Pump</div>');
@@ -295,7 +295,7 @@ $( document ).ready(function() {
             console.log(data);
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
-                alert( "you have loggedout" );
+                alert( "you have log out" );
                 window.localStorage.setItem("iduser", "loggedout");
                 location.href='index.html';
             }else{

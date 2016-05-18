@@ -82,7 +82,19 @@
 
             </div>
         </div>
-        <div class="logcont" style="margin-top:25px;">
+        <div class="row">
+            <div class="col-md-2 col-xs-2">
+                <img class="img-user-contact" src="images/login_user.png">
+            </div>
+            <div class="col-md-10 col-xs-10">
+                <input id="emailcontacto" name="asunto" type="text" class="contactinput" placeholder="contact email" value="">
+            </div>
+        </div>
+        
+		
+		
+		
+		<div class="logcont" style="margin-top:25px;">
             <input type="button" id="contact" class="contactbutton" value="Contact">
         </div>
     </div>
@@ -148,6 +160,8 @@ $( document ).ready(function() {
     getPumps();
     // mostramos bombas
     showPumps();
+	
+	getUserContactData();
 
 	//cargamos cintillo
 	
@@ -200,36 +214,39 @@ $( document ).ready(function() {
   $('#contact').click(function(){
            	       var subject=document.getElementById('asunto').value;
            	       var message=document.getElementById('textarea').value;
+				   var email=document.getElementById('emailcontacto').value;
+				   
 var idTracker= localStorage.getItem("idTrackerToContactSupport"); 
 
-if(validateUserData(subject,message)){
+if(validateUserData(subject,message,email)){
 
 	console.log('ID trackeerr '+idTracker);	  
-alert("Contactado con soporte espere un momento");
-		  $.post( "http://gctrack-alterno.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker})
+		  $.post( "http://gctrack-beta2.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker,contact_email:email})
              
 			 
 			 .done(function( data ) {
        console.log(data);
-                alert("Su solicitud ha sido enviada, en breve se pondran en contacto con usted");
+                alert("Your request has been sent");
 				//var data = $.parseJSON(data);
               
              });
           
 		  }
 else{
-alert("debe de llenar los campos");
+alert("All fields must be filled, please also check that you are writing a valid email address");
 
 }		  
 		   
         });
 		
 		
-function validateUserData(asunto, texto){
+function validateUserData(asunto, texto,email){
 	
-			if(asunto.length>0 && texto.length>0){
+			if(asunto.length>0 && texto.length>0&&validateEmail(email)){
 				return true;
 			}
+			
+			
 			else{
 				return false;
 			}
@@ -238,7 +255,27 @@ function validateUserData(asunto, texto){
 	
 	}
 
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+	
+	
+	function getUserContactData(){
+	var userName=window.localStorage.getItem("userName");
+	
+	 $.post( "http://gctrack-beta2.mybluemix.net/getContactData.php", {user_name: userName})
+     .done(function( data ) {
+       console.log(data);
+                var data = $.parseJSON(data);
 
+document.getElementById("emailcontacto").value=data.contact_email;
+
+
+
+	   
+    });
+}
 
  
  
@@ -276,7 +313,7 @@ alert("Tracker id=2; Brand: Firetroll, Model:XFFD322, Status:Ok");
 
     // para mostrar el log
     $('#showlog').click(function(){
-        $.post( "http://gctrack-alterno.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        $.post( "http://gctrack-beta2.mybluemix.net/getlog.php", {id_tracker: ontracker})
              .done(function( data ) {
                 registros = [];
                 console.log(data);
@@ -356,7 +393,7 @@ alert("Tracker id=2; Brand: Firetroll, Model:XFFD322, Status:Ok");
 // obtiene todas las bombas por usuario
 function getPumps(){
     console.log('Con'+userid);
-    $.post( "http://gctrack-alterno.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gctrack-beta2.mybluemix.net/getpumps.php", {id_user: userid})
      .done(function( data ) {
         locaciones = [];
         console.log('deget'+data);
@@ -408,7 +445,7 @@ $('.row').click(function(){
 function viewTrackers (idlocation) {
     //console.log(idtracker);
     // obtenemos los tracker de esa locacion
-     $.post( "http://gctrack-alterno.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+     $.post( "http://gctrack-beta2.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
      .done(function( data ) {
         console.log(data);
         var json_obj = $.parseJSON(data);

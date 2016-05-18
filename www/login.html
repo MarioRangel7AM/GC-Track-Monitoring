@@ -63,12 +63,12 @@
 
 						location.href='dashboard.html';
 					}else{
-						alert( "Datos de inicio incorrectos" );
+						alert( "Your user name or password are incorrect, please write them again" );
 					}
 				});
 				
 			}else{
-				alert("debe llenar todos los campos para poder iniciar sesion");
+				alert("You must fill all fields");
 			}
 	   });
 
@@ -93,7 +93,7 @@
 			var data = $.parseJSON(data);
 
 			if (localStorage.getItem("iduser") === 'loggedout') {
-				alert("tu sesion fue cerrada correctamente");
+				alert("you have logged out correctly");
 				window.localStorage.setItem("iduser", "sesionCerrada");
 			}
 			else{

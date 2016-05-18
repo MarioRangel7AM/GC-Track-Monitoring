@@ -122,7 +122,7 @@ th:first-child div{
     background-color: #FFF;
     text-align: center;
     color: #aa1f27;
-    margin-top: -10px;
+    margin-top: -1px;
 }
 #tracker_location{
 	margin-bottom: 15px;
@@ -306,7 +306,7 @@ th:first-child div{
 }
 
 #dashstats{
-	margin-top: 15px;
+	margin-top: 5px;
 }
 
 .listTrackers{
