@@ -570,6 +570,7 @@ function getTracker(idTracker){
                 $('#statusnormal').fadeOut();
                 $('#statuserror').fadeIn();
 currentPumpstatus=json_obj.tracker.message;
+window.localStorage.setItem("pumpstatus",currentPumpstatus);
             }else{
                 $('#statusnormal').fadeIn();
                 $('#statuserror').fadeOut();

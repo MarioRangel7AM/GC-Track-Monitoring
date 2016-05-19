@@ -275,8 +275,9 @@ $('#goback').click(function(){
  
 $('#infoTracker').click(function(){
 				var currentTrackerId=window.localStorage.getItem("trackerId");
+				var currentPumpStatus=window.localStorage.getItem("pumpstatus");
 
-alert("Tracker id= "+currentTrackerId+" Brand: Firetroll, Model:XFFD322, Status:Ok");
+alert("Tracker id= "+currentTrackerId+" Brand: Firetroll, Model:XFFD322, Status "+currentPumpStatus);
 	 
     });
 	
