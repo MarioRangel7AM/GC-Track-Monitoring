@@ -4,6 +4,8 @@
   <author href="http://www.tecsolutionsmx.com" email="support@phonegap.com">TecsolutionsMX</author>
   <content src="index.html"/>
  <!-- <preference name="permissions" value="none"/>-->
+    <preference name="DisallowOverscroll" value="true" />
+
   <preference name="orientation" value="portrait" />
   <preference name="target-device" value="universal"/>
   <preference name="fullscreen" value="false"/>
