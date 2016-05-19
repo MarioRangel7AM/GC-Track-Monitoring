@@ -261,9 +261,22 @@ function validateEmail(email) {
 	
 	
 	function getUserContactData(){
-	var userName=window.localStorage.getItem("userName");
 	
-	 $.post( "http://gctrack-beta2.mybluemix.net/getContactData.php", {user_name: userName})
+	var userid=window.localStorage.getItem("iduser");
+	console.log("id usuario: "+userid);
+	 $.post( "http://gctrack-beta2.mybluemix.net/getuserbyid.php", {user_id:userid})
+     .done(function( data ) {
+       console.log(data);
+                var data = $.parseJSON(data);
+window.localStorage.setItem("email_user",data.email_user);
+
+	
+	});
+var user=window.localStorage.getItem("email_user");
+       console.log("dfcsdfsdf"+user);
+
+	
+	 $.post( "http://gctrack-beta2.mybluemix.net/getContactData.php", {user_name: user})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
