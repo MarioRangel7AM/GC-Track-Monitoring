@@ -1,3 +1,21 @@
+*
+{
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+input
+{
+-webkit-user-select: auto !important;
+-khtml-user-select: auto !important;
+-moz-user-select: auto !important;
+-ms-user-select: auto !important;
+user-select: auto !important;
+}
+
 body{
 	background-image: url('../images/bg_red.jpg') !important;
 	background-size: 100%;
@@ -35,7 +53,7 @@ section.positioned {
   overflow-y: none;
 }
 
-
+/*
 table {
   border-spacing: 0;
   width:100%;
@@ -70,7 +88,7 @@ th div{
 }
 th:first-child div{
   border: none;
-}
+}*/
 
 
 
@@ -129,6 +147,7 @@ th:first-child div{
     float: left;
     width: 100%;
     display: block;
+    margin-top: -22px;
 }
 
 .locationmark p{
@@ -441,4 +460,12 @@ tbody td:last-child, thead th:last-child {
 .imoretracks a{
 	margin-left: 10px;
 	color: #C90221;
+}
+
+
+#floattopheader{  
+  position: fixed;
+    width: 100%;
+    background-color: #D20222;
+    z-index: 10;
 }

@@ -1,7 +1,7 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.gctgroup.gctrackmonitoringsystem" version="1.0.0">
-  <name>GC Track Monitoring System</name>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.tecsolutionsmx.gctrack" version="1.0.0">
+  <name>GC Track</name>
   <description>Software para el control de equipo industriales.</description>
-  <author href="http://www.gc-track.com" email="support@phonegap.com">GCTGROUP</author>
+  <author href="http://www.tecsolutionsmx.com" email="support@phonegap.com">TecsolutionsMX</author>
   <content src="index.html"/>
  <!-- <preference name="permissions" value="none"/>-->
   <preference name="orientation" value="portrait" />
@@ -83,5 +83,6 @@
 
   <preference name="android-build-tool" value="gradle" />
   <plugin name="de.appplant.cordova.plugin.local-notification" />
+  <plugin name="cordova-plugin-badge" spec="0.7.2" source="npm" />
 
 </widget>

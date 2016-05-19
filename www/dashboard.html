@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="overflow-y:hidden;">
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
@@ -9,62 +9,62 @@
     <link rel="stylesheet" type="text/css" href="css/gctrack.css" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
-    <title>GCTrack</title>
+    <title>GC Track</title>
+    <style> 
+    #owl-demo .item{
+        background: transparent; 
+        padding: 10px 0px;
+        margin: 5px;
+        color: #FFF;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 20px;
+        text-align: center;
+        height:8px;
+       
+    }
+    .owl-theme .owl-controls {
+        display: none !important;
+    }
+    #owl-demo{
+         margin-bottom: 10px;
+    }
+    </style>
 </head>
-<body style="overflow-y:hidden;" >
-<div class="container-fluid">
-    <img id="logologin" class="img-responsive" src="images/dash_logo.png">
-	<HR width=100% align="center" class="division">
-</div>
+<body>
+    <div id="floattopheader">
+        <div class="container-fluid">
+            <img id="logologin" class="img-responsive" src="images/dash_logo.png">
+            <hr width=100% align="center" class="division">
+        </div>
 
-	
-<style> 
-#owl-demo .item{
-    background: transparent; 
-    padding: 10px 0px;
-    margin: 5px;
-    color: #FFF;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 20px;
-    text-align: center;
-	height:8px;
-}
-.row{
-width:105%;
-}
-</style>
+        <div id="demo">
 
-<!--   div del cintillo-->
+            <div id="owl-demo" class="owl-carousel" >
+              
+              <div class="item" id="refreshPage"><img src="img/iconorefreshgctrack55x55.png" style="margin-top:-15px;"></div><!--Refresh-->
+              <div class="item" id="contact"><img src="img/iconosupportgctrack55x55.png" style="margin-top:-15px;"></div><!--Support-->
+              <div class="item" id="gotoweb"><a href="http://www.gc-track.com"><img src="img/iconowebgctrack55x55.png" style="margin-top:-15px;"></a></div><!--web gctrack -->
+              <div class="item" id="sendReport"><img src="img/iconosendinfogctrack55x55.png" style="margin-top:-15px;"></div><!--send report-->
+              <div class="item" id="infoTracker"><img src="img/info55x55.png" style="margin-top:-15px;"></div><!--info-->
+              <div class="item" id="goback"><img src="img/iconogoback55x55.png" style="margin-top:-15px;"></div><!--go back-->
+              <div class="item" id="logout"><img src="img/iconologout55x55.png" style="margin-top:-15px;"></div><!--logout-->
+              <div class="item" ><a href="miPerfil.html"><img src="img/iconomiperfil55x55.png" style="margin-top:-15px;"></a></div><!--myprofile-->
 
-<div id="demo">
-
-    <div id="owl-demo" class="owl-carousel" >
-      
-      <div class="item" id="refreshPage"><img src="img/iconorefreshgctrack55x55.png" style="margin-top:-15px;"></div><!--Refresh-->
-      <div class="item" id="contact"><img src="img/iconosupportgctrack55x55.png" style="margin-top:-15px;"></a></div><!--Support-->
-      <div class="item" id="gotoweb"><a href="http://www.gc-track.com"><img src="img/iconowebgctrack55x55.png" style="margin-top:-15px;"></a></div><!--web gctrack -->
-      <div class="item" id="sendReport"><img src="img/iconosendinfogctrack55x55.png" style="margin-top:-15px;"></div><!--send report-->
-      <div class="item" id="infoTracker"><img src="img/info55x55.png" style="margin-top:-15px;"></div><!--info-->
-      <div class="item" id="goback"><img src="img/iconogoback55x55.png" style="margin-top:-15px;"></div><!--go back-->
-      <div class="item" id="logout"><img src="img/iconologout55x55.png" style="margin-top:-15px;"></div><!--logout-->
-      <div class="item" ><a href="miPerfil.html"><img src="img/iconomiperfil55x55.png" style="margin-top:-15px;"></a></div><!--myprofile-->
-
+            </div>
+        </div>
     </div>
-</div>
+
 
 <div id="fixedcontainer">
-	<table>
-
-	 
-    <div id="view_tracker_status" style="display:none; margin-top:-40px;">
+    <div id="view_tracker_status" style="display:none;">
         <div id="tracker_location">
             <div onclick="viewLocations()" class="locationmark" rel="2">
                 <h1 id="loc_business"></h1>
                 <p id="loc_pos"></p>
             </div>
         </div>
-        <div id="list_trackers"style="margin-top:17px;">
+        <div id="list_trackers">
             <div class="row" ><div class="locationmark"><h2>Cargando...</h2></div></div>
         </div> 
 
@@ -140,7 +140,6 @@ width:105%;
                     </div>
                 </div>
             </div>
-		</table>
 		
 		
 		</div>
@@ -198,6 +197,7 @@ var ontracker = 0;
 var tableOffset = 0;
 var trackers_location = [];
 var currentPumpstatus='';
+var numale = 0;
 document.addEventListener("deviceready", onDeviceReady, false);
 // tenemos que guardar en la APP las locaciones
 // guaramos las bombas por locacion
@@ -209,6 +209,7 @@ function onDeviceReady() {
     // Empty
     console.log(navigator.notification);
     console.log(navigator.vibrate);
+    cordova.plugins.notification.badge.set(2);
 }
 // cuando cargue la APP aplicamos estos codigos
 $( document ).ready(function() {
@@ -250,43 +251,43 @@ $( document ).ready(function() {
        // touchDrag               : false,
        // mouseDrag               : false
     });
-  $('#pumptypeicon').click(function(){
-    // revisamos cuantas bombas hay y si tiene mas de 2 mostramos el submenu de seleccion
-    if(trackers_location.length>1){
-        $('#listmoretracks').html('');
-        for(var x in trackers_location){
-            if(trackers_location[x].Descripcion=='Electrica'){
-                $('#listmoretracks').append('<div class="imoretracks"><img src="images/red-bombaelectrica.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Electric Pump</div>');
+    $('#pumptypeicon').click(function(){
+        // revisamos cuantas bombas hay y si tiene mas de 2 mostramos el submenu de seleccion
+        if(trackers_location.length>1){
+            $('#listmoretracks').html('');
+            for(var x in trackers_location){
+                if(trackers_location[x].Descripcion=='Electrica'){
+                    $('#listmoretracks').append('<div class="imoretracks"><img src="images/red-bombaelectrica.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Electric Pump</div>');
+                }
+                if(trackers_location[x].Descripcion=='Diesel'){
+                    $('#listmoretracks').append('<div class="imoretracks"><img src="img/iconobombadiesel2.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Diesel Pump</div>');
+                }
+                if(trackers_location[x].Descripcion=='Jockey'){
+                    $('#listmoretracks').append('<div class="imoretracks"><img src="images/red-bombajockey.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Jockey Pump</div>');
+                }
+                
             }
-            if(trackers_location[x].Descripcion=='Diesel'){
-                $('#listmoretracks').append('<div class="imoretracks"><img src="img/checkengineicon55x55.jpg"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Diesel Pump</div>');
-            }
-            if(trackers_location[x].Descripcion=='Jockey'){
-                $('#listmoretracks').append('<div class="imoretracks"><img src="images/red-bombajockey.png"> <a onClick="getTracker('+trackers_location[x].ID+')" href="#">Jockey Pump</div>');
-            }
-            
-        }
-        
-        $('#listmoretracks').fadeIn();
-    }else{
+
+            $('#listmoretracks').fadeIn();
+        }else{
         // no haremos nadsa
-    }
-    console.log(trackers_location);
-  });
+        }
+        console.log(trackers_location);
+    });
  
-  // Custom Navigation Events
-  $(".next").click(function(){
-    owl.trigger('owl.next'); 
-  });
-  $(".prev").click(function(){
-    owl.trigger('owl.prev');
-  });
-  $(".play").click(function(){
-    owl.trigger('owl.play',1000); //owl.play event accept autofPlay speed as second parameter
-  });
-  $(".stop").click(function(){
-    owl.trigger('owl.stop');
-  });
+    // Custom Navigation Events
+    $(".next").click(function(){
+        owl.trigger('owl.next'); 
+    });
+    $(".prev").click(function(){
+        owl.trigger('owl.prev');
+    });
+    $(".play").click(function(){
+        owl.trigger('owl.play',1000); //owl.play event accept autofPlay speed as second parameter
+    });
+    $(".stop").click(function(){
+        owl.trigger('owl.stop');
+    });
  
  
     $('#logout').click(function(){
@@ -399,21 +400,21 @@ $( document ).ready(function() {
             alert("The email address that you provided is not valid");
         }
     });
-function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;//expresion regular para validar email
-    return re.test(email);
-}
-	
-function validateCCEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  
-   if(re.test(email)||email=="cancel"||email==""){
-   return true;
-   }
-   else{
-   return false;
-   }
-}
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;//expresion regular para validar email
+        return re.test(email);
+    }
+    	
+    function validateCCEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if(re.test(email)||email=="cancel"||email==""){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 
 	
@@ -438,6 +439,11 @@ function validateCCEmail(email) {
             $('#tbheaderfixed').css('visibility', 'hidden');
         }
     });
+
+    var setpadd = $('#floattopheader').height();
+    $('#fixedcontainer').css('padding-top',setpadd );
+
+
 });// fin del onready
 // obtiene todas las bombas por usuario
 function getPumps(){
@@ -619,6 +625,8 @@ function checkPump(){
                     navigator.vibrate(1500);
                     showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);
                     isNotified = 1;
+                    numale++;
+                    //alert(numale);
                 }
             }else{
                 //parese que todo marcha bien
@@ -644,6 +652,12 @@ function checkPump(){
             }
             
         }
+        // seteamos numero de alertas
+        if(numale>0){
+            cordova.plugins.notification.badge.set(numale);
+        }else{
+            cordova.plugins.notification.badge.clear();
+        }
         //aqui vemos si le avisamos que ya esta todo correcto despues de tener registrado que hay problemas
         if(resultpump != generalres){
             if(resultpump==1 && generalres==0){
@@ -665,10 +679,10 @@ function checkPump(){
 function showAlert(alertar) {
     var now  = new Date().getTime(),
     _5_sec_from_now = new Date(now + 1*1000);
-    cordova.plugins.notification.local.schedule({
+    /*cordova.plugins.notification.local.schedule({
         text: alertar,
         at: _5_sec_from_now,
-    });
+    });*/
 }
 	
 function validateEmail(email) {
