@@ -43,72 +43,66 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
-       
-	$( document ).ready(function() {
-          
-		$('#dologin').click(function(){
+        $('#dologin').click(function(){
             inemail = $('#inemail').val();
             inpass = $('#inpass').val();
-			
-			if(validarCamposLogin(inemail,inpass)){ 
-			  
-			  $.post( "http://gctrack-beta2.mybluemix.net/auth.php", { email: inemail, pass: inpass })
-				.done(function( data ) {
-					console.log(data);
-					var data = $.parseJSON(data);
+          
 
-					if(data.resp=='Correcto'){
-						window.localStorage.setItem("iduser", data.iduser);
-						window.localStorage.setItem("userName", inemail);
-
-						location.href='dashboard.html';
-					}else{
-						alert( "Your user name or password are incorrect, please write them again" );
-					}
-				});
-				
-			}else{
-				alert("You must fill all fields");
-			}
-	   });
-
+		  $.post( "http://gctrack-beta2.mybluemix.net/auth.php", { email: inemail, pass: inpass })
+             .done(function( data ) {
+                console.log(data);
+                var data = $.parseJSON(data);
+                
+                if(data.resp=='Correcto'){
+                    window.localStorage.setItem("iduser", data.iduser);
+                    location.href='dashboard.html';
+                }else{
+                    alert( "Please check your user name and password and verify that there is no blank fields" );
+                }
+             });
        
-		function validarCamposLogin(User,password){
+ });
+		
 
-			if(User.length>0 && password.length>0){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
+		
+		
+        $( document ).ready(function() {
+          
 
  
           
  
 
-		$.post( "http://gctrack-beta1.mybluemix.net/auth.php", { loging: "Show" })
-		.done(function( data ) {
+ $.post( "http://gctrack-beta2.mybluemix.net/auth.php", { loging: "Show" })
+             .done(function( data ) {
+               
+				var data = $.parseJSON(data);
 
-			var data = $.parseJSON(data);
+			   if (localStorage.getItem("iduser") === 'loggedout') {
+  alert("you session has been closed sucessfully");
+                      window.localStorage.setItem("iduser", "sesionCerrada");
 
-			if (localStorage.getItem("iduser") === 'loggedout') {
-				alert("you have logged out correctly");
-				window.localStorage.setItem("iduser", "sesionCerrada");
-			}
-			else{
-				if(data.resp=='Correcto'){
-					window.localStorage.setItem("iduser", data.iduser);
-					location.href='dashboard.html';
-				}else{
-					$('#logincont').fadeIn();
-				}
-			}
-			
-		});
+}
+
+				
+else if(data.resp=='Correcto'){
+                    window.localStorage.setItem("iduser", data.iduser);
+                    location.href='dashboard.html';
+                }else{
+                   $('#logincont').fadeIn();
+                }
+             });
         
-            
-	});// fin document ready
+                
+       
+
+   
+                
+       
+
+		  });
+
+	
     </script>
 </body>
 </html>
