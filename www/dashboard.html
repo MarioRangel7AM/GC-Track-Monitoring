@@ -368,7 +368,7 @@ $( document ).ready(function() {
 	$('#sendReport').click(function(){
  	
         var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
-        var email = prompt("Please introduce the recipent email for the report", "GCT GROUP");//correo al que se enviara la tabla
+        var email = prompt("Please introduce the recipent email for the report", "gctgroup@gctrack.com");//correo al que se enviara la tabla
         var isValidEmail=validateEmail(email);
        var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla
         var isValidCCEmail=validateCCEmail(CCemail);
@@ -376,11 +376,13 @@ $( document ).ready(function() {
 
 	  if(isValidEmail&&isValidCCEmail){
             alert("valid email");
-            var pump="Tracker id="+ontracker+" Brand: Firetrol, Model:XFFD322, Status:Ok";
+            var pump="Tracker id="+ontracker+" Brand: Firetrol, Model:XFFD322, Status"+currentPumpstatus;
             var today = new Date();
             var dd = today.getDate();
             var mm = today.getMonth()+1; //January is 0!
-            var hours=today.getHours()
+            var hours=today.getHours();
+			var minutes=today.getMinutes();
+			
             var yyyy = today.getFullYear();
             if(dd<10){
                 dd='0'+dd
@@ -388,7 +390,7 @@ $( document ).ready(function() {
             if(mm<10){
                 mm='0'+mm
             } 
-            var today = dd+'/'+mm+'/'+yyyy+'Hours '+hours;
+            var today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
             console.log(tableElement);
             $.post( "http://gctrack-beta2.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
             .done(function( data ) {
