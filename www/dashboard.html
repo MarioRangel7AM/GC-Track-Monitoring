@@ -369,7 +369,11 @@ $( document ).ready(function() {
         var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
         var email = prompt("Please introduce the recipent email for the report", "GCT GROUP");//correo al que se enviara la tabla
         var isValidEmail=validateEmail(email);
-        if(isValidEmail){
+       var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "GCT GROUP");//correo al que se enviara la tabla
+        var isValidCCEmail=validateCCEmail(CCemail);
+      
+
+	  if(isValidEmail&&isValidCCEmail){
             alert("valid email");
             var pump="Tracker id=2; Brand: Firetroll, Model:XFFD322, Status:Ok";
             var today = new Date();
@@ -385,7 +389,7 @@ $( document ).ready(function() {
             } 
             var today = dd+'/'+mm+'/'+yyyy+'Hours '+hours;
             console.log(tableElement);
-            $.post( "http://gctrack-beta2.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today})
+            $.post( "http://gctrack-beta2.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
             .done(function( data ) {
                 console.log(data);
                 alert("You report has been sent");
@@ -396,10 +400,22 @@ $( document ).ready(function() {
         }
     });
 function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;//expresion regular para validar email
     return re.test(email);
 }
 	
+function validateCCEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  
+   if(re.test(email)||email=="cancel"||email==""){
+   return true;
+   }
+   else{
+   return false;
+   }
+}
+
+
 	
     //revision de scroll
     $(window).bind("scroll", function() {
