@@ -198,6 +198,7 @@ var tableOffset = 0;
 var trackers_location = [];
 var currentPumpstatus='';
 var numale = 0;
+var currentIdUser=0;
 document.addEventListener("deviceready", onDeviceReady, false);
 // tenemos que guardar en la APP las locaciones
 // guaramos las bombas por locacion
@@ -233,7 +234,7 @@ $( document ).ready(function() {
 	
 	 //boton para ir a ver perfil de usuario
     $('#myprofile').click(function(){
-	
+	window.localStorage.setItem("iduser",currentIdUser);
        location.href="miPerfil.html";
     
 	});
@@ -449,8 +450,10 @@ $( document ).ready(function() {
 });// fin del onready
 // obtiene todas las bombas por usuario
 function getPumps(){
-    console.log('ID DE USUARIO '+userid);
-    $.post( "http://gctrack-beta2.mybluemix.net/getpumps.php", {id_user: userid})
+    
+	console.log('ID DE USUARIO '+userid);
+    currentIdUser=userid;
+	$.post( "http://gctrack-beta2.mybluemix.net/getpumps.php", {id_user: userid})
      .done(function( data ) {
         locaciones = [];
         console.log('deget'+data);

@@ -165,6 +165,7 @@ var device = [];
 var onscreen = 'dashboard';
 var ontracker = 0;
 var tableOffset = 0;
+var username="";
 document.addEventListener("deviceready", onDeviceReady, false);
 
 // tenemos que guardar en la APP las locaciones
@@ -194,7 +195,7 @@ $( document ).ready(function() {
 	
 
 	
-	putUserName();
+	//putUserName();
 	getUserContactData();
 	
 	
@@ -243,27 +244,7 @@ $( document ).ready(function() {
  
  
  
-  $('#contact').click(function(){
-           	       var subject=document.getElementById('nombre').value;
-           	       var message=document.getElementById('textarea').value;
-var idTracker= localStorage.getItem("idTrackerToContactSupport"); 
-	console.log('ID trackeerr '+idTracker);	  
-alert("Contacting support, please wait a moment");
-		  $.post( "http://gctrack-alterno.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker})
-             
-			 
-			 .done(function( data ) {
-       console.log(data);
-                alert("Your report has been send, you will get contacted soonly");
-				//var data = $.parseJSON(data);
-              
-             });
-          
-		   
-		   
-        });
-
-
+  
  
  
 $('#goback').click(function(){
@@ -351,21 +332,41 @@ alert("Tracker id= "+currentTrackerId+" Brand: Firetroll, Model:XFFD322, Status 
 
 
 });// fin del onready
+	
 	function putUserName(){
-	var userName=window.localStorage.getItem("userName");
+	var userid=window.localStorage.getItem("iduser");
+	console.log("id usuario: "+userid);
+	 $.post( "http://gctrack-beta2.mybluemix.net/getuserbyid.php", {user_id:userid})
+     .done(function( data ) {
+       console.log(data);
+                var data = $.parseJSON(data);
+
+	document.getElementById("nombre").value = data.email_user;
+	username=data.email_user;
+	 console.log("adfsadsadfsaf  "+username);
 	
-	document.getElementById("nombre").value = userName;
-//document.getElementById("correoElectronico").value=userName+"@gctrack.com";
-	
-	 
-	
+	});
 	}
 	
 	
 	function getUserContactData(){
-	var userName=window.localStorage.getItem("userName");
+	var userid=window.localStorage.getItem("iduser");
+	var username="";
+	console.log("id usuario: "+userid);
+	 $.post( "http://gctrack-beta2.mybluemix.net/getuserbyid.php", {user_id:userid})
+     .done(function( data ) {
+       console.log(data);
+                var data = $.parseJSON(data);
+window.localStorage.setItem("name",data.email_user);
+
+	document.getElementById("nombre").value = data.email_user;
 	
-	 $.post( "http://gctrack-beta2.mybluemix.net/getContactData.php", {user_name: userName})
+	});
+
+	username=window.localStorage.getItem("name");
+	
+	console.log("user name  "+ username);
+	 $.post( "http://gctrack-beta2.mybluemix.net/getContactData.php", {user_name: username})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
