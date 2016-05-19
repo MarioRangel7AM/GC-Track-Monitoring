@@ -376,7 +376,7 @@ $( document ).ready(function() {
 
 	  if(isValidEmail&&isValidCCEmail){
             alert("valid email");
-            var pump="Tracker id=2; Brand: Firetroll, Model:XFFD322, Status:Ok";
+            var pump="Tracker id="+ontracker+" Brand: Firetrol, Model:XFFD322, Status:Ok";
             var today = new Date();
             var dd = today.getDate();
             var mm = today.getMonth()+1; //January is 0!
@@ -532,6 +532,8 @@ function getTracker(idTracker){
     $('#listmoretracks').fadeOut();
     onscreen = 'viewtracker';
     ontracker = idTracker;
+					window.localStorage.setItem("trackerId",ontracker);
+
 	console.log('ID TRACKER  '+ontracker);
   // window.localStorage.setItem("lasttrack", ontracker); //esta puede ser la linea de codigo que este causando que se quede la informacion de la sesion anterior
     $.post( "http://gctrack-beta2.mybluemix.net/gettracker.php", {id_tracker: idTracker})
