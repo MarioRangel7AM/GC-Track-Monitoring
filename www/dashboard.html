@@ -687,10 +687,10 @@ function checkPump(){
 function showAlert(alertar) {
     var now  = new Date().getTime(),
     _5_sec_from_now = new Date(now + 1*1000);
-    /*cordova.plugins.notification.local.schedule({
+    cordova.plugins.notification.local.schedule({
         text: alertar,
         at: _5_sec_from_now,
-    });*/
+    });
 }
 	
 function validateEmail(email) {
