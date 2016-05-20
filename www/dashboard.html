@@ -393,7 +393,7 @@ $( document ).ready(function() {
             } 
             var today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
             console.log(tableElement);
-            $.post( "http://gctrack-beta2.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
+            $.post( "http://gctrack-betaalterno.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
             .done(function( data ) {
                 console.log(data);
                 alert("You report has been sent");
