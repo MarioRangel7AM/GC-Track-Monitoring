@@ -49,6 +49,10 @@ section.positioned {
 	width:100%;
 }
 
+.img-cintillo{
+	width:80%;
+}
+
 .container{
   overflow-y: none;
 }
