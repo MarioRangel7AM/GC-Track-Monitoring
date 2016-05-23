@@ -210,7 +210,7 @@ function onDeviceReady() {
     // Empty
     console.log(navigator.notification);
     console.log(navigator.vibrate);
-    cordova.plugins.notification.badge.set(2);
+    cordova.plugins.notification.badge.set(2);//burbuja de notificaion para ios
 }
 // cuando cargue la APP aplicamos estos codigos
 $( document ).ready(function() {
@@ -690,6 +690,7 @@ function showAlert(alertar) {
     cordova.plugins.notification.local.schedule({
         text: alertar,
         at: _5_sec_from_now,
+		sound:"sound.mp3";
     });
 }
 	
