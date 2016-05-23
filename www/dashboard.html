@@ -491,6 +491,8 @@ function viewLocations(){
 	$('#tracker_location').fadeOut();
     $('#list_trackers').fadeIn();
 	$("#showlog").css("display", "none");
+    //En esta línea de código se resuelve el problema del rezago de datos
+    //que mostraban el estado después de colapsar la información del tracker
     $("#pumpstatuscont").css("display","none");
 	
 }
