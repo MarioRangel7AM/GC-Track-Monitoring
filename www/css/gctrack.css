@@ -94,42 +94,6 @@ th:first-child div{
   border: none;
 }*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .formtext{
 	font-size:18px;
 	color:white;
@@ -144,14 +108,33 @@ th:first-child div{
     background-color: #FFF;
     text-align: center;
     color: #aa1f27;
-    margin-top: -1px;
+    margin-top: -10px;
+	
+}
+
+
+@media only screen and (max-width: 360px) {//media query para adaptar a diferentes resoluciones, en este caso 360px maxim
+	
+	.locationmark{
+	width: 100%;
+    float: left;
+    background-color: #FFF;
+    text-align: center;
+    color: #aa1f27;
+    margin-top: -29px;
+	
+}
+
+	
+	
 }
 #tracker_location{
 	margin-bottom: 15px;
-    float: left;
     width: 100%;
-    display: block;
-    margin-top: -22px;
+    margin-top: 0px;
+    position: fixed;
+    z-index: 12;
+	height:80px;
 }
 
 .locationmark p{
@@ -356,7 +339,7 @@ th:first-child div{
 
 #tblog{
 	background-color: #FFF;
-	margin-bottom: 75px;
+	/*margin-bottom: 75px;*/
 }
 
 #tblog tr td{
@@ -380,6 +363,7 @@ th:first-child div{
 	top:0px;
 }
 
+
 #tbheaderfixed > div{
     border: 2px solid #D7032C;
     border-right: 0px;
@@ -389,6 +373,9 @@ th:first-child div{
     padding: 7px;
 }
 
+#view_tracker_status{
+  padding-top: initial;
+}
 
 table.scroll {
     /* width: 100%; */ /* Optional */
@@ -449,12 +436,16 @@ tbody td:last-child, thead th:last-child {
 	width: 100%;
     background-color: #FFF;
     color: #C90221;
-    position: absolute;
-    z-index: 1;
+    position: relative;
+    z-index: 11;
 }
 
 .imoretracks{
 	padding: 5px;
+}
+
+#pumpstatuscont{
+    position: relative;
 }
 
 .imoretracks img {
@@ -466,10 +457,15 @@ tbody td:last-child, thead th:last-child {
 	color: #C90221;
 }
 
+.row{
+  padding-left: 10px;
+  padding-right: 10px;
+
+}
 
 #floattopheader{  
   position: fixed;
     width: 100%;
     background-color: #D20222;
-    z-index: 10;
+    z-index: 15;
 }

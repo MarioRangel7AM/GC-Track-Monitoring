@@ -45,3 +45,7 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#otras carpetas para ignorar
+platforms
+gctrack2.css

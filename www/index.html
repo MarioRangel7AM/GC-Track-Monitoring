@@ -14,43 +14,130 @@
     <div class="container-fluid">
         <img id="logologin" class="img-responsive" src="images/login_logo.png">
     </div>
-    
-        <div class="logcont" style="margin-top:25px;">
-            <a href="http://gctrack-beta2.mybluemix.net/descargar.html" ><input type="button" id="doHelp" class="loginbutton" value="Help"></a>
+    <div id="logincont"  class="container loginform">
+        <div class="row">
+            <div class="col-md-2 col-xs-2">
+                <img class="img-user" src="images/login_user.png">
+            </div>
+            <div class="col-md-10 col-xs-10">
+                <input id="inemail" name="mail" type="email" class="logininput" placeholder="Username" value="">
+            </div>
         </div>
-		 <div class="logcont" style="margin-top:25px;">
-            <input type="button" id="doSignIn" class="loginbutton" value="Log in">
-        </div> 
-   
-    </div>
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-2 col-xs-2">
+                <img class="img-user" src="images/login_pass.png">
+            </div>
+            <div class="col-md-10 col-xs-10">
+                <input id="inpass" name="password" type="password" class="logininput" placeholder="password" value="">
+            </div>
+        </div>
+        <div class="logcont" style="margin-top:25px;">
+            <input type="button" id="dologin" class="loginbutton" value="Enter">
+        </div>
+        <div class="logcont" style="margin-top:25px;">
+            <input type="button" id="dohelp" class="loginbutton" value="Help">
+        </div>
+      
+
+   </div> 
     <div id="offlinediag" style="display:none;">
         <h2>No connection...</h2>
     </div>
-	
-	
     
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
+  
+  
+  
+  
+    $('#dologin').click(function(){
+            inemail = $('#inemail').val();
+            inpass = $('#inpass').val();
+          
+
+		  $.post( "http://gctrack-beta2.mybluemix.net/auth.php", { email: inemail, pass: inpass })
+             .done(function( data ) {
+                console.log(data);
+                var data = $.parseJSON(data);
+                
+                if(data.resp=='Correcto'){
+                    window.localStorage.setItem("iduser", data.iduser);
+                    location.href='dashboard.html';
+                }else{
+                    alert( "Please check your user name and password and verify that there is no blank fields" );
+                }
+             });
        
-	   $("#doHelp").click(function(){
-           location.href='http://gctrack-beta2.mybluemix.net/descargar.html';
-        });
-		
-	   
-		$('#doSignIn').click(function(){
-           location.href='login.html';
-        });
-		
+ });
 		
 
+		
+		
         $( document ).ready(function() {
-                               $('#logincont').fadeIn();
+          
 
-            
+ 
+          
+ 
 
-        });
+ $.post( "http://gctrack-beta2.mybluemix.net/auth.php", { loging: "Show" })
+             .done(function( data ) {
+               
+                   
+
+
+			   var data = $.parseJSON(data);
+
+			   if (localStorage.getItem("iduser") === 'loggedout') {
+                      window.localStorage.setItem("iduser", "sesionCerrada");
+					  data.resp="Cerrado";
+					  console.log("data resp "+data.resp);
+
+}
+if( localStorage.getItem("iduser")=='sesionCerrada'){
+				   
+				   
+				   
+				   
+				   }
+
+				
+else if(data.resp=='Correcto'){
+                    window.localStorage.setItem("iduser", data.iduser);
+                    location.href='dashboard.html';
+                }else{
+                   $('#logincont').fadeIn();
+                }
+				
+				
+				
+             });
+        
+                
+       
+
+   
+                
+       
+
+	   
+	   
+		  });
+  
+  
+  
+  
+  $('#dohelp').click(function(){
+  
+  location.href="help.html";
+  
+  
+  
+  });
+  
+	
     </script>
 </body>
 </html>

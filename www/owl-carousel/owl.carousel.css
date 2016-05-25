@@ -4,6 +4,28 @@
  */
 
 /* clearfix */
+
+ #owl-demo .item{
+        background: transparent; 
+        padding: 10px 0px;
+        margin: 5px;
+        color: #FFF;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 20px;
+        text-align: center;
+        height:8px;
+       
+    }
+    .owl-theme .owl-controls {
+        display: none !important;
+    }
+    #owl-demo{
+         margin-bottom: 10px;
+    }
+   
+
+
 .owl-carousel .owl-wrapper:after {
 	content: ".";
 	display: block;

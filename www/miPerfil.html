@@ -54,11 +54,8 @@
         <div id="owl-demo" class="owl-carousel" >
           
           <div class="item" id="refreshPage"><img src="img/iconorefreshgctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--Refresh-->
-          <div class="item" id="CONTACT SUPPORT"><a href="contacto.html"><img src="img/iconosupportgctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></a></div><!--Support-->
-                    <div class="item" id="sendReport"><img src="img/iconosendinfogctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--send report-->
-
+          <div class="item" id="CONTACT SUPPORT"><a href="contacto.html"><img src="img/iconosupportgctrack55x55-2.png" style="margin-top:-15px;" class="img-cintillo"></a></div><!--Support-->
 		  <div class="item" id="gotoweb"><a href="http://www.gc-track.com"><img src="img/iconowebgctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></a></div><!--web gctrack -->
-          <div class="item" id="infoTracker"><img src="img/info55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--info-->
           <div class="item" id="goback"><img src="img/iconogoback55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--go back-->
 
         </div>
@@ -225,7 +222,11 @@ $( document ).ready(function() {
       itemsDesktop : [1000,5], //5 items between 1000px and 901px
       itemsDesktopSmall : [900,3], // betweem 900px and 601px
       itemsTablet: [600,6], //2 items between 600 and 0
-      itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+      itemsMobile : false, // itemsMobile disabled - inherit from itemsTablet option
+   touchDrag               : false,
+       mouseDrag               : false
+    
+  
   });
  
   // Custom Navigation Events
@@ -254,15 +255,6 @@ $('#goback').click(function(){
 
 
  
-$('#infoTracker').click(function(){
-				var currentTrackerId=window.localStorage.getItem("trackerId");
-				var currentPumpStatus=window.localStorage.getItem("pumpstatus");
-
-alert("Tracker id= "+currentTrackerId+" Brand: Firetroll, Model:XFFD322, Status "+currentPumpStatus);
-	 
-    });
-	
-	
 	
 	
 	
@@ -336,7 +328,7 @@ alert("Tracker id= "+currentTrackerId+" Brand: Firetroll, Model:XFFD322, Status 
 	function putUserName(){
 	var userid=window.localStorage.getItem("iduser");
 	console.log("id usuario: "+userid);
-	 $.post( "http://gctrack-beta2.mybluemix.net/getuserbyid.php", {user_id:userid})
+	 $.post( "http://gctrack-betaalterno.mybluemix.net/getuserbyid.php", {user_id:userid})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -353,7 +345,7 @@ alert("Tracker id= "+currentTrackerId+" Brand: Firetroll, Model:XFFD322, Status 
 	var userid=window.localStorage.getItem("iduser");
 	var username="";
 	console.log("id usuario: "+userid);
-	 $.post( "http://gctrack-beta2.mybluemix.net/getuserbyid.php", {user_id:userid})
+	 $.post( "http://gctrack-betaalterno.mybluemix.net/getuserbyid.php", {user_id:userid})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -366,7 +358,7 @@ window.localStorage.setItem("name",data.email_user);
 	username=window.localStorage.getItem("name");
 	
 	console.log("user name  "+ username);
-	 $.post( "http://gctrack-beta2.mybluemix.net/getContactData.php", {user_name: username})
+	 $.post( "http://gctrack-betaalterno.mybluemix.net/getContactData.php", {user_name: username})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -396,7 +388,7 @@ document.getElementById("empresa").value=data.empresa;
 	
 	if(validateUserData(userName,correoContacto,telefono,rol,empresa)){
 
-	$.post( "http://gctrack-beta2.mybluemix.net/updateUserData.php", {user_name: userName,correoContacto:correoContacto,telefonoContacto:telefono,rolContacto:rol,empresaContacto:empresa})
+	$.post( "http://gctrack-betaalterno.mybluemix.net/updateUserData.php", {user_name: userName,correoContacto:correoContacto,telefonoContacto:telefono,rolContacto:rol,empresaContacto:empresa})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
