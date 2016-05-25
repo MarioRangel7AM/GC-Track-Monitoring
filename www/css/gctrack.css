@@ -53,47 +53,6 @@ section.positioned {
 	width:80%;
 }
 
-.container{
-  overflow-y: none;
-}
-
-/*
-table {
-  border-spacing: 0;
-  width:100%;
-}
-td + td {
-  border-left:1px solid #eee;
-}
-td, th {
-  border-bottom:1px solid #eee;
-  background: #ddd;
-  color: #000;
-  padding: 10px 25px;
-}
-th {
-  height: 0;
-  line-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  color: transparent;
-  border: none;
-  white-space: nowrap;
-}
-th div{
-  position: absolute;
-  background: transparent;
-  color: #fff;
-  padding: 9px 25px;
-  top: 0;
-  margin-left: -25px;
-  line-height: normal;
-  border-left: 1px solid #800;
-}
-th:first-child div{
-  border: none;
-}*/
-
 .formtext{
 	font-size:18px;
 	color:white;
@@ -112,7 +71,6 @@ th:first-child div{
 	
 }
 
-
 @media only screen and (max-width: 360px) {//media query para adaptar a diferentes resoluciones, en este caso 360px maxim
 	
 	.locationmark{
@@ -124,8 +82,6 @@ th:first-child div{
     margin-top: -29px;
 	
 }
-
-	
 	
 }
 #tracker_location{
@@ -257,8 +213,7 @@ th:first-child div{
 
 .division{
 	margin-top:2px;
-	margin-bottom:2px;
-	
+	margin-bottom:2px;	
 }
 
 .statsText{
@@ -339,7 +294,6 @@ th:first-child div{
 
 #tblog{
 	background-color: #FFF;
-	/*margin-bottom: 75px;*/
 }
 
 #tblog tr td{
@@ -351,27 +305,23 @@ th:first-child div{
 	text-align: center;
 }
 
-.header{
-    top: 0px;
-    background-color: #FFF;
-    width: 100%;
+#tblogheader{
+  background-color: #FFF;
+  border: 2px solid #D7032C;
+  text-align: center;
+  position: fixed;
+  z-index: 11;
 }
 
-#tbheaderfixed{
-	width: 100%;
-	position: fixed;
-	top:0px;
+#tblogheader tr td{
+  border: 2px solid #D7032C;
 }
 
-
-#tbheaderfixed > div{
-    border: 2px solid #D7032C;
-    border-right: 0px;
-    float: left;
-    background-color: #FFF;
-    min-height: 38px;
-    padding: 7px;
+#tblogheader tr th{
+  border: 2px solid #D7032C;
+  text-align: center;
 }
+
 
 #view_tracker_status{
   padding-top: initial;

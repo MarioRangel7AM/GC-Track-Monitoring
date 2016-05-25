@@ -123,7 +123,17 @@
 		</div>
 
 		<div id="datalogged" style="display:none;">
-            <table class="table table-fixed-header" id="tblog">  
+            <table class="table" id="tblogheader">  
+                <thead id="tbheader">
+                    <tr>
+                        <td>Date</td>
+                        <td>Pump status</td>
+                        <td>Pressure</td>
+                    </tr>
+                </thead>
+            </table>
+
+            <table class="table" id="tblog">  
                 <thead id="tbheader">
                     <tr>
                         <td>Date</td>
@@ -437,6 +447,7 @@ function viewLocations(){
     $('#tracker_location').fadeOut();
     $('#list_trackers').fadeIn();
 	$("#showlog").css("display", "none");
+    $("#datalogged").css("display", "none");
 	// Esta línea es necesaria para poder ocultar correctamente el estado del tracker.
     $("#pumpstatuscont").css("display","none");
 }
