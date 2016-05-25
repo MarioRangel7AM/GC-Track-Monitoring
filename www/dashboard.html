@@ -689,7 +689,7 @@ sound: 'file://alarm.mp3'
     });
 }  
 
-function showAlertWithoutSound(alertar) {
+function showAlertWithoutSound(alertar) { 
 
 //es similar al showAlert pero no tiene alarma, por ejemplo cuando el sistema esta en estado normal y en este caso usara el sonido de notificaciones default del movil
     var now  = new Date().getTime(),
@@ -698,7 +698,7 @@ function showAlertWithoutSound(alertar) {
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
         at: _5_sec_from_now,
-		sound: 'file://alarm.mp3'
+		sound:null;
     });
 }  
 
