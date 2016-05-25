@@ -166,6 +166,7 @@ var listDevices = [];
 var device = [];
 var onscreen = 'dashboard';
 var ontracker = 0;
+var currentlocation="";
 var tableOffset = 0;
 var trackers_location = [];
 var currentPumpstatus='';
@@ -303,6 +304,7 @@ $( document ).ready(function() {
 	
     // para mostrar el log
     $('#showlog').click(function(){
+	
         // Para hacer responsiva la posición de la tabla
         // con respecto al botón. Jorge Parra.
         var botonesTrackers = document.getElementsByClassName('locationmark');
@@ -354,56 +356,6 @@ $( document ).ready(function() {
         location.href='contacto.html';
     });
 	
-	//enviar tabla por correo
-	$('#sendReport').click(function(){
- 	
-        var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
-        var email = prompt("Please introduce the recipent email for the report", "gctgroup@gctrack.com");//correo al que se enviara la tabla
-        var isValidEmail=validateEmail(email);
-       var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla
-        var isValidCCEmail=validateCCEmail(CCemail);
-      
-	  if(isValidEmail&&isValidCCEmail){
-            var pump="Tracker location="+currentlocation+" Brand: Firetrol, Model:XFFD322, Status"+currentPumpstatus;
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
-            var hours=today.getHours();
-			var minutes=today.getMinutes();
-			
-            var yyyy = today.getFullYear();
-            if(dd<10){
-                dd='0'+dd
-            } 
-            if(mm<10){
-                mm='0'+mm
-            } 
-            var today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
-            console.log(tableElement);
-            $.post( "http://gctrack-betaalterno.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
-            .done(function( data ) {
-                console.log(data);
-                alert("You report has been sent");
-                //var data = $.parseJSON(data);
-            });
-        }else{
-            alert("You report cannot be send, please check you email address");
-        }
-    });
-    function validateEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;//expresion regular para validar email
-        return re.test(email);
-    }
-    	
-    function validateCCEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if(re.test(email)||email=="cancel"||email==""){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 	
     //revision de scroll
     $(window).bind("scroll", function() {
@@ -428,10 +380,20 @@ $( document ).ready(function() {
     });
     var setpadd = $('#floattopheader').height();
     $('#fixedcontainer').css('padding-top',setpadd );
+	
+	$('#infoTracker').click(function(){
+	
+var text="IDtracker:  "+ontracker+"\n"+"Brand: Firetrol"+"\n"+"Model: XFFD322";
+	navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
+   
+   });
+
+	
 });// fin del onready
 // obtiene todas las bombas por usuario
 function getPumps(){
-    
+            $('#infoTracker').fadeIn();
+
 	console.log('ID DE USUARIO '+userid);
     currentIdUser=userid;
 	$.post( "http://gctrack-betaalterno.mybluemix.net/getpumps.php", {id_user: userid})
@@ -456,12 +418,11 @@ function getPumps(){
 }
 function showPumps(){
     output = "";
-	var currentlocation="";
     for (var i in locaciones) 
     {
         // imprimimos
         output+='<div class="row"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
-                  currentlocation= "Lugar"+locaciones[i].business+" " +locaciones[i].loc_name;
+                  currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
 
 		// guardamos
     }
@@ -472,21 +433,21 @@ function showPumps(){
 var bandera=0;   
 function viewLocations(){
     // Esta función se ejecuta en el segundo click
-	$('#infoTracker').fadeIn();
+	$('#infoTracker').fadeOut();
     $('#tracker_location').fadeOut();
     $('#list_trackers').fadeIn();
 	$("#showlog").css("display", "none");
 	// Esta línea es necesaria para poder ocultar correctamente el estado del tracker.
     $("#pumpstatuscont").css("display","none");
 }
-function showTrackerInfo(){
-    $('#infoTracker').fadeIn();
-    
-}
+
+
 // para ver los trackers de una locacion
 function viewTrackers (idlocation) {
     //console.log(idtracker);
     // obtenemos los tracker de esa locacion
+	        $("#infoTracker").fadeIn();
+
     trackers_location = [];
      $.post( "http://gctrack-betaalterno.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
      .done(function( data ) {
@@ -679,6 +640,59 @@ function checkPump(){
 } 
 // metodo general para lanzar notificaciones
 
+
+//enviar tabla por correo
+	$('#sendReport').click(function(){
+ 	
+        var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
+        var email = prompt("Please introduce the recipent email for the report", "gctgroup@gctrack.com");//correo al que se enviara la tabla
+        var isValidEmail=validateEmail(email);
+       var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla
+        var isValidCCEmail=validateCCEmail(CCemail);
+      
+	  if(isValidEmail&&isValidCCEmail){
+            var pump="Tracker location="+currentlocation+" Brand: Firetrol, Model:XFFD322, Status"+currentPumpstatus;
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var hours=today.getHours();
+			var minutes=today.getMinutes();
+			
+            var yyyy = today.getFullYear();
+            if(dd<10){
+                dd='0'+dd
+            } 
+            if(mm<10){
+                mm='0'+mm
+            } 
+            var today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
+            console.log(tableElement);
+            $.post( "http://gctrack-betaalterno.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
+            .done(function( data ) {
+                console.log(data);
+                alert("You report has been sent");
+                //var data = $.parseJSON(data);
+            });
+        }else{
+            alert("You report cannot be send, please check you email address");
+        }
+    });
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;//expresion regular para validar email
+        return re.test(email);
+    }
+    	
+    function validateCCEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(re.test(email)||email=="cancel"||email==""){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+	
+
 function showAlert(alertar) {
     var now  = new Date().getTime(),
     _5_sec_from_now = new Date(now + 1*1000);
@@ -723,12 +737,6 @@ function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
-$('#infoTracker').click(function(){
-	
-var text="IDtracker:  "+ontracker+"\n"+"Brand: Firetrol"+"\n"+"Model: XFFD322";
-	navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
-   
-   });
 // Repetidor de codigo
 var timerId = setInterval(function() {
     checkPump();
