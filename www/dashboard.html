@@ -123,14 +123,17 @@
 		</div>
 
 		<div id="datalogged" style="display:none;">
-            <table class="table table-fixed-header" id="tblog">  
+            <table class="table" id="tblogheader">  
                 <thead id="tbheader">
                     <tr>
-                        <td>Date</td>
-                        <td>Pump status</td>
-                        <td>Pressure</td>
+                        <td id="dHeader">Date</td>
+                        <td id="sHeader">Pump status</td>
+                        <td id="pHeader">Pressure</td>
                     </tr>
                 </thead>
+            </table>
+
+            <table class="table" id="tblog">  
                 <tbody>
                 </tbody>
             </table>
@@ -311,6 +314,7 @@ $( document ).ready(function() {
         var botonTrackerActivo = botonesTrackers[0];
         var relleno = $(botonTrackerActivo).height();
 		$('#datalogged').css("padding-top",relleno);
+
         $('#goback').fadeIn();
 		$('#sendReport').fadeIn();
 				$('#gotoweb').fadeOut();
@@ -437,6 +441,7 @@ function viewLocations(){
     $('#tracker_location').fadeOut();
     $('#list_trackers').fadeIn();
 	$("#showlog").css("display", "none");
+    $("#datalogged").css("display", "none");
 	// Esta línea es necesaria para poder ocultar correctamente el estado del tracker.
     $("#pumpstatuscont").css("display","none");
 }
