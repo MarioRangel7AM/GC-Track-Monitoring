@@ -126,21 +126,14 @@
             <table class="table" id="tblogheader">  
                 <thead id="tbheader">
                     <tr>
-                        <td>Date</td>
-                        <td>Pump status</td>
-                        <td>Pressure</td>
+                        <td id="dHeader">Date</td>
+                        <td id="sHeader">Pump status</td>
+                        <td id="pHeader">Pressure</td>
                     </tr>
                 </thead>
             </table>
 
             <table class="table" id="tblog">  
-                <thead id="tbheader">
-                    <tr>
-                        <td>Date</td>
-                        <td>Pump status</td>
-                        <td>Pressure</td>
-                    </tr>
-                </thead>
                 <tbody>
                 </tbody>
             </table>
@@ -321,6 +314,7 @@ $( document ).ready(function() {
         var botonTrackerActivo = botonesTrackers[0];
         var relleno = $(botonTrackerActivo).height();
 		$('#datalogged').css("padding-top",relleno);
+
         $('#goback').fadeIn();
 		$('#sendReport').fadeIn();
 				$('#gotoweb').fadeOut();

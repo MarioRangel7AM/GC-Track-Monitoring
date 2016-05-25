@@ -293,6 +293,7 @@ section.positioned {
 }
 
 #tblog{
+  margin-top: 30px;
 	background-color: #FFF;
 }
 
@@ -310,18 +311,14 @@ section.positioned {
   border: 2px solid #D7032C;
   text-align: center;
   position: fixed;
+  margin-top: -10px;
   z-index: 11;
 }
 
-#tblogheader tr td{
-  border: 2px solid #D7032C;
-}
 
 #tblogheader tr th{
-  border: 2px solid #D7032C;
   text-align: center;
 }
-
 
 #view_tracker_status{
   padding-top: initial;
