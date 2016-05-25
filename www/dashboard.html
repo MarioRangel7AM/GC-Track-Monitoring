@@ -282,6 +282,7 @@ $( document ).ready(function() {
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
                 alert( "you have log out" );
+				dismissBadge();
                 window.localStorage.setItem("iduser", "loggedout");
                 location.href='index.html';
             }else{
