@@ -364,7 +364,7 @@ $( document ).ready(function() {
         var isValidCCEmail=validateCCEmail(CCemail);
       
 	  if(isValidEmail&&isValidCCEmail){
-            var pump="Tracker id="+ontracker+" Brand: Firetrol, Model:XFFD322, Status"+currentPumpstatus;
+            var pump="Tracker location="+currentlocation+" Brand: Firetrol, Model:XFFD322, Status"+currentPumpstatus;
             var today = new Date();
             var dd = today.getDate();
             var mm = today.getMonth()+1; //January is 0!
@@ -443,7 +443,7 @@ function getPumps(){
             for (var i in json_obj.locations) 
             {
                 locacion = {ID : json_obj.locations[i].ID,business : json_obj.name_business ,loc_name : json_obj.locations[i].Nombre};
-                locaciones.push(locacion);
+				locaciones.push(locacion);
             }
           
         }else{
@@ -456,11 +456,14 @@ function getPumps(){
 }
 function showPumps(){
     output = "";
+	var currentlocation="";
     for (var i in locaciones) 
     {
         // imprimimos
         output+='<div class="row"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
-        // guardamos
+                  currentlocation= "Lugar"+locaciones[i].business+" " +locaciones[i].loc_name;
+
+		// guardamos
     }
     output+="";
     // guardamos en contenedor
