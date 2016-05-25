@@ -364,7 +364,6 @@ $( document ).ready(function() {
         var isValidCCEmail=validateCCEmail(CCemail);
       
 	  if(isValidEmail&&isValidCCEmail){
-            alert("valid email");
             var pump="Tracker id="+ontracker+" Brand: Firetrol, Model:XFFD322, Status"+currentPumpstatus;
             var today = new Date();
             var dd = today.getDate();
@@ -388,7 +387,7 @@ $( document ).ready(function() {
                 //var data = $.parseJSON(data);
             });
         }else{
-            alert("The email address that you provided is not valid");
+            alert("You report cannot be send, please check you email address");
         }
     });
     function validateEmail(email) {
@@ -698,7 +697,7 @@ function showAlertWithoutSound(alertar) {
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
         at: _5_sec_from_now,
-		sound:null;
+		sound:null
     });
 }  
 
