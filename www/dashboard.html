@@ -705,7 +705,8 @@ function checkPump(){
 function showAlert(alertar) {
     var now = new Date().getTime();
     var _3_sec_from_now = new Date(now + 3 *1000);
-    
+        var alarma = device.platform == 'ios' ? alert("alarma1") : alert("alarma 2");
+
     var sound = device.platform == 'ios' ? 'file://res/alarm.mp3' : 'file://alarm.mp3';
 	console.log("SONIDO"+sound);
     cordova.plugins.notification.local.schedule({
