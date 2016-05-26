@@ -92,8 +92,11 @@
 
 			   if (localStorage.getItem("iduser") === 'loggedout') {
                       window.localStorage.setItem("iduser", "sesionCerrada");
-					  data.resp="Cerrado";
-					  console.log("data resp "+data.resp);
+					 
+					 data.resp="Cerrado";
+window.localStorage.clear();
+
+					 console.log("data resp "+data.resp);
 
 }
 if( localStorage.getItem("iduser")=='sesionCerrada'){
