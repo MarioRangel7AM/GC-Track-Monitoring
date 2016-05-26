@@ -737,8 +737,10 @@ function showAlertWithoutSound(alertar) {
  numale=0;
  
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-    alert("Alarms dismissed");
-}, this);
+	navigator.notification.alert("Alarms dismissed" null, "Alarm", "OK");//metodo para crear alertas personalizadas
+
+ 
+ }, this);
  
 	 }
 	

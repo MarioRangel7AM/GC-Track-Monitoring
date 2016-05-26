@@ -393,13 +393,15 @@ document.getElementById("empresa").value=data.empresa;
        console.log(data);
                 var data = $.parseJSON(data);
 if(data.result=="YES"){
-alert('The data has been updated');
+	navigator.notification.alert("The data has been updated", null, "Update User Data", "OK");//metodo para crear alertas personalizadas
+
         location.reload();
 
 
 }
 else{
-alert('Information cannot be updated, please contact the app vendor');
+	navigator.notification.alert("The data cannot be updated, please contact support", null, "Error", "OK");//metodo para crear alertas personalizadas
+
 }
 	 
 
@@ -408,7 +410,7 @@ alert('Information cannot be updated, please contact the app vendor');
 }
 else{
 
-alert("Please check the fields");
+	navigator.notification.alert("please check all the fields", null, "Some fields are incorrect", "OK");//metodo para crear alertas personalizadas
 
 
 }
@@ -427,6 +429,7 @@ var regexPhone1=/^([0-9]+){9}$/;//<--- con esto vamos a validar el numero
 esValido=true;
 }
 else{
+
 return false;
 }
 if(userName.length>2){
@@ -442,7 +445,9 @@ return false;
 	esValido=true;
 	}
 	else{
-alert('phone number must be between 9 and 15 digits');
+
+	navigator.notification.alert("Phone number must be between 10 and 15 digits", null, "Invalid phone", "OK");//metodo para crear alertas personalizadas
+
 	return false;
 	}
 	

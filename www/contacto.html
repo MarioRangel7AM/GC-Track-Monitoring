@@ -208,14 +208,15 @@ if(validateUserData(subject,message,email)){
 			 
 			 .done(function( data ) {
        console.log(data);
-                alert("Your request has been sent");
-				//var data = $.parseJSON(data);
+	navigator.notification.alert("You request has been sent", null, "Contact Support", "OK");//metodo para crear alertas personalizadas
+
+	   //var data = $.parseJSON(data);
               
              });
           
 		  }
 else{
-alert("All fields must be filled, please also check that you are writing a valid email address");
+	navigator.notification.alert("Please check all the fields", null, "Error", "OK");//metodo para crear alertas personalizadas
 
 }		  
 		   
