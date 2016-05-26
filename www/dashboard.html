@@ -701,29 +701,31 @@ function checkPump(){
             return false;
         }
     }
-	
 
 function showAlert(alertar) {
-    var now  = new Date().getTime(),
-    _5_sec_from_now = new Date(now + 1*1000);
+    var now = new Date().getTime();
+    var sound = device.platform == 'Android' ? 'file://alarm.mp3' : 'file://beep.caf';
+    var sound = device.platform == 'ios' ? 'file://res/alarm.mp3' : 'file://res/beep.caf';
+    _3_sec_from_now = new Date(now + 3 *1000);
     cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
-      firstAt: _5_sec_from_now,
-      every: "minute",//el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
-sound: 'file://alarm.mp3'
+      	at: _3_sec_from_now,
+      	badge: 1,
+      	every: "minute",//el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
+		sound: sound,
+		ongoing: true
     });
 }   
 
 function showAlertWithoutSound(alertar) { 
-
 //es similar al showAlert pero no tiene alarma, por ejemplo cuando el sistema esta en estado normal y en este caso usara el sonido de notificaciones default del movil
-    var now  = new Date().getTime(),
-    _5_sec_from_now = new Date(now + 1*1000);
+    var now  = new Date().getTime();
+    _3_sec_from_now = new Date(now + 3*1000);
     cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
-        at: _5_sec_from_now,
+        at: _3_sec_from_now,
 		sound:null
     });
 }  
