@@ -704,9 +704,8 @@ function checkPump(){
 
 function showAlert(alertar) {
     var now = new Date().getTime();
+    var sound = device.platform == 'Android' ? 'file://alarm.mp3' : 'file://sounds/alarm.caf';
     var _3_sec_from_now = new Date(now + 3 *1000);
-    var sound = device.platform == 'ios' ? 'file://alarm.mp3' : 'file://res/alarm.mp3';
-	console.log("SONIDO"+sound);
     cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
@@ -714,14 +713,13 @@ function showAlert(alertar) {
       	badge: 1,
       	every: "minute",//el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
 		sound: sound,
-		ongoing: true
     });
-}    
+}      
 
 function showAlertWithoutSound(alertar) { 
 //es similar al showAlert pero no tiene alarma, por ejemplo cuando el sistema esta en estado normal y en este caso usara el sonido de notificaciones default del movil
     var now  = new Date().getTime();
-    var _3_sec_from_now = new Date(now + 3*1000);
+    _3_sec_from_now = new Date(now + 3*1000);
     cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
