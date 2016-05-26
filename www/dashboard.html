@@ -281,13 +281,13 @@ $( document ).ready(function() {
             console.log(data); 
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
-                alert( "you have log out" );
-				//dismissBadge();
+				logoutAndClose();
             
 			window.localStorage.setItem("iduser", "loggedout");
 			location.href='index.html';
             }else{
-                alert( "Session cannot be closed" );
+
+
             }
         });
     });
@@ -416,7 +416,7 @@ function getPumps(){
           
         }else{
             // No hay para mostrar
-            alert('No pumps and places for this account');
+				navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
         }
         console.log(locaciones);
         showPumps();
@@ -480,7 +480,7 @@ function viewTrackers (idlocation) {
             
         }else{
             // No hay para mostrar
-            alert('No logs available');
+				navigator.notification.alert("No logs available", null, "Empty log", "OK");
         }
     });
 }
@@ -553,8 +553,10 @@ window.localStorage.setItem("pumpstatus",currentPumpstatus);
             $('#pumpstatuscont').css("padding-top",relleno);
         }else{
             // No hay para mostrar
-            alert('No logs available');
-        }
+
+	navigator.notification.alert("No logs available", null, "Info", "OK");//metodo para crear alertas personalizadas
+
+			}
     });
 }
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
@@ -677,11 +679,12 @@ function checkPump(){
             $.post( "http://gctrack-betaalterno.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
             .done(function( data ) {
                 console.log(data);
-                alert("You report has been sent");
+					navigator.notification.alert("You report has been send", null, "Send report", "OK");
                 //var data = $.parseJSON(data);
             });
         }else{
-            alert("You report cannot be send, please check you email address");
+	navigator.notification.alert("You report cannot be send, please check you email address", null, "Error", "OK");
+
         }
     });
     function validateEmail(email) {
@@ -734,11 +737,23 @@ function showAlertWithoutSound(alertar) {
  numale=0;
  
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-    alert("Alarms dismissed");
+navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+
+ 
+ }, this);
+ 
+	 }
+	
+function logoutAndClose(){
+	 
+	   cordova.plugins.notification.badge.set(0);
+ numale=0;
+ 
+ cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
 }, this);
  
 	 }
-	 
+		
 	
 	
 function validateEmail(email) {
