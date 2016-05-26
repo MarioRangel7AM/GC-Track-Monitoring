@@ -707,6 +707,7 @@ function showAlert(alertar) {
     var _3_sec_from_now = new Date(now + 3 *1000);
     
     var sound = device.platform == 'ios' ? 'file://res/alarm.mp3' : 'file://alarm.mp3';
+	console.log("SONIDO"+sound);
     cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
