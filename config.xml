@@ -85,6 +85,6 @@
   </platform>
 
   <preference name="android-build-tool" value="gradle" />
-  <plugin name="de.appplant.cordova.plugin.local-notification" />
+  <plugin name="de.appplant.cordova.plugin.local-notification" spec="0.8.1" source="pgb" />
   <plugin name="cordova-plugin-badge" spec="0.7.2" source="npm" />
 </widget>
