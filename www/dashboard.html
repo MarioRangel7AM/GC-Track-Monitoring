@@ -709,11 +709,11 @@ function showAlert(alertar) {
    	//console.log("SONIDOOOOOOOOOOOOO"+sound);
     cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
-		text: alertar,
+		text: alertar, 
       	at: _3_sec_from_now,
       	badge: 1,
       	every: "minute",//el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
-		sound: 'file://res/alarm.mp3',
+		sound: 'file://res/beep.caf',
 		ongoing: true 
     });
 }    
