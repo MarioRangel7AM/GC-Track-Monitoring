@@ -188,11 +188,6 @@ function onDeviceReady() {
     console.log(navigator.vibrate);
     cordova.plugins.notification.badge.set(2);//burbuja de notificaion para ios
 		cordova.plugins.backgroundMode.enable();//activa el modo de segundo plano
-cordova.plugins.backgroundMode.configure({
-    title: 'GCTrack',
-    text: 'Currently monitoring',
-    ticker: 'reading'
-});
 
 
 }
