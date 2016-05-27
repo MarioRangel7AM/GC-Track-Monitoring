@@ -50,26 +50,6 @@
     <script type="text/javascript">
   
   
-  document.addEventListener("deviceready", onDeviceReady, false);
-
-  function onDeviceReady() {
-
-  var iduser=window.localStorage.getItem("iduser");
-  
-console.log("dfdsfdsfds "+iduser);
- $.post( "http://gctrack-betaalterno.mybluemix.net/checkloginstate.php", { id_user:iduser })
-             .done(function( data ) {
-                console.log(data);
-                var data = $.parseJSON(data);
-                
-                if(data.resp=='YES'){
-                     location.href='dashboard.html';
-                }else{
-	
-                }
-             });
-         
-}
    
    
     $('#dologin').click(function(){

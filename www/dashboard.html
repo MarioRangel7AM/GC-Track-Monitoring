@@ -288,7 +288,9 @@ $( document ).ready(function() {
             console.log(data); 
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
-				//logoutAndClose();
+					cordova.plugins.backgroundMode.disable();//activa el modo de segundo plano
+
+				logoutAndClose();
             
 			location.href='index.html';
             }else{
