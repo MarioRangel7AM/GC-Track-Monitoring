@@ -715,7 +715,7 @@ function showAlert(alertar) {
 		text: alertar,
       	at: _3_sec_from_now,
       	badge: 1,
-      	every: "minute",//el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
+       	every: "minute",//el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
 		sound: 'file://alarm.mp3'//esto se reproduce en android
     });
 media.play();
@@ -734,6 +734,7 @@ media.play();
         if( status==Media.MEDIA_STOPPED ) {
             snd.play();
         }
+		}
 
 function showAlertWithoutSound(alertar) { 
 //es similar al showAlert pero no tiene alarma, por ejemplo cuando el sistema esta en estado normal y en este caso usara el sonido de notificaciones default del movil
