@@ -737,8 +737,12 @@ media.play({ playAudioWhenScreenIsLocked : true });
 
 function showAlertWithoutSound(alertar) { 
 //es similar al showAlert pero no tiene alarma, por ejemplo cuando el sistema esta en estado normal y en este caso usara el sonido de notificaciones default del movil
-    var now  = new Date().getTime();
-    _3_sec_from_now = new Date(now + 3*1000);
+     cordova.plugins.notification.badge.set(0);
+ numale=0;
+ 
+	var now  = new Date().getTime();
+    
+	_3_sec_from_now = new Date(now + 3*1000);
     cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
