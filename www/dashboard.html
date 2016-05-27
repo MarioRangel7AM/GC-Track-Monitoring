@@ -707,7 +707,6 @@ function showAlert(alertar) {
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
     var _3_sec_from_now = new Date(now + 3 *1000);
     var media = new Media("alarm.mp3");
-	media.play();
 
 	cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
@@ -717,7 +716,10 @@ function showAlert(alertar) {
       	every: "minute",//el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
 		//sound: sound,
     });
-}      
+
+		media.play();
+	
+	}      
 
 function showAlertWithoutSound(alertar) { 
 //es similar al showAlert pero no tiene alarma, por ejemplo cuando el sistema esta en estado normal y en este caso usara el sonido de notificaciones default del movil
@@ -744,6 +746,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
  
  }, this);
+ media.stop();
  
 	 }
 	
