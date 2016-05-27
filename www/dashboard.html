@@ -187,6 +187,9 @@ function onDeviceReady() {
     console.log(navigator.notification);
     console.log(navigator.vibrate);
     cordova.plugins.notification.badge.set(2);//burbuja de notificaion para ios
+		cordova.plugins.backgroundMode.enable();//activa el modo de segundo plano
+
+
 }
 // cuando cargue la APP aplicamos estos codigos
 $( document ).ready(function() {
@@ -744,7 +747,7 @@ function showAlertWithoutSound(alertar) {
     
 	_3_sec_from_now = new Date(now + 3*1000);
     cordova.plugins.notification.local.schedule({
-        id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
+        id:2,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
         at: _3_sec_from_now,
 		sound:null
