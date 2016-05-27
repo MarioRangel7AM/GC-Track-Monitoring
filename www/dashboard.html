@@ -175,7 +175,6 @@ var trackers_location = [];
 var currentPumpstatus='';
 var numale = 0;//numero de alertas de las alarmas de la bomba, las cuales se muestran como burbuja en el icono de la app
 var currentIdUser=0;
-    var media = new Media("alarm.mp3");
 
 document.addEventListener("deviceready", onDeviceReady, false);
 // tenemos que guardar en la APP las locaciones
@@ -194,6 +193,8 @@ function onDeviceReady() {
 $( document ).ready(function() {
     userid = window.localStorage.getItem("iduser");
     bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
+	    var media = new Media("alarm.mp3");//debe de ir dentro del document ready o si no no funcionara
+
 	var output="";
 	 
 	 
