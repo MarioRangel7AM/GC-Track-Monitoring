@@ -194,7 +194,6 @@ cordova.plugins.backgroundMode.configure({
     ticker: 'reading'
 });
 
-
 }
 // cuando cargue la APP aplicamos estos codigos
 $( document ).ready(function() {
@@ -289,7 +288,7 @@ $( document ).ready(function() {
             console.log(data); 
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
-				logoutAndClose();
+				//logoutAndClose();
             
 			location.href='index.html';
             }else{

@@ -56,7 +56,7 @@
 
   var iduser=window.localStorage.getItem("iduser");
   
-  
+console.log("dfdsfdsfds "+iduser);
  $.post( "http://gctrack-betaalterno.mybluemix.net/checkloginstate.php", { id_user:iduser })
              .done(function( data ) {
                 console.log(data);
