@@ -744,7 +744,7 @@ function showAlertWithoutSound(alertar) {
     
 	_3_sec_from_now = new Date(now + 3*1000);
     cordova.plugins.notification.local.schedule({
-        id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
+        id:2,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
         at: _3_sec_from_now,
 		sound:null
