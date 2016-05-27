@@ -193,7 +193,7 @@ $( document ).ready(function() {
     userid = window.localStorage.getItem("iduser");
     bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
 	var output="";
-	  var media;
+	 
 	 
 	 //OCULTAMOS EL ICONO INFO TRACKER
 		$('#infoTracker').fadeOut();
@@ -708,7 +708,7 @@ function showAlert(alertar) {
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
     var _3_sec_from_now = new Date(now + 3 *1000);
-	  media  = new Media("alarm.mp3");//esto se reproducira en ios
+	    var media = new Media("alarm.mp3");//esto se reproducira en ios
 
 	cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
@@ -752,17 +752,14 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 	 }
 	
 function logoutAndClose(){
-	  
+	 
 	   cordova.plugins.notification.badge.set(0);
  numale=0;
  
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
 }, this);
  
-	
-
-
-	}
+	 }
 		
 	
 	
