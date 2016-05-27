@@ -288,7 +288,7 @@ $( document ).ready(function() {
             console.log(data); 
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
-					cordova.plugins.backgroundMode.disable();//activa el modo de segundo plano
+					cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
 
 				logoutAndClose();
             
@@ -724,7 +724,6 @@ function showAlert(alertar) {
       	at: _3_sec_from_now,
       	badge: 1,
        	every: "minute",//el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
-		sound: 'file://alarm.mp3'//esto se reproduce en android
     });
 media.play({ playAudioWhenScreenIsLocked : true });
 	 
@@ -751,7 +750,7 @@ function showAlertWithoutSound(alertar) {
  
 	var now  = new Date().getTime();
     
-	_3_sec_from_now = new Date(now + 3*1000);
+	 var _3_sec_from_now = new Date(now + 3*1000);
     cordova.plugins.notification.local.schedule({
         id:2,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
@@ -759,7 +758,9 @@ function showAlertWithoutSound(alertar) {
 		sound:null
     });
 	media.pause();
-}  
+					cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
+
+	}  
 
 
 
