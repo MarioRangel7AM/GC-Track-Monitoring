@@ -187,6 +187,8 @@ function onDeviceReady() {
     console.log(navigator.notification);
     console.log(navigator.vibrate);
     cordova.plugins.notification.badge.set(2);//burbuja de notificaion para ios
+	cordova.plugins.backgroundMode.enable();//activa el modo de segundo plano
+
 }
 // cuando cargue la APP aplicamos estos codigos
 $( document ).ready(function() {
