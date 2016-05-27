@@ -156,7 +156,7 @@ width:100%;
 	color:#FFF;
 	height: 25px;
 	background-color: inherit;
-	margin:10px;
+	margin-bottom:10px;
 	border:0px;
 	border-radius: 5px;
 	background: url('../images/bg_input.png');
@@ -295,6 +295,10 @@ width:100%;
     z-index: 1;
     background-color: #E04359;
 }
+#description{
+	min-height: 70px;
+	padding-top: 10px;	
+}
 
 #tblog{
   margin-top: 30px;
@@ -326,6 +330,12 @@ width:100%;
 
 #view_tracker_status{
   padding-top: initial;
+}
+
+#contact-label{
+	text-align: center;
+	color: white;
+	font-size: xx-large;
 }
 
 table.scroll {
@@ -408,10 +418,15 @@ tbody td:last-child, thead th:last-child {
 	color: #C90221;
 }
 
-.row{
+.row input{
   padding-left: 10px;
   padding-right: 10px;
+}
 
+.row img{
+  padding-left: 10px;
+  padding-right: 10px;
+  vertical-align: middle;
 }
 
 #floattopheader{  
