@@ -282,9 +282,9 @@ $( document ).ready(function() {
         owl.trigger('owl.stop');
     });
  
- 
+  
     $('#logout').click(function(){
-        $.getJSON( "http://gctrack-betaalterno.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show"})
+        $.getJSON( "http://gctrack-betaalterno.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
         .done(function( data ) {
             console.log(data); 
             //var data = $.parseJSON(data);
