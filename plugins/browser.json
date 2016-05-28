@@ -16,6 +16,12 @@
         "cordova-plugin-badge": {
             "PACKAGE_NAME": "com.tecsolutionsmx.gctrack"
         },
+        "org.apache.cordova.media": {
+            "PACKAGE_NAME": "com.tecsolutionsmx.gctrack"
+        },
+        "de.appplant.cordova.plugin.background-mode": {
+            "PACKAGE_NAME": "com.tecsolutionsmx.gctrack"
+        },
         "cordova-plugin-app-event": {
             "PACKAGE_NAME": "com.tecsolutionsmx.gctrack"
         }
