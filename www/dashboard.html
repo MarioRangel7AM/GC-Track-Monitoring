@@ -244,6 +244,9 @@ $( document ).ready(function() {
         touchDrag               : false,
        mouseDrag               : false
     });
+    //Centrarlo al inicio
+    $('#owl-demo').css('margin-left','16%');
+
     $('#pumptypeicon').click(function(){
         // revisamos cuantas bombas hay y si tiene mas de 2 mostramos el submenu de seleccion
         if(trackers_location.length>1){
@@ -311,6 +314,7 @@ $( document ).ready(function() {
         $('#tracker_location').fadeIn();
         $('#list_trackers').fadeOut();
         viewLocations();
+        $('#owl-demo').css('margin-left','8%');
         $('.dashmarg').fadeOut();
     }
     
