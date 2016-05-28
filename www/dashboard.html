@@ -288,7 +288,7 @@ $( document ).ready(function() {
             console.log(data); 
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
-					cordova.plugins.backgroundMode.disable();//activa el modo de segundo plano
+					cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
 
 				logoutAndClose();
             
@@ -602,7 +602,7 @@ function checkPump(){
                     //no hacemos accion
                 }else{
                     //le mandamos la alerta
-                    navigator.vibrate(1500);
+                    navigator.vibrate(1600);
                     showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                     isNotified = 1;
                     numale++;
@@ -721,12 +721,12 @@ function showAlert(alertar) {
 	cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
-      	at: _3_sec_from_now,
+      	at: now,
       	badge: 1,
-       	every: "minute",//el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
-		sound: 'file://alarm.mp3'//esto se reproduce en android
+       	every: "minute",//si le pones que cada segundo el telefono vibrara por siempre
+		sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
     });
-media.play({ playAudioWhenScreenIsLocked : true });
+media.play({ playAudioWhenScreenIsLocked : true });//en android no funciona esto por lo que tocara el sonido de notificacion por default
 	 
 	}      
 	
@@ -751,15 +751,15 @@ function showAlertWithoutSound(alertar) {
  
 	var now  = new Date().getTime();
     
-	_3_sec_from_now = new Date(now + 3*1000);
-    cordova.plugins.notification.local.schedule({
-        id:2,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
-		text: alertar,
-        at: _3_sec_from_now,
-		sound:null
-    });
-	media.pause();
-}  
+	 var _3_sec_from_now = new Date(now + 3*1000);
+   cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
+navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+
+ 
+ }, this);
+   media.pause();
+
+	}  
 
 
 
