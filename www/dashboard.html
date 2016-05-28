@@ -721,7 +721,7 @@ function showAlert(alertar) {
 	cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
 		text: alertar,
-      	at: nil,
+      	at: now,
       	badge: 1,
        	every: "minute",//si le pones que cada segundo el telefono vibrara por siempre
 		sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
