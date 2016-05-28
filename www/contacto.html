@@ -25,14 +25,12 @@
   
 
   </div>
-
-	
 	
 <!--   div del cintillo-->
 
 <div id="demo">
 
-        <div id="owl-demo" class="owl-carousel" >
+        <div id="owl-demo" class="owl-carousel" style="display: none" >
           
           <div class="item" id="refreshPage"><img src="img/iconorefreshgctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--Refresh-->
           <div class="item" id="goback"><img src="img/iconogoback55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--go back-->
@@ -181,6 +179,7 @@ $( document ).ready(function() {
      
 
  });
+  $("#demo").css('text-align','-webkit-right');
  
   // Custom Navigation Events
   $(".next").click(function(){
