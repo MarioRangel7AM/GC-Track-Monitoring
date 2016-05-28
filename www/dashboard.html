@@ -19,7 +19,7 @@
 
         <div id="demo">
 
-            <div id="owl-demo" class="owl-carousel" >
+            <div id="owl-demo" class="owl-carousel" style="display: none">
               
               <div class="item" id="refreshPage"><img src="img/iconorefreshgctrack55x55.png" style="margin-top:-15px;"class="img-cintillo"></div><!--Refresh-->
               <div class="item" id="contact"><img src="img/iconosupportgctrack55x55-2.png" style="margin-top:-15px;" class="img-cintillo"></div><!--Support-->
@@ -244,9 +244,6 @@ $( document ).ready(function() {
         touchDrag               : false,
        mouseDrag               : false
     });
-    //Centrarlo al inicio
-    $('#owl-demo').css('margin-left','16%');
-
     $('#pumptypeicon').click(function(){
         // revisamos cuantas bombas hay y si tiene mas de 2 mostramos el submenu de seleccion
         if(trackers_location.length>1){
@@ -314,7 +311,6 @@ $( document ).ready(function() {
         $('#tracker_location').fadeIn();
         $('#list_trackers').fadeOut();
         viewLocations();
-        $('#owl-demo').css('margin-left','8%');
         $('.dashmarg').fadeOut();
     }
     
@@ -328,7 +324,7 @@ $( document ).ready(function() {
         var botonTrackerActivo = botonesTrackers[0];
         var relleno = $(botonTrackerActivo).height();
 		$('#datalogged').css("padding-top",relleno);
-
+        $('#owl-demo').css('margin-left','0%');
         $('#goback').fadeIn();
 		$('#sendReport').fadeIn();
 				$('#gotoweb').fadeOut();
@@ -450,14 +446,18 @@ function showPumps(){
 }
 var bandera=0;   
 function viewLocations(){
-    // Esta función se ejecuta en el segundo click
-	$('#infoTracker').fadeOut();
+    // Esta función se ejecuta en el segundo click y al inicio
+    // Centramos los iconos aumentando el margen izquierdo 
+	$('#owl-demo').css('margin-left','16%');
+    $('#infoTracker').fadeOut();
     $('#tracker_location').fadeOut();
     $('#list_trackers').fadeIn();
 	$("#showlog").css("display", "none");
     $("#datalogged").css("display", "none");
+    $('#sendReport').fadeOut();
 	// Esta línea es necesaria para poder ocultar correctamente el estado del tracker.
     $("#pumpstatuscont").css("display","none");
+    // Esta Linea ajusta de nuevo el margen izquierdo para centrar los objetos
 }
 
 
@@ -465,6 +465,8 @@ function viewLocations(){
 function viewTrackers (idlocation) {
     //console.log(idtracker);
     // obtenemos los tracker de esa locacion
+    //Ajustamos el margen izquierdo para centrar los objetos
+            $('#owl-demo').css('margin-left','8%'); 
 	        $("#infoTracker").fadeIn();
 
     trackers_location = [];
