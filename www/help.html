@@ -1,19 +1,19 @@
 <html>
 <body>
-<img src="gctrackinformationpdf.jpg"  style="width:100%;"></img>
+<head>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="js/zoom.js"></script>
+</head>
+<img id="zoomable" src="gctrackinformationpdf.jpg" data-zoom-image="gctrackinformationpdf.jpg" style="width:100%;position:fixed;z-index:1"></img>
 
+<div class="spacer"></div>
+ <img src="images/back_icon.png" onclick="goBack();" style="position: fixed; bottom: 0px; right: 0px;z-index:2"></img>
+<div class="content"></div>
 
-<img src="images/back_icon.png" onclick="goBack();" width="20%;"></img>
 <script> 
-function goBack(){
-  window.history.back();
-
-
-} 
-
-
-
-
+	function goBack() { 
+	  window.history.back();
+	} 
 </script>
  
 </body>
