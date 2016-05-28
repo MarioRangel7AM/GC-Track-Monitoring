@@ -602,9 +602,10 @@ function checkPump(){
                     //no hacemos accion
                 }else{
                     //le mandamos la alerta
-                    navigator.vibrate(1600);
+                     //deberiamos cambiar el orden de esto
                     showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
-                    isNotified = 1;
+                    navigator.vibrate(1600);
+					isNotified = 1;
                     numale++;
                     
                 }
@@ -662,10 +663,10 @@ function checkPump(){
 	$('#sendReport').click(function(){
  	
         var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
-        var email = prompt("Please introduce the recipent email for the report", "gctgroup@gctrack.com");//correo al que se enviara la tabla
+        var email = prompt("Please introduce the recipent email for the report", "");//correo al que se enviara la tabla
         var isValidEmail=validateEmail(email);
        var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla
-        var isValidCCEmail=validateCCEmail(CCemail);
+        var isValidCCEmail=validateCCEmail(CCemail); 
       
 	  if(isValidEmail&&isValidCCEmail){
             var pump="Tracker location="+currentlocation+" Brand: Firetrol, Model:XFFD322, Status"+currentPumpstatus;
