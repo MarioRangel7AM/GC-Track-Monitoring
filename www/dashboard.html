@@ -723,7 +723,7 @@ function showAlert(alertar) {
 		text: alertar,
       	at: nil,
       	badge: 1,
-       	every: "second",
+       	every: "minute",//si le pones que cada segundo el telefono vibrara por siempre
 		sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos		
     });
 media.play({ playAudioWhenScreenIsLocked : true });//en android no funciona esto por lo que tocara el sonido de notificacion por default
