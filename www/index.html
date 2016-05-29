@@ -77,47 +77,19 @@
 
 		
 		
-        $( document ).ready(function() {
-          
-
- 
-          
- 
-
- $.post( "http://gctrack-betaalterno.mybluemix.net/auth.php", { loging: "Show" })
+      $( document ).ready(function() {
+            $.post( "http://gctrack-betaalterno.mybluemix.net/auth.php", { loging: "Show" })
              .done(function( data ) {
-               
-                   
-
-
-			   var data = $.parseJSON(data);
-
-			   
-                      window.localStorage.setItem("iduser", "sesionCerrada");
-					 
-					 data.resp="Cerrado";
-window.localStorage.clear();
-
-					 console.log("data resp "+data.resp);
-
-
-				
-				
-				
-				
+			 
+			 var data=$.parseJSON(data);
+			 console.log("data"+data);
+                if(data.resp=='Correcto'){
+                    location.href='dashboard.html';
+                }else{
+                   $('#logincont').fadeIn();
+                }
              });
-        
-                
-       
-
-   
-                
-       
-
-	   
-	   
-		  });
-  
+        });
   
   
   
