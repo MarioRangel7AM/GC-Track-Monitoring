@@ -92,7 +92,7 @@
 
 			   var data = $.parseJSON(data);
 
-			   if (localStorage.getItem("iduser") === 'loggedout') {
+			   
                       window.localStorage.setItem("iduser", "sesionCerrada");
 					 
 					 data.resp="Cerrado";
@@ -100,21 +100,8 @@ window.localStorage.clear();
 
 					 console.log("data resp "+data.resp);
 
-}
-if( localStorage.getItem("iduser")=='sesionCerrada'){
-				   
-				   
-				   
-				   
-				   }
 
 				
-else if(data.resp=='Correcto'){
-                    window.localStorage.setItem("iduser", data.iduser);
-                    location.href='dashboard.html';
-                }else{
-                   $('#logincont').fadeIn();
-                }
 				
 				
 				
