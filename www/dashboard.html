@@ -289,7 +289,7 @@ $( document ).ready(function() {
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
 					cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
-
+window.localStorage.removeItem("sucess");
 				logoutAndClose();
             
 			location.href='index.html';
