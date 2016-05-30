@@ -51,97 +51,37 @@
   
   
    
-   
     $('#dologin').click(function(){
             inemail = $('#inemail').val();
             inpass = $('#inpass').val();
-          
-
-		  $.post( "http://gctrack-betaalterno.mybluemix.net/auth.php", { email: inemail, pass: inpass })
+            $.post( "http://gctrack-betaalterno.mybluemix.net/auth.php", { email: inemail, pass: inpass })
              .done(function( data ) {
-                console.log(data);
-                var data = $.parseJSON(data);
-                
+                var data=$.parseJSON(data);
+				console.log(data);
                 if(data.resp=='Correcto'){
-                    window.localStorage.setItem("iduser", data.iduser);
-					//window.localStorage.setItem("loggedin","yaentre");
-                    location.href='dashboard.html';
+ window.localStorage.setItem("iduser", data.iduser);                   
+				   location.href='dashboard.html';
                 }else{
 	navigator.notification.alert("Please check you email address and password", null, "Error", "OK");//metodo para crear alertas personalizadas
 
                 }
              });
-       
- });
-		
-
+        });
+        
 		
 		
-        $( document ).ready(function() {
-          
-
- 
-          
- 
-
- $.post( "http://gctrack-betaalterno.mybluemix.net/auth.php", { loging: "Show" })
+		$( document ).ready(function() {
+            
+            $.post( "http://gctrack-betaalterno.mybluemix.net/auth.php", { loging: "Show" })
              .done(function( data ) {
-               
-                   
-
-
-			   var data = $.parseJSON(data);
-
-			   if (localStorage.getItem("iduser") === 'loggedout') {
-                      window.localStorage.setItem("iduser", "sesionCerrada");
-					 
-					 data.resp="Cerrado";
-window.localStorage.clear();
-
-					 console.log("data resp "+data.resp);
-
-}
-if( localStorage.getItem("iduser")=='sesionCerrada'){
-				   
-				   
-				   
-				   
-				   }
-
-				
-else if(data.resp=='Correcto'){
-                    window.localStorage.setItem("iduser", data.iduser);
+               var data=$.parseJSON(data);
+			   if(data.resp=='Correcto'){
                     location.href='dashboard.html';
                 }else{
                    $('#logincont').fadeIn();
                 }
-				
-				
-				
              });
-        
-                
-       
-
-   
-                
-       
-
-	   
-	   
-		  });
-  
-  
-  
-  
-  $('#dohelp').click(function(){
-  
-  location.href="help.html";
-  
-  
-  
-  });
-  
+        });
 	
     </script>
 </body>
