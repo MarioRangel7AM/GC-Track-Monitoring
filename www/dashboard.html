@@ -252,7 +252,7 @@ $( document ).ready(function() {
                 if(trackers_location[x].Descripcion=='Electrica'){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="getTracker('+trackers_location[x].ID+')" href="#"><img src="images/red-bombaelectrica.png"> Electric Pump</a></div>');
                 }
-                if(trackers_location[x].Descripcion=='Diesel'){
+                if(trackers_location[x].Descripcion=='0'){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="getTracker('+trackers_location[x].ID+')" href="#"><img src="images/iconobombadiesel2.png"> Diesel Pump</a></div>');
                 }
                 if(trackers_location[x].Descripcion=='Jockey'){
@@ -262,7 +262,7 @@ $( document ).ready(function() {
             }
             $('#listmoretracks').fadeIn();
         }else{
-        // no haremos nadsa
+        // no haremos nada
         }
         console.log(trackers_location);
     });
