@@ -53,6 +53,7 @@
   document.addEventListener("deviceready", onDeviceReady, false);
 
   function onDeviceReady() {
+    cordova.plugins.backgroundMode.setDefaults({ text:'Monitoring'});
     
    	cordova.plugins.backgroundMode.enable();//activa el modo de segundo plano
 
@@ -77,6 +78,10 @@ window.localStorage.setItem("sucess","true");
         
 		
 		
+		$('#dohelp').click(function(){
+		location.href='help.html';
+		
+		});
 		$( document ).ready(function() {
             
             $.post( "http://gctrack-betaalterno.mybluemix.net/auth.php", { loging: "Show" })
