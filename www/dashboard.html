@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <div id="statusnormal" class="container dashmarg">
+            <div id="statusnormal" style="display:none" class="container dashmarg">
                 <div class="row">
                     <div class="col-md-3 col-xs-3">
                         <img  id="pumpstatusicon" class="iconlist" src="images/dash_status.png">
@@ -184,8 +184,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // metodos que se cargan al iniciar la aplicacion
 function onDeviceReady() {
     // Empty
-    console.log(navigator.notification);
-    console.log(navigator.vibrate);
+    //console.log(navigator.notification);
+    //console.log(navigator.vibrate);
     cordova.plugins.notification.badge.set(2);//burbuja de notificaion para ios
 		cordova.plugins.backgroundMode.enable();//activa el modo de segundo plano
 cordova.plugins.backgroundMode.configure({
@@ -264,7 +264,7 @@ $( document ).ready(function() {
         }else{
         // no haremos nadsa
         }
-        console.log(trackers_location);
+        //console.log(trackers_location);
     });
  
     // Custom Navigation Events
@@ -285,7 +285,7 @@ $( document ).ready(function() {
     $('#logout').click(function(){
         $.getJSON( "http://gctrack-betaalterno.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
         .done(function( data ) {
-            console.log(data); 
+            //console.log(data); 
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
 					cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
@@ -331,7 +331,7 @@ window.localStorage.removeItem("sucess");
         $.post( "http://gctrack-betaalterno.mybluemix.net/getlog.php", {id_tracker: ontracker})
              .done(function( data ) {
                 registros = [];
-                console.log(data);
+                //console.log(data);
                 var json_obj = $.parseJSON(data);
                 // reseteamos tabla
                 $('#tblog > tbody').html('');
@@ -348,7 +348,7 @@ window.localStorage.removeItem("sucess");
                     // No hay para mostrar
                     alert('No incident logs');
                 }
-                console.log(registros);
+                //console.log(registros);
                
                 $('#pumpstatuscont').fadeOut();
                 $('#datalogged').fadeIn();
@@ -408,12 +408,12 @@ var text="IDtracker:  "+ontracker+"\n"+"Brand: Firetrol"+"\n"+"Model: XFFD322";
 function getPumps(){
             $('#infoTracker').fadeIn();
 
-	console.log('ID DE USUARIO '+userid);
+	//console.log('ID DE USUARIO '+userid);
     currentIdUser=userid;
 	$.post( "http://gctrack-betaalterno.mybluemix.net/getpumps.php", {id_user: userid})
      .done(function( data ) {
         locaciones = [];
-        console.log('deget'+data);
+        //console.log('deget'+data);
         var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){
             for (var i in json_obj.locations) 
@@ -426,7 +426,7 @@ function getPumps(){
             // No hay para mostrar
 				navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
         }
-        console.log(locaciones);
+        //console.log(locaciones);
         showPumps();
     });
 }
@@ -463,7 +463,7 @@ function viewLocations(){
 
 // para ver los trackers de una locacion
 function viewTrackers (idlocation) {
-    //console.log(idtracker);
+    ////console.log(idtracker);
     // obtenemos los tracker de esa locacion
     //Ajustamos el margen izquierdo para centrar los objetos
             $('#owl-demo').css('margin-left','8%'); 
@@ -472,7 +472,7 @@ function viewTrackers (idlocation) {
     trackers_location = [];
      $.post( "http://gctrack-betaalterno.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
      .done(function( data ) {
-        console.log('ViewTrackers:'+data);
+        //console.log('ViewTrackers:'+data);
         var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){
             // si hay para mostrar
@@ -510,22 +510,22 @@ function getTracker(idTracker){
     onscreen = 'viewtracker';
     ontracker = idTracker;
 					window.localStorage.setItem("trackerId",ontracker);
-	console.log('ID TRACKER  '+ontracker);
+    //console.log('ID TRACKER  '+ontracker);
   // window.localStorage.setItem("lasttrack", ontracker); //esta puede ser la linea de codigo que este causando que se quede la informacion de la sesion anterior
     $.post( "http://gctrack-betaalterno.mybluemix.net/gettracker.php", {id_tracker: idTracker})
      .done(function( data ) {
-        console.log('gettracker:'+data);
+        //console.log('gettracker:'+data);
         var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){
             // si hay y tenemos informacion
             $('#presiondata').html(json_obj.tracker.Presion);
             $('#trackdata_id').html(json_obj.tracker.ID);
             //cambiamos el tipo de bomba
-            console.log('iniciamos ciclo:');
+            //console.log('iniciamos ciclo:');
             for(var i in trackers_location){
-                console.log('Comparo:'+ trackers_location[i].ID);
+                //console.log('Comparo:'+ trackers_location[i].ID);
                 if(trackers_location[i].ID==json_obj.tracker.ID){
-                    console.log('##Encontrado');
+                    //console.log('##Encontrado');
                     if(trackers_location[i].Descripcion=='Electrica'){
                         $('#pumptypeicon').attr('src','images/bombaelectrica.png');
                         $('#pumptypename').html('Electric<br>Pump')
@@ -540,16 +540,29 @@ function getTracker(idTracker){
                     }
                 }
             }
-            
+            for (property in json_obj) {
+                output += property + ': ' + json_obj[property]+'; ';
+            }
+            console.log(output);
+
             if(json_obj.tracker.Estado==1){
                 $('#pump_status_res').html(json_obj.tracker.message);
-                $('#statusnormal').fadeOut();
-                $('#statuserror').fadeIn();
+                $('#statusnormal').fadeOut("normal", function () {
+                    $('#statusnormal').css({display:"none"});
+                });
+                $('#statuserror').fadeOut("normal", function () {
+                    $('#statuserror').css({display:"block"});
+                });
 currentPumpstatus=json_obj.tracker.message;
 window.localStorage.setItem("pumpstatus",currentPumpstatus);
             }else{
-                $('#statusnormal').fadeIn();
-                $('#statuserror').fadeOut();
+                $('#pump_status_res').html(json_obj.tracker.message);
+                $('#statuserror').fadeOut("normal", function () {
+                    $('#statuserro').css({display:"none"});
+                });
+                $('#statusnormal').fadeOut("normal", function () {
+                    $('#statusnormal').css({display:"block"});
+                });
             }
             //titulos y sub
             $('#loc_business').html(json_obj.tracker.loc_business);
@@ -577,10 +590,10 @@ window.localStorage.setItem("pumpstatus",currentPumpstatus);
 function checkPump(){
     $.post( "http://gctrack-betaalterno.mybluemix.net/checkpump.php", {id_user: userid})
      .done(function( data ) {
-        //console.log(data);
+        ////console.log("DATA RECIBIDA DE LA BOMBA: "+data);
         listDevices = []; //limpiamos
         var json_obj = $.parseJSON(data);
-        console.log(data);
+        ////console.log(data);
         for (var i in json_obj.tracker) 
         {
             //guardaremos nuestros dispositivos para consulta de estado
@@ -619,12 +632,12 @@ function checkPump(){
                 //parese que todo marcha bien
             }
             //actualizamos la vista del tracker que estoy viendo
-            //console.log("Comparamos - "+parseInt(listDevices[i].ID) +'#'+ parseInt(ontracker));
+            ////console.log("Comparamos - "+parseInt(listDevices[i].ID) +'#'+ parseInt(ontracker));
             if(parseInt(listDevices[i].ID) == parseInt(ontracker)){
                 if(onscreen=='viewtracker'){
                     //actualizamos la vista
-                    //console.log("Estamos en vista");
-                    //console.log("estado con:"+listDevices[i].status);
+                    ////console.log("Estamos en vista");
+                    //console.log("ID>>>"+listDevices[i].ID+"Valor:"+listDevices[i].status);
                     $('#presiondata').html(listDevices[i].pressure);
                     if(parseInt(listDevices[i].status)!=0){
                         $('#pump_status_res').html(listDevices[i].message);
@@ -690,10 +703,10 @@ function checkPump(){
                 mm='0'+mm
             } 
             var today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
-            console.log(tableElement);
+            //console.log(tableElement);
             $.post( "http://gctrack-betaalterno.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
             .done(function( data ) {
-                console.log(data);
+                //console.log(data);
 					navigator.notification.alert("You report has been send", null, "Send report", "OK");
                 //var data = $.parseJSON(data);
             });
