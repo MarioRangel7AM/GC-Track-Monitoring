@@ -246,7 +246,9 @@ $( document ).ready(function() {
     });
     $('#pumptypeicon').click(function(){
         // revisamos cuantas bombas hay y si tiene mas de 2 mostramos el submenu de seleccion
-        if(trackers_location.length>1){
+    
+console.log("CANTIDAD DE TRACKERS "+ trackers_location.length);
+    if(trackers_location.length>1){
             $('#listmoretracks').html('');
             for(var x in trackers_location){
                 if(trackers_location[x].Descripcion=='Electrica'){
@@ -583,6 +585,7 @@ window.localStorage.setItem("pumpstatus",currentPumpstatus);
 
 	navigator.notification.alert("No logs available", null, "Info", "OK");//metodo para crear alertas personalizadas
 
+	
 			}
     });
 }
