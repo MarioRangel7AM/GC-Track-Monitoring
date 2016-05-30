@@ -49,10 +49,14 @@
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
   
+  
+  document.addEventListener("deviceready", onDeviceReady, false);
+
   function onDeviceReady() {
     
    	cordova.plugins.backgroundMode.enable();//activa el modo de segundo plano
-}   
+
+	}   
     $('#dologin').click(function(){
             inemail = $('#inemail').val();
             inpass = $('#inpass').val();
@@ -86,6 +90,8 @@ window.localStorage.setItem("sucess","true");
              });
         });
 	
-    </script>
+    
+	
+	</script>
 </body>
 </html>
