@@ -834,7 +834,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
 
     
     function showAlert(alertar) {
-        var now = new Date().getTime();
+        var now = new Date();
         //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
         var _3_sec_from_now = new Date(now + 3 *1000);
         media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
