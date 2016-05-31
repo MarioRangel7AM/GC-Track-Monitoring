@@ -41,7 +41,7 @@
     }
 	
 	.row{
-	width:105%;
+	width:100%;
 	}
 
 </style>
@@ -51,7 +51,7 @@
 
 <div id="demo">
 
-        <div id="owl-demo" class="owl-carousel" >
+        <div id="owl-demo" class="owl-carousel" style="display:none">
           
           <div class="item" id="refreshPage"><img src="img/iconorefreshgctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--Refresh-->
           <div class="item" id="CONTACT SUPPORT"><a href="contacto.html"><img src="img/iconosupportgctrack55x55-2.png" style="margin-top:-15px;" class="img-cintillo"></a></div><!--Support-->
@@ -227,7 +227,7 @@ $( document ).ready(function() {
     
   
   });
- 
+  $(".owl-wrapper").css('padding-left','25%');
   // Custom Navigation Events
   $(".next").click(function(){
     owl.trigger('owl.next');

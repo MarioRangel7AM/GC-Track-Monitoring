@@ -49,3 +49,5 @@ Temporary Items
 #otras carpetas para ignorar
 platforms
 gctrack2.css
+plugins\browser.json
+plugins/browser.json
