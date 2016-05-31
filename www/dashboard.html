@@ -891,7 +891,10 @@ console.log(ontracker);
  
  $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker})
              .done(function( data ) {///con este post la alarma se cambia a 1
+    
+alert("HOLA");
         isAlarmAnswered=true;
+    
      });
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
 navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
