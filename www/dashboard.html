@@ -174,6 +174,7 @@ var trackers_location = [];
 var currentPumpstatus='';
 var numale = 0;//numero de alertas de las alarmas de la bomba, las cuales se muestran como burbuja en el icono de la app
 var currentIdUser=0;
+var isAlarmAnswered=false;
 var bombas_location  = [];
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -700,12 +701,14 @@ function checkPump(){
                     //no hacemos accion
                 }else{
                     //le mandamos la alerta
-                     //deberiamos cambiar el orden de esto
+                    
+//aqui se vera si el usuario respondio a la alarma
+                   if(!isAlarmAnswered){
                     showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                     navigator.vibrate(1600);
                     isNotified = 1;
                     numale++;
-                    
+                    }
                 }
             }
             else{
@@ -878,17 +881,26 @@ function checkPump(){
         media.pause();
     }  
 
-    // metodo para borrar un numero de bubuja de notificacion
-    function dismissBadge(){
-
-        cordova.plugins.notification.badge.set(0);
-        numale=0;
-        cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-            navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-        }, this);
-        media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
-    }
+    // metodo para borrar un numero de burbuja de notificacion
     
+
+function dismissBadge(){
+console.log(ontracker);  
+       cordova.plugins.notification.badge.set(0);
+ numale=0;
+ 
+ $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker})
+             .done(function( data ) {///con este post la alarma se cambia a 1
+        isAlarmAnswered=true;
+     });
+ cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
+navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+ 
+ }, this);
+ media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+ 
+         }
+
     // metodo de logout
     function logoutAndClose(){
          
