@@ -204,6 +204,7 @@ $( document ).ready(function() {
     bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
     var output="";
     var media;
+    var intervalNotification;
     //OCULTAMOS EL ICONO INFO TRACKER
     $('#infoTracker').fadeOut();
 
@@ -839,29 +840,20 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
         var _3_sec_from_now = new Date(now + 3 *1000);
         media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
 
+//cada 10 segundos se llamara esto        
+ intervalNotification=setInterval(function(){
         cordova.plugins.notification.local.schedule({
              id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
-            text: alertar,
+            text: "EMERGENCY "+alertar,
             at: now,
             badge: 1,
-            every:"minute",
+            
             //sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
             sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
         });
-
+},10000);
       
-    cordova.plugins.notification.local.on("trigger", function (notification) {
-        if (notification.id != 1)
-            return;
-
-        // After 10 seconds update notification's title 
-        setTimeout(function () {
-            cordova.plugins.notification.local.update({
-                id: 1,
-                title: "EMERGENCY "+alertar
-            });
-        }, 10000);
-    });
+        
 
 
 
@@ -905,6 +897,8 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
         }, this);
 
         media.pause();
+        clearInterval(intervalNotification);
+
     }  
 
     // metodo para borrar un numero de burbuja de notificacion
@@ -927,7 +921,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
  
  }, this);
  media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
- 
+ clearInterval(intervalNotification);
          }
 
     // metodo de logout
