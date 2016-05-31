@@ -709,7 +709,9 @@ function checkPump(){
     
 if(data.result=="YES"){
     //no hagas nada
+    alert("NO HAGAS NADA");
 }else{
+    alert("haz algo rapido");
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                     navigator.vibrate(1600);
                     isNotified = 1;
