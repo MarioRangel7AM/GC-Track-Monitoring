@@ -847,12 +847,13 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
         cordova.plugins.notification.local.schedule({
              id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
             text: "EMERGENCY "+alertar,
+            at: now,
             badge: 1,
             
             //sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
             sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
         });
-},5000);
+},10000);
       
         
 
@@ -898,6 +899,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
         }, this);
 
         media.pause();
+        clearInterval(intervalNotification);
         location.reload();
 
     }  
