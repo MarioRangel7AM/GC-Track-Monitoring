@@ -849,8 +849,27 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
             sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
         });
 
+      
+    cordova.plugins.notification.local.on("trigger", function (notification) {
+        if (notification.id != 1)
+            return;
+
+        // After 10 seconds update notification's title 
+        setTimeout(function () {
+            cordova.plugins.notification.local.update({
+                id: 1,
+                title: "EMERGENCY "+alertar
+            });
+        }, 10000);
+    });
+
+
+
         media.play({ playAudioWhenScreenIsLocked : true });//en android no funciona esto por lo que tocara el sonido de notificacion por default
          
+   
+
+
     }      
     
     
