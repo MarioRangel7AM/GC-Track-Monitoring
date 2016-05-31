@@ -204,8 +204,6 @@ $( document ).ready(function() {
     bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
     var output="";
     var media;
-    var mediaAndroid;
-
     //OCULTAMOS EL ICONO INFO TRACKER
     $('#infoTracker').fadeOut();
 
@@ -840,28 +838,21 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
         //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
         var _3_sec_from_now = new Date(now + 3 *1000);
         media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
-playAudio("alarm.mp3");
+
         cordova.plugins.notification.local.schedule({
              id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
             text: alertar,
             at: now,
             badge: 1,
-            every:"minute"
+            every:"minute",
             //sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
+            sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
         });
 
         media.play({ playAudioWhenScreenIsLocked : true });//en android no funciona esto por lo que tocara el sonido de notificacion por default
          
     }      
     
-
-      function playAudio(src) {
-            if (device.platform == 'Android') {
-                src = '/android_asset/www/' + src;
-            }
-            mediaAndroid = new Media(src, success, error_error);
-            mediaAndroid.play();
-        }
     
      // onSuccess Callback
     function onSuccess() {
@@ -873,7 +864,6 @@ playAudio("alarm.mp3");
     function onStatus(status) {
         if( status==Media.MEDIA_STOPPED ) {
             media.play({ playAudioWhenScreenIsLocked : true });
-
         }
     }
 
@@ -896,7 +886,6 @@ playAudio("alarm.mp3");
         }, this);
 
         media.pause();
-        mediaAndroid.pause();
     }  
 
     // metodo para borrar un numero de burbuja de notificacion
@@ -919,7 +908,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
  
  }, this);
  media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
- mediaAndroid.pause();
+ 
          }
 
     // metodo de logout
