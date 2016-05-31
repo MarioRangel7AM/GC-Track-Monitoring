@@ -704,13 +704,7 @@ function checkPump(){
                     
 //aqui se vera si el usuario respondio a la alarma
                    
-                   $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsAnswered.php", {id_tracker: ontracker})
-             .done(function( data ) {///con este post la alarma se cambia a 1
-    
-if(data.result=="YES"){
-    //no hagas nada
-    alert("NO HAGAS NADA");
-}else{
+                 
     alert("haz algo rapido");
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                     navigator.vibrate(1600);
@@ -720,10 +714,9 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
 
 }
     
-     });
  
                     
-           }     
+                
             }
             else{
                 //parese que todo marcha bien
@@ -906,7 +899,6 @@ console.log(ontracker);
  $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker})
              .done(function( data ) {///con este post la alarma se cambia a 1
     
-alert("HOLA");
 
         isAlarmAnswered=true;
     
