@@ -175,6 +175,7 @@ var trackers_location = [];
 var currentPumpstatus='';
 var numale = 0;//numero de alertas de las alarmas de la bomba, las cuales se muestran como burbuja en el icono de la app
 var currentIdUser=0;
+var isAlarmAnswered=false;
 document.addEventListener("deviceready", onDeviceReady, false);
 // tenemos que guardar en la APP las locaciones
 // guaramos las bombas por locacion
@@ -624,12 +625,13 @@ function checkPump(){
                     //no hacemos accion
                 }else{
                     //le mandamos la alerta
-                     //deberiamos cambiar el orden de esto
+//aqui se vera si el usuario respondio a la alarma
+                   if(!isAlarmAnswered){
                     showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                     navigator.vibrate(1600);
 					isNotified = 1;
                     numale++;
-                    
+                    }
                 }
             }else{
                 //parese que todo marcha bien
@@ -805,9 +807,8 @@ console.log(ontracker);
  
 
  $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker})
-             .done(function( data ) {
-        
-alert("se ha notificado");
+             .done(function( data ) {///con este post la alarma se cambia a 1
+        isAlarmAnswered=true;
 
      });
 
