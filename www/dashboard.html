@@ -128,7 +128,7 @@
                     <tr>
                         <td id="dHeader">Date</td>
                         <td id="sHeader">Pump status</td>
-                        <td id="pHeader">Pressure</td>
+                        <td id="pHeader">PSI</td>
                     </tr>
                 </thead>
             </table>
@@ -337,7 +337,7 @@ window.localStorage.removeItem("sucess");
                 var json_obj = $.parseJSON(data);
                 // reseteamos tabla
                 $('#tblog > tbody').html('');
-                /*$('#tblog > tbody').append('<thead class="header" ><tr><th>Date</th><th>Pump status</th><th>Pump Pressure</th></tr></thead><tbody>');*/
+                /*$('#tblog > tbody').append('<thead class="header" ><tr><th>Date</th><th>Pump status</th><th>PSI</th></tr></thead><tbody>');*/
                 if(json_obj.numresult>0){
                     for (var i in json_obj.logs) 
                     {
