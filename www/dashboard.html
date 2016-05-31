@@ -897,7 +897,6 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
         }, this);
 
         media.pause();
-        clearInterval(intervalNotification);
 
     }  
 
@@ -921,7 +920,6 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
  
  }, this);
  media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
- clearInterval(intervalNotification);
          }
 
     // metodo de logout
@@ -932,11 +930,14 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
         cordova.plugins.notification.local.cancelAll(function() {
             //cancela todas las notificaciones de alarma
         }, this);
+                clearInterval(intervalNotification);
+
     }
         
     // Repetidor de codigo
     var timerId = setInterval(function() {
         checkPump();
+
         var connectionStatus = false;
         connectionStatus = navigator.onLine ? 'online' : 'offline';
         if(connectionStatus=='online'){
