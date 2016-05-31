@@ -806,11 +806,21 @@ function showAlertWithoutSound(alertar) {
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
 navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
 
+
+
  
  }, this);
  media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
  
-	 }
+
+$.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker})
+             .done(function( data ) {
+        
+
+
+	 });
+
+         }
 	
 function logoutAndClose(){
 	 
