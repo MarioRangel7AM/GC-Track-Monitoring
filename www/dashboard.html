@@ -699,13 +699,12 @@ function checkPump(){
                 //revisamos si esta notificado de esto
                 if(isNotified == 1){
                     //no hacemos accion
-                }else{
+                 }else{
                     //le mandamos la alerta
                     
 //aqui se vera si el usuario respondio a la alarma
                    
                  
-    alert("haz algo rapido");
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                     navigator.vibrate(1600);
                     isNotified = 1;
