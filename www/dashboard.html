@@ -348,6 +348,8 @@ $( document ).ready(function() {
                 cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
                 window.localStorage.removeItem("sucess");
                 logoutAndClose();
+                                clearInterval(intervalNotification);
+
                 location.href='index.html';
             }else{
 
@@ -879,7 +881,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
     }
 
     function showAlertWithoutSound(alertar) { 
-        //es similar al showAlert pero no tiene alarma, por ejemplo cuando el sistema esta en estado normal y en este caso usara el sonido de notificaciones default del movil
+        //es similar al showAlert pero no tiene alarma, por ejemplo cuando el sistema esta en estado normal y en este caso usara el sonido de notificaciones default del movil Tambien aqui se llama a systems ready
         cordova.plugins.notification.badge.set(0);
         numale=0;
         var now  = new Date().getTime();
@@ -897,6 +899,8 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
         }, this);
 
         media.pause();
+        clearInterval(intervalNotification);
+        location.reload();
 
     }  
 
@@ -920,6 +924,9 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
  
  }, this);
  media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+        clearInterval(intervalNotification); 
+
+
          }
 
     // metodo de logout
@@ -930,7 +937,6 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
         cordova.plugins.notification.local.cancelAll(function() {
             //cancela todas las notificaciones de alarma
         }, this);
-                clearInterval(intervalNotification);
 
     }
         
