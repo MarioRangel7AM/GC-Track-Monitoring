@@ -799,7 +799,7 @@ function showAlertWithoutSound(alertar) {
 
 	
 	function dismissBadge(){
-	 
+console.log(ontracker);	 
 	   cordova.plugins.notification.badge.set(0);
  numale=0;
  
@@ -812,11 +812,10 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
  }, this);
  media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
  
-
 $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker})
              .done(function( data ) {
         
-
+alert("se ha notificado");
 
 	 });
 
