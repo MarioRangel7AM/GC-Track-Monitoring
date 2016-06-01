@@ -197,15 +197,7 @@ function onDeviceReady() {
         ticker: 'reading'
     });
 
-    myMedia = new Media("/android_asset/www/alarm.mp3", 
-        function(){
-        
-
-        }, 
-        function(error){
-
-        }
-    );
+    myMedia = new Media("/android_asset/www/alarm.mp3", onSuccess,onError,onStatus);
 
 }
 
