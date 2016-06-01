@@ -847,6 +847,7 @@ playAudio();
         }, this);
 
         media.pause();
+        stopAudio();
         clearInterval(intervalNotification);
         location.reload();
 
@@ -872,6 +873,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
  
  }, this);
  media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+       stopAudio();
         clearInterval(intervalNotification); 
 
  
@@ -880,9 +882,11 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
 
 function playAudio() {
-    alert("REPRODUCIOENDO ALARMA");
-           // Play audio
     myMedia.play();
+}
+
+function stopAudio() {
+    myMedia.stop();
 }
 
 
