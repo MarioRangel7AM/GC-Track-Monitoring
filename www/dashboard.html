@@ -899,6 +899,7 @@ function pauseAudio() {
         cordova.plugins.notification.local.cancelAll(function() {
             //cancela todas las notificaciones de alarma
         }, this);
+        myMedia.stop();//detiene el sonido en android
 
     }
         
