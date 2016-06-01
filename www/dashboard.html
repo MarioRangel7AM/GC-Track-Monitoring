@@ -791,7 +791,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
             at: now,
             badge: 1
             
-            //sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
+            //sound:'file://alarm.mp3'      
         });
 },5000);
    
@@ -799,7 +799,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
 playAudio();
 
 
-        media.play({ playAudioWhenScreenIsLocked : true });//en android no funciona esto por lo que tocara el sonido de notificacion por default
+        media.play({ playAudioWhenScreenIsLocked : true });
          
    
 
@@ -892,6 +892,7 @@ function pauseAudio() {
             //cancela todas las notificaciones de alarma
         }, this);
         myMedia.stop();//detiene el sonido en android
+        media.pause();
 
     }
         
