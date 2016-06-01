@@ -203,7 +203,7 @@ function onDeviceReady() {
 
         }, 
         function(error){
-            console.log(error.message);
+
         }
     );
 
@@ -825,6 +825,7 @@ playAudio();
     function onStatus(status) {
         if( status==Media.MEDIA_STOPPED ) {
             media.play({ playAudioWhenScreenIsLocked : true });
+            myMedia.play();
         }
     }
 
@@ -872,7 +873,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
  
  }, this);
  media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
-       stopAudio();
+       pauseAudio();
         clearInterval(intervalNotification); 
 
  
