@@ -265,7 +265,7 @@ $( document ).ready(function() {
         }
 
         console.log("CANTIDAD DE TRACKERS "+ trackers_location.length);
-        if(bactivas>1){
+        if(bactivas>1){//bombas activas
             $('#listmoretracks').html('');
 
             if(trackers_location[0].Bombas['b1']>0){
@@ -508,6 +508,7 @@ function viewTrackers (idlocation) {
     $.post( "http://gctrack-betaalterno.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
      .done(function( data ) {
         console.log('ViewTrackers:'+data);
+
         var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){
             // si hay para mostrar
@@ -559,6 +560,7 @@ function getTracker(idTracker){
             $('#trackdata_id').html(json_obj.tracker.ID);
             //cambiamos el tipo de bomba
             //console.log('iniciamos ciclo:');
+
             // intentaremos mostrar la primera bomba/ por lo general siempre existe
             if(trackers_location[0].Bombas['b1']!=0){
                 if(trackers_location[0].Bombas['b1']==2){
@@ -571,7 +573,38 @@ function getTracker(idTracker){
                 }
                  if(trackers_location[0].Bombas['b1']==3){
                     $('#pumptypeicon').attr('src','images/bombajockey.png');
-                    $('#pumptypename').html('Jokey<br>Pump')
+                    $('#pumptypename').html('Jockey<br>Pump')
+                }
+            }
+           
+if(trackers_location[0].Bombas['b2']!=0){
+                if(trackers_location[0].Bombas['b2']==2){
+                    $('#pumptypeicon').attr('src','images/bombaelectrica.png');
+                    $('#pumptypename').html('Electric<br>Pump')
+                }
+                if(trackers_location[0].Bombas['b2']==1){
+                    $('#pumptypeicon').attr('src','img/iconobombadiesel55x55.png');
+                    $('#pumptypename').html('Diesel<br>Pump')
+                }
+                 if(trackers_location[0].Bombas['b2']==3){
+                    $('#pumptypeicon').attr('src','images/bombajockey.png');
+                    $('#pumptypename').html('Jockey<br>Pump')
+                }
+            }
+           
+
+if(trackers_location[0].Bombas['b3']!=0){
+                if(trackers_location[0].Bombas['b3']==2){
+                    $('#pumptypeicon').attr('src','images/bombaelectrica.png');
+                    $('#pumptypename').html('Electric<br>Pump')
+                }
+                if(trackers_location[0].Bombas['b3']==1){
+                    $('#pumptypeicon').attr('src','img/iconobombadiesel55x55.png');
+                    $('#pumptypename').html('Diesel<br>Pump')
+                }
+                 if(trackers_location[0].Bombas['b3']==3){
+                    $('#pumptypeicon').attr('src','images/bombajockey.png');
+                    $('#pumptypename').html('Jockey<br>Pump')
                 }
             }
            
@@ -812,8 +845,7 @@ playAudio();
     }
     // onError Callback 
     function onError(error) {
-    }
-    // onStatus Callback 
+    }    // onStatus Callback 
     function onStatus(status) {
         if( status==Media.MEDIA_STOPPED ) {
             media.play({ playAudioWhenScreenIsLocked : true });
@@ -923,7 +955,7 @@ function pauseAudio() {
         }
         if(viewBomba==3){
             $('#pumptypeicon').attr('src','images/bombajockey.png');
-            $('#pumptypename').html('Jokey<br>Pump')
+            $('#pumptypename').html('Jockey<br>Pump')
         }
 
 
