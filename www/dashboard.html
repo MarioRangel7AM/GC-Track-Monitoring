@@ -786,15 +786,14 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
              id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
             text: "EMERGENCY "+alertar,
             at: now,
-            badge: 1,
+            badge: 1
             
             //sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
-            sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
         });
 },5000);
       
         
-
+playAudio("file://alarm.mp3");
 
 
         media.play({ playAudioWhenScreenIsLocked : true });//en android no funciona esto por lo que tocara el sonido de notificacion por default
@@ -866,6 +865,22 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
 
          }
+
+
+
+function playAudio(ruta) {
+    var url = audioElement.getAttribute(ruta);
+    var my_media = new Media(url,
+            // success callback
+             function () { console.log("playAudio():Audio Success"); },
+            // error callback
+             function (err) { console.log("playAudio():Audio Error: " + err); }
+    );
+           // Play audio
+    my_media.play();
+}
+
+
 
     // metodo de logout
     function logoutAndClose(){
