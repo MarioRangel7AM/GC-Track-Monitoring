@@ -792,7 +792,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
         media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
 
 //cada 5 segundos se llamara esto        
-/* intervalNotification=setInterval(function(){
+ intervalNotification=setInterval(function(){
         cordova.plugins.notification.local.schedule({
              id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
             text: "EMERGENCY "+alertar,
@@ -802,7 +802,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
             //sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
         });
 },5000);
-  */    
+   
         
 playAudio();
 
