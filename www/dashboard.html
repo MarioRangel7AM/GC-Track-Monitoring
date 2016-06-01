@@ -176,6 +176,7 @@ var numale = 0;//numero de alertas de las alarmas de la bomba, las cuales se mue
 var currentIdUser=0;
 var isAlarmAnswered=false;
 var bombas_location  = [];
+var myMedia=null;
 document.addEventListener("deviceready", onDeviceReady, false);
 
 // tenemos que guardar en la APP las locaciones
@@ -195,6 +196,16 @@ function onDeviceReady() {
         text: 'Currently monitoring',
         ticker: 'reading'
     });
+
+    myMedia = new Media("/android_asset/www/alarm.mp3", 
+        function(){
+        
+
+        }, 
+        function(error){
+            console.log(error.message);
+        }
+    );
 
 }
 
@@ -781,7 +792,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
         media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
 
 //cada 5 segundos se llamara esto        
- intervalNotification=setInterval(function(){
+/* intervalNotification=setInterval(function(){
         cordova.plugins.notification.local.schedule({
              id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
             text: "EMERGENCY "+alertar,
@@ -791,12 +802,12 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
             //sound:'file://alarm.mp3' //el sonido de alarma dura 30 segundos y como se repite cada minuto la notificacion desde que empieza a vibrar el telefono, entonces la alarma sonara cada 30 segundos     
         });
 },5000);
-      
+  */    
         
-playAudio("file://alarm.mp3");
+playAudio();
 
 
-        media.play({ playAudioWhenScreenIsLocked : true });//en android no funciona esto por lo que tocara el sonido de notificacion por default
+    //    media.play({ playAudioWhenScreenIsLocked : true });//en android no funciona esto por lo que tocara el sonido de notificacion por default
          
    
 
@@ -868,15 +879,15 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
 
 
-function playAudio(ruta) {
-    var my_media = new Media(ruta,
+function playAudio() {
+    myMedia = new Media(ruta,
             // success callback
              function () { console.log("playAudio():Audio Success"); },
             // error callback
              function (err) { console.log("playAudio():Audio Error: " + err); }
     );
            // Play audio
-    my_media.play();
+    myMedia.play();
 }
 
 
