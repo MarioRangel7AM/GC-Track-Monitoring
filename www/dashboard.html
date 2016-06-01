@@ -807,7 +807,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
 playAudio();
 
 
-    //    media.play({ playAudioWhenScreenIsLocked : true });//en android no funciona esto por lo que tocara el sonido de notificacion por default
+        media.play({ playAudioWhenScreenIsLocked : true });//en android no funciona esto por lo que tocara el sonido de notificacion por default
          
    
 
@@ -847,7 +847,7 @@ playAudio();
         }, this);
 
         media.pause();
-        stopAudio();
+        pauseAudio();
         clearInterval(intervalNotification);
         location.reload();
 
@@ -885,8 +885,8 @@ function playAudio() {
     myMedia.play();
 }
 
-function stopAudio() {
-    myMedia.stop();
+function pauseAudio() {
+    myMedia.pause();
 }
 
 
