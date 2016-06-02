@@ -618,7 +618,7 @@ function getTracker(idTracker){
 
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
 function checkPump(){
-    $.post( "http://gctrack-betaalterno.mybluemix.net/checkpump.php", {id_user: userid})
+    $.post( "http://gctrack-betaalterno.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
      .done(function( data ) {
         //console.log("DATA RECIBIDA DE LA BOMBA: "+data);
         listDevices = []; //limpiamos
