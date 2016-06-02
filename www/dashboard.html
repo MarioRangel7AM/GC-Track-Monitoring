@@ -174,7 +174,6 @@ var trackers_location = [];
 var currentPumpstatus='';
 var numale = 0;//numero de alertas de las alarmas de la bomba, las cuales se muestran como burbuja en el icono de la app
 var currentIdUser=0;
-var isAlarmAnswered=false;
 var bombas_location  = [];
 var myMedia=null;
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -845,7 +844,7 @@ playAudio();
 
     }  
 
-    // metodo para borrar un numero de burbuja de notificacion
+    // metodo para borrar los valores de la  de burbuja de notificacion
     
 
 function dismissBadge(){
@@ -853,15 +852,14 @@ console.log(ontracker);
        cordova.plugins.notification.badge.set(0);
  numale=0;
  
- $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker})
-             .done(function( data ) {///con este post la alarma se cambia a 1
+ $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker, id_user : currentIdUser})
+             .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
     
 
-        isAlarmAnswered=true;
     
      });
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+navigator.notification.alert("Alarms dismissed"+currentIdUser ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
  
  }, this);
  media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
