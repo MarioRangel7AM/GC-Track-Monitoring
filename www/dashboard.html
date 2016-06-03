@@ -657,16 +657,15 @@ function checkPump(){
             .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
 
           data = $.parseJSON(data);
-            alert("dsdfdsfdsf"+data.answer);
             
         
 
 
         });
        
-       alert("LEE ESTO"+data.answer); 
  if(data.answer=='NO'){
             //NO ENTRA AQUI A PESAR DE QUE EL VALOR DE DATA ES NO Y AQUI ADENTRO SUENA LA ALARMA
+             
                 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                 //  navigator.vibrate(1600);
            
