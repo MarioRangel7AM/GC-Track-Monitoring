@@ -848,26 +848,14 @@ function dismissBadge(){
     cordova.plugins.notification.badge.set(0);
     numale=0;
 
-<<<<<<< HEAD
     $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker, id_user : currentIdUser})
     .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
-=======
     
      });
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
 navigator.notification.alert("Alarms dismissed"+currentIdUser ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
  
  }, this);
- media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
-       pauseAudio();
-        clearInterval(intervalNotification); 
->>>>>>> parent of cafdfd5... removido una variable de prueba concatendad
-
-    });
-    cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-    navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-
-    }, this);
     media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     pauseAudio();
     clearInterval(intervalNotification); 
