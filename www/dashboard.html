@@ -617,7 +617,7 @@ function getTracker(idTracker){
 
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
 function checkPump(){
-    $.post( "http://gctrack-betaalterno.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
+    $.post( "http://gctrack-betaalterno.mybluemix.net/checkpump.php", {id_user: userid, notified:isNotified})
     .done(function( data ) {
     //console.log("DATA RECIBIDA DE LA BOMBA: "+data);
     listDevices = []; //limpiamos
@@ -651,21 +651,28 @@ function checkPump(){
         }else{ 
         //le mandamos la alerta
         isNotified = 1;
-
+ var data; 
         //aqui se vera si el usuario respondio a la alarma
         $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsAnswered.php", {id_tracker: ontracker, id_user : currentIdUser})
             .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
 
-            var data = $.parseJSON(data);
+          data = $.parseJSON(data);
             alert("dsdfdsfdsf"+data.answer);
-            if(data.answer=='NO'){
+            
+        
+
+
+        });
+        
+ if(data.answer=='NO'){
             //NO ENTRA AQUI A PESAR DE QUE EL VALOR DE DATA ES NO Y AQUI ADENTRO SUENA LA ALARMA
                 alert("YA ENTRE");
                 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                 //  navigator.vibrate(1600);
+           
                 numale++;
-            }
-        });
+
+
         }
 
 
@@ -784,8 +791,13 @@ function validateCCEmail(email) {
 function showAlert(alertar) {
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
+
+
+ playAudio();
     var _3_sec_from_now = new Date(now + 3 *1000);
     media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
+
+
 
     //cada 5 segundos se llamara esto        
     intervalNotification=setInterval(function(){
@@ -797,7 +809,7 @@ function showAlert(alertar) {
         //sound:'file://alarm.mp3'      
     });
     },5000);
-    playAudio();
+   
     media.play({ playAudioWhenScreenIsLocked : true });
 }      
 
@@ -852,10 +864,15 @@ function dismissBadge(){
     .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
     
      });
+ 
+
+
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
 navigator.notification.alert("Alarms dismissed"+currentIdUser ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
  
  }, this);
+
+
     media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     pauseAudio();
     clearInterval(intervalNotification); 
