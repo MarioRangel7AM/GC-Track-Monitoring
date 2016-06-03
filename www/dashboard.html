@@ -317,7 +317,7 @@ $( document ).ready(function() {
             //console.log(data); 
             //var data = $.parseJSON(data);
             if(data.mensaje=='goodbye'){
-                cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
+               // cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
                 window.localStorage.removeItem("sucess");
                 logoutAndClose();
                                 clearInterval(intervalNotification);
@@ -660,7 +660,10 @@ function checkPump(){
              .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
     
 var data = $.parseJSON(data);
-if(data.answer=="NO"){
+if(data.answer=='NO'){
+    //NO ENTRA AQUI A PESAR DE QUE EL VALOR DE DATA ES NO Y AQUI ADENTRO SUENA LA ALARMA
+
+
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
                     numale++;
