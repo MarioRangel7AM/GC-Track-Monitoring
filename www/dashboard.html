@@ -310,6 +310,8 @@ $( document ).ready(function() {
 
   
     $('#logout').click(function(){
+       
+
         $.getJSON( "http://gctrack-betaalterno.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
         .done(function( data ) {
             //console.log(data); 
@@ -653,12 +655,23 @@ function checkPump(){
                     //le mandamos la alerta
                     
 //aqui se vera si el usuario respondio a la alarma
-                   
-                 
+             $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsAnswered.php", {id_tracker: ontracker, id_user : currentIdUser})
+             .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
+    
+
+
+if(data.isAlarmDismissed=="NO"){
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
                     isNotified = 1;
                     numale++;
+}
+
+
+    
+     });
+       
+                 
                     
 
 }
