@@ -663,10 +663,10 @@ function checkPump(){
 
 
         });
-        
+       
+       alert("LEE ESTO"+data.answer); 
  if(data.answer=='NO'){
             //NO ENTRA AQUI A PESAR DE QUE EL VALOR DE DATA ES NO Y AQUI ADENTRO SUENA LA ALARMA
-                alert("YA ENTRE");
                 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                 //  navigator.vibrate(1600);
            
