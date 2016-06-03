@@ -658,8 +658,7 @@ function checkPump(){
              $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsAnswered.php", {id_tracker: ontracker, id_user : currentIdUser})
              .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
     
-
-alert("VALOR"+data.isAlarmDismissed+currentIdUser);
+var data = $.parseJSON(data);
 if(data.isAlarmDismissed=="NO"){
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
