@@ -659,7 +659,7 @@ function checkPump(){
              .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
     
 
-
+alert("VALOR"+data.isAlarmDismissed+currentIdUser);
 if(data.isAlarmDismissed=="NO"){
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
