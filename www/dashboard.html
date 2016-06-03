@@ -569,8 +569,11 @@ function checkPump(){
             $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: ontracker, id_user : currentIdUser})
                 .done(function( data ) {///con este post vemos si la la alarma esta encendida
                 data = $.parseJSON(data);
+
+
             });
        
+
     if(data.answer=='YES'){
             //NO ENTRA AQUI A PESAR DE QUE EL VALOR DE DATA ES NO Y AQUI ADENTRO SUENA LA ALARMA
              
