@@ -317,7 +317,7 @@ $( document ).ready(function() {
     //console.log(data); 
     //var data = $.parseJSON(data);
     if(data.mensaje=='goodbye'){
-    // cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
+     cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
     window.localStorage.removeItem("sucess");
     logoutAndClose();
     clearInterval(intervalNotification);
