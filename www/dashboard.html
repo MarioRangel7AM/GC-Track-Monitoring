@@ -579,17 +579,17 @@ var data="";
     .done(function( data ) {
         data=$.parseJSON(data);
         console.log("DATA"+data.answer);
-    
-     });
-          
-        
-        if(data.answer=="YES"){    
+    if(data.answer=="YES"){    
         console.log("hola");     
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
-                    isNotified = 1;
                     numale++;
                     }
+     });
+          
+        console.log("DATA aqui "+data.answer);
+                    isNotified = 1;
+        
 }
     
  
