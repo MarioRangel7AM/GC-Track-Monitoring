@@ -537,6 +537,8 @@ function getTracker(idTracker){
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
 
 function checkPump(){
+    
+var data="";
     $.post( "http://gctrack-betaalterno.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
      .done(function( data ) {
         //console.log("DATA RECIBIDA DE LA BOMBA: "+data);
@@ -572,13 +574,22 @@ function checkPump(){
                     //le mandamos la alerta
                     
 //aqui se vera si el usuario respondio a la alarma
-                   
-                 
+          
+           $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: json_obj.tracker[i].ID, id_user : currentIdUser})
+    .done(function( data ) {
+        data=$.parseJSON(data);
+        console.log("DATA"+data.answer);
+    
+     });
+          
+        
+        if(data.answer=="YES"){    
+        console.log("hola");     
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
                     isNotified = 1;
                     numale++;
-                    
+                    }
 }
     
  
