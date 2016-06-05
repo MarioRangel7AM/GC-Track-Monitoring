@@ -580,14 +580,25 @@ var data="";
         data=$.parseJSON(data);
         console.log("DATA"+data.answer);
     if(data.answer=="YES"){    
-        console.log("hola");     
+        console.log("hola");  
+        window.localStorage.setItem("alarmactive","YES");
+
+    }
+     
+
+     });
+          
+console.log("valor de localStorage"+window.localStorage.getItem("alarmactive"));
+if(window.localStorage.getItem("alarmactive")=="YES"){
+    console.log("entrando al if");
+
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
                     numale++;
-                    }
-     });
-          
-        console.log("DATA aqui "+data.answer);
+
+
+}
+
                     isNotified = 1;
         
 }
