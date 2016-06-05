@@ -565,23 +565,27 @@ function checkPump(){
             resultpump = 1;
             //revisamos si esta notificado de esto
             //
-            var data; 
-            $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: ontracker, id_user : currentIdUser})
+
+            console.log("VALORESDSSSS  "+"TRACKER ID "+json_obj.tracker[i].ID+"  USER DS"+currentIdUser);
+            
+            $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: json_obj.tracker[i].ID, id_user : currentIdUser})
                 .done(function( data ) {///con este post vemos si la la alarma esta encendida
-                data = $.parseJSON(data);
+                          var data = $.parseJSON(data);
 
+console.log("el valor de data aqui dentro es"+data.answer);
 
-            });
-       
-
-    if(data.answer=='YES'){
-            //NO ENTRA AQUI A PESAR DE QUE EL VALOR DE DATA ES NO Y AQUI ADENTRO SUENA LA ALARMA
-             
+ if(data.answer=='YES'){
+            //YA ENTRA AQUI 
+             navigator.vibrate(1600);
                 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
-                //  navigator.vibrate(1600);
+                  
            
                 numale++;
         }
+   
+
+            });
+       
     }
     }
     //actualizamos la vista del tracker que estoy viendo
@@ -730,18 +734,21 @@ function showAlertWithoutSound(alertar) {
 }  
 // metodo para borrar los valores de la  de burbuja de notificacion
 function dismissBadge(){
-    console.log(ontracker);  
+    console.log("VALOR "+ontracker);  
     cordova.plugins.notification.badge.set(0);
     numale=0;
     $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker, id_user : currentIdUser})
     .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
     
+    console.log("Funciono");
      });
  
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-navigator.notification.alert("Alarms dismissed"+currentIdUser ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
  
  }, this);
+   
+navigator.notification.alert("Alarms dismissed"+currentIdUser ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+
     media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     pauseAudio();
     clearInterval(intervalNotification); 
