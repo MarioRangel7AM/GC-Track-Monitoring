@@ -596,9 +596,10 @@ if(window.localStorage.getItem("alarmactive")=="YES"){
     console.log("valor dsdfcdsfsd"+i);
     console.log("ya entre");
 
-//showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
+showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
                    // numale++;
+
 numale=1;
    /// console.log("valor NUMALE"+numale);
 
@@ -780,7 +781,7 @@ function dismissBadge(){
    
 navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
 
-    media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+    media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     pauseAudio();
     clearInterval(intervalNotification); 
 }
