@@ -605,11 +605,10 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
                   //  navigator.vibrate(1600);
                    // numale++;
 numale=1; 
+        isNotified=1;
 
    /// console.log("valor NUMALE"+numale);
-window.localStorage.setItem("alarmactive","NO");
 }
-        isNotified=1;
 
 }
     
@@ -769,7 +768,6 @@ function showAlertWithoutSound(alertar) {
     media.pause();
     pauseAudio();
     clearInterval(intervalNotification);
-    window.localStorage.setItem("alarmactive","NO");
 
 }  
 // metodo para borrar los valores de la  de burbuja de notificacion
@@ -791,6 +789,8 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
     media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     pauseAudio();
     clearInterval(intervalNotification); 
+        window.localStorage.setItem("alarmactive","NO");
+
 }
 function playAudio() {
     myMedia.play({ playAudioWhenScreenIsLocked : true });
