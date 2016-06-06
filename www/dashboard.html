@@ -605,7 +605,7 @@ numale=1;
 
 window.localStorage.setItem("alarmactive","NO");
 }
-
+isNotified=1
         
 }
     
@@ -767,12 +767,12 @@ function showAlertWithoutSound(alertar) {
 // metodo para borrar los valores de la  de burbuja de notificacion
 function dismissBadge(){
     console.log("VALOR "+ontracker);  
-    cordova.plugins.notification.badge.set(0);
+   // cordova.plugins.notification.badge.set(0);
     numale=0;
     $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker, id_user : currentIdUser})
     .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
-    
-    console.log("Funciono");
+    var data=$.parseJSON(data);
+    console.log("Funciono"+data. );
      });
  
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
