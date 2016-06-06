@@ -276,6 +276,8 @@ $( document ).ready(function() {
          //cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
         window.localStorage.removeItem("sucess");
         //logoutAndClose();
+        cordova.plugins.notification.badge.set(0);
+    numale=0;
         //clearInterval(intervalNotification);
         
         location.href='index.html';
@@ -755,7 +757,7 @@ function showAlertWithoutSound(alertar) {
     cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
     //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     }, this);
-    media.pause();
+    media.stop();
     pauseAudio();
     clearInterval(intervalNotification);
 }  
