@@ -771,7 +771,7 @@ function showAlertWithoutSound(alertar) {
     cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
     //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     }, this);
-    media.pause();
+    media.stop();
     pauseAudio();
     clearInterval(intervalNotification);
 }  
@@ -807,7 +807,7 @@ function logoutAndClose(){
     cordova.plugins.notification.local.cancelAll(function() {
     //cancela todas las notificaciones de alarma
     }, this);
-    myMedia.pause();//detiene el sonido en android
+    myMedia.stop();//detiene el sonido en android
     media.pause();
 }
 // Repetidor de codigo
