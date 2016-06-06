@@ -297,12 +297,6 @@ if(buttonIndex==1){//the ok button
 
         cordova.plugins.notification.badge.set(0);
     numale=0;
-    clearInterval(intervalNotification);
-    cordova.plugins.notification.local.cancelAll(function() {
-    //cancela todas las notificaciones de alarma
-    }, this);
-    myMedia.pause();//detiene el sonido en android
-    media.pause();
         
         location.href='index.html';
         }
