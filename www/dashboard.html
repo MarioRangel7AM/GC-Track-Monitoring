@@ -273,11 +273,12 @@ $( document ).ready(function() {
         console.log("Mensaje"+data.mensaje);
         if(data.mensaje=='goodbye'){
             console.log("ADENTRO DEL IF");
-         //cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
+         cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
         window.localStorage.removeItem("sucess");
        // logoutAndClose();
         cordova.plugins.notification.badge.set(0);
     numale=0;
+     media.pause();
         //clearInterval(intervalNotification);
         
         location.href='index.html';
@@ -721,7 +722,7 @@ function showAlert(alertar) {
         //sound:'file://alarm.mp3'      
     });
     },10000);
- //playAudio();
+ playAudio();
    
     media.play({ playAudioWhenScreenIsLocked : true });
 }      
@@ -773,7 +774,7 @@ function dismissBadge(){
    
 navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
-   // pauseAudio();
+    pauseAudio();
     clearInterval(intervalNotification); 
 }
 function playAudio() {
