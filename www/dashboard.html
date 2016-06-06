@@ -540,6 +540,8 @@ function getTracker(idTracker){
     });
 } // fin de getTracker
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
+var x=0; //variable contador para prueba de depuracion
+
 function checkPump(){
     
 var data="";
@@ -582,7 +584,9 @@ var data="";
            $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: json_obj.tracker[i].ID, id_user : currentIdUser})
     .done(function( data ) {
         data=$.parseJSON(data);
-        //console.log("DATA"+data.answer);
+        console.log("DATA"+data.answer);
+        console.log("VALOR X"+x);
+        x++;
     if(data.answer=="YES"){    
        // console.log("hola");  
         window.localStorage.setItem("alarmactive","YES");
@@ -591,12 +595,15 @@ var data="";
      });
           
 if(window.localStorage.getItem("alarmactive")=="YES"){
-    console.log("valor dsdfcdsfsd"+i);
+    console.log("valor dsdfcdsfsd"+i+"LocAL STORAGE"+window.localStorage.getItem("alarmactive"));
     console.log("ya entre");
+
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
                    // numale++;
-numale=1;
+numale=1; 
+isNotified=1;
+
    /// console.log("valor NUMALE"+numale);
 window.localStorage.setItem("alarmactive","NO");
 }
@@ -722,10 +729,13 @@ function showAlert(alertar) {
         //sound:'file://alarm.mp3'      
     });
     },10000);
- playAudio({ playAudioWhenScreenIsLocked : true });
+ playAudio();
    
     media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
 }      
+
+
+
 // onSuccess Callback
 function onSuccess() {
 }
@@ -778,7 +788,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
     clearInterval(intervalNotification); 
 }
 function playAudio() {
-    myMedia.play();
+    myMedia.play({ playAudioWhenScreenIsLocked : true });
 }
 function pauseAudio() {
     myMedia.pause();
