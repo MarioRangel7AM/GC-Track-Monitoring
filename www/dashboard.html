@@ -270,12 +270,14 @@ $( document ).ready(function() {
         $.getJSON( "http://gctrack-betaalterno.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
         .done(function( data ) {
         //console.log(data); 
-        //var data = $.parseJSON(data);
+        console.log("Mensaje"+data.mensaje);
         if(data.mensaje=='goodbye'){
-         cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
+            console.log("ADENTRO DEL IF");
+         //cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
         window.localStorage.removeItem("sucess");
-        logoutAndClose();
-        clearInterval(intervalNotification);
+        //logoutAndClose();
+        //clearInterval(intervalNotification);
+        
         location.href='index.html';
         }
         });
