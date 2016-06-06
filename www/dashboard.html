@@ -722,7 +722,7 @@ function showAlert(alertar) {
         //sound:'file://alarm.mp3'      
     });
     },10000);
- playAudio();
+ playAudio({ playAudioWhenScreenIsLocked : true });
    
     media.play({ playAudioWhenScreenIsLocked : true });
 }      
@@ -736,7 +736,7 @@ function onError(error) {
 function onStatus(status) {
     if( status==Media.MEDIA_STOPPED ) {
         media.play({ playAudioWhenScreenIsLocked : true });
-        myMedia.play();
+        myMedia.play({ playAudioWhenScreenIsLocked : true });
     }
 }
 function showAlertWithoutSound(alertar) { 
