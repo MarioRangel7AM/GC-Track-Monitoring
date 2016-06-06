@@ -275,7 +275,7 @@ $( document ).ready(function() {
             console.log("ADENTRO DEL IF");
          //cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
         window.localStorage.removeItem("sucess");
-        //logoutAndClose();
+        logoutAndClose();
         cordova.plugins.notification.badge.set(0);
     numale=0;
         //clearInterval(intervalNotification);
@@ -718,7 +718,7 @@ function showAlert(alertar) {
         //sound:'file://alarm.mp3'      
     });
     },10000);
- playAudio();
+ //playAudio();
    
     media.play({ playAudioWhenScreenIsLocked : true });
 }      
@@ -742,7 +742,8 @@ function showAlertWithoutSound(alertar) {
     var now  = new Date().getTime();
     var _3_sec_from_now = new Date(now + 3*1000);
     cordova.plugins.notification.local.schedule({
-        id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
+        id:1,//NO PONGA
+        S PUNTO Y COMA YA QUE CAUSA ERROR
         text: alertar,
         at: now,
     });
@@ -786,7 +787,7 @@ function logoutAndClose(){
     cordova.plugins.notification.local.cancelAll(function() {
     //cancela todas las notificaciones de alarma
     }, this);
-    myMedia.stop();//detiene el sonido en android
+    myMedia.pause();//detiene el sonido en android
     media.pause();
 }
 // Repetidor de codigo
