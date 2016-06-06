@@ -269,10 +269,10 @@ $( document ).ready(function() {
     $('#logout').click(function(){
 //cuadro de dialogo para confirmar alguna accion
         navigator.notification.confirm(
-    'if you logout, you wont receive any further alarms and notifications', // message
+    "If you logout, you won't receive any further alarms and notifications", // message
      onConfirm,            // callback to invoke with index of button pressed
-    'WARNING:Are you sure? ',           // title
-    ['OK','Cancel']     // buttonLabels
+    "WARNING",           // title
+    ["OK","Cancel"]     // buttonLabels
 );
 
 
