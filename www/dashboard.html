@@ -591,6 +591,11 @@ var data="";
        // console.log("hola");  
         window.localStorage.setItem("alarmactive","YES");
     }
+    else if(data.answer=="NO"){
+
+        window.localStorage.setItem("alarmactive","NO");
+
+    }
      
      });
           
@@ -602,12 +607,12 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
                   //  navigator.vibrate(1600);
                    // numale++;
 numale=1; 
-isNotified=1;
 
    /// console.log("valor NUMALE"+numale);
 window.localStorage.setItem("alarmactive","NO");
 }
-        
+        isNotified=1;
+
 }
     
  
