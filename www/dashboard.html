@@ -701,8 +701,11 @@ function validateCCEmail(email) {
     }
     else{
         return false;
-0    }
+    }
 }
+
+
+
 function showAlert(alertar) {
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
@@ -770,7 +773,7 @@ function dismissBadge(){
    
 navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
-    pauseAudio();
+   // pauseAudio();
     clearInterval(intervalNotification); 
 }
 function playAudio() {
