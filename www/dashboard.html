@@ -589,10 +589,16 @@ var data="";
        // console.log("hola");  
         window.localStorage.setItem("alarmactive","YES");
 
+    }else{
+
+
+        window.localStorage.setItem("alarmactive","NO");
     }
      
 
      });
+
+    console.log("ESTATUS DEL LOCALSTORGAE"+window.localStorage.getItem("alarmactive"));
           
 if(window.localStorage.getItem("alarmactive")=="YES"){
     console.log("valor dsdfcdsfsd"+i);
