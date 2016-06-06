@@ -589,6 +589,8 @@ var data="";
      });
           
 if(window.localStorage.getItem("alarmactive")=="YES"){
+    console.log("valor dsdfcdsfsd"+i);
+    console.log("ya entre");
 
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
@@ -707,7 +709,6 @@ function validateCCEmail(email) {
 function showAlert(alertar) {
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
- playAudio();
     var _3_sec_from_now = new Date(now + 3 *1000);
     media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
     //cada 5 segundos se llamara esto        
@@ -719,7 +720,9 @@ function showAlert(alertar) {
         badge: 1
         //sound:'file://alarm.mp3'      
     });
-    },5000);
+    },10000);
+
+ playAudio();
    
     media.play({ playAudioWhenScreenIsLocked : true });
 }      
