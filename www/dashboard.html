@@ -564,7 +564,6 @@ function getTracker(idTracker){
     });
 } // fin de getTracker
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
-var x=0; //variable contador para prueba de depuracion
 
 function checkPump(){
     
@@ -596,7 +595,7 @@ var data="";
             //alert(listDevices[i].status);
             if(listDevices[i].status!='0'){
                 // encontramos un problema
-                resultpump = 1;
+                resultpump = 1;//esto se pone en 1 en el momento del error
                 //revisamos si esta notificado de esto
                 if(isNotified == 1){
                     //no hacemos accion
@@ -681,8 +680,10 @@ numale=1;
                     generalres = 0;
                     isNotified = 0;
                    // navigator.vibrate(500);
-                    showAlertWithoutSound("Systems ready");
+                    
+                    showAlertWithoutSound("Systems ready");//callas las alarmas
 
+        window.localStorage.setItem("alarmactive","NO");
 
                 } 
             }
