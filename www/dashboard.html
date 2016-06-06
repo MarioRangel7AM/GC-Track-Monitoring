@@ -539,7 +539,6 @@ function getTracker(idTracker){
     });
 } // fin de getTracker
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
-
 function checkPump(){
     
 var data="";
@@ -579,38 +578,25 @@ var data="";
                     
 //aqui se vera si el usuario respondio a la alarma
           
-           $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: ontracker, id_user : currentIdUser})
-
+           $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: json_obj.tracker[i].ID, id_user : currentIdUser})
     .done(function( data ) {
         data=$.parseJSON(data);
-        console.log("DATA"+data.answer);
-        console.log("TRACKER VALUE"+ontracker);
+        //console.log("DATA"+data.answer);
     if(data.answer=="YES"){    
        // console.log("hola");  
         window.localStorage.setItem("alarmactive","YES");
-
-    }else{
-
-
-        window.localStorage.setItem("alarmactive","NO");
     }
      
-
      });
-
-    console.log("ESTATUS DEL LOCALSTORAGE"+window.localStorage.getItem("alarmactive"));
           
 if(window.localStorage.getItem("alarmactive")=="YES"){
     console.log("valor dsdfcdsfsd"+i);
     console.log("ya entre");
-
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
-                    // numale++;
-
+                   // numale++;
 numale=1;
    /// console.log("valor NUMALE"+numale);
-
 window.localStorage.setItem("alarmactive","NO");
 }
         
@@ -667,9 +653,6 @@ window.localStorage.setItem("alarmactive","NO");
         } 
     });
 } 
-
-
-
 // metodo general para lanzar notificaciones
 //enviar tabla por correo
 $('#sendReport').click(function(){
@@ -722,14 +705,10 @@ function validateCCEmail(email) {
 }
 function showAlert(alertar) {
     var now = new Date().getTime();
-   
-
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
     var _3_sec_from_now = new Date(now + 3 *1000);
     media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
     //cada 10 segundos se llamara esto        
-   
-console("toco el audio");
     intervalNotification=setInterval(function(){
         cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
@@ -739,7 +718,6 @@ console("toco el audio");
         //sound:'file://alarm.mp3'      
     });
     },10000);
-
  playAudio();
    
     media.play({ playAudioWhenScreenIsLocked : true });
@@ -771,17 +749,19 @@ function showAlertWithoutSound(alertar) {
     cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
     //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     }, this);
-    media.stop();
+    media.pause();
     pauseAudio();
     clearInterval(intervalNotification);
 }  
 // metodo para borrar los valores de la  de burbuja de notificacion
 function dismissBadge(){
     console.log("VALOR "+ontracker);  
-   // cordova.plugins.notification.badge.set(0);
+    cordova.plugins.notification.badge.set(0);
     numale=0;
     $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker, id_user : currentIdUser})
     .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
+    
+    console.log("Funciono");
      });
  
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
@@ -789,7 +769,6 @@ function dismissBadge(){
  }, this);
    
 navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-
     media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     pauseAudio();
     clearInterval(intervalNotification); 
