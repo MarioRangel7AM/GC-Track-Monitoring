@@ -275,7 +275,7 @@ $( document ).ready(function() {
             console.log("ADENTRO DEL IF");
          //cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
         window.localStorage.removeItem("sucess");
-        logoutAndClose();
+       // logoutAndClose();
         cordova.plugins.notification.badge.set(0);
     numale=0;
         //clearInterval(intervalNotification);
@@ -783,7 +783,7 @@ function pauseAudio() {
     myMedia.pause();
 }
 // metodo de logout
-function logoutAndClose(){
+/*function logoutAndClose(){
     cordova.plugins.notification.badge.set(0);
     numale=0;
     cordova.plugins.notification.local.cancelAll(function() {
@@ -791,7 +791,7 @@ function logoutAndClose(){
     }, this);
     myMedia.pause();//detiene el sonido en android
     media.pause();
-}
+}*/
 // Repetidor de codigo
 var timerId = setInterval(function() {
     checkPump();
