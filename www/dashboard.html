@@ -114,7 +114,7 @@
                 <tr>
                     <td id="dHeader">Date</td>
                     <td id="sHeader">Pump status</td>
-                    <td id="pHeader">Pressure</td>
+                    <td id="pHeader">PSI</td>
                 </tr>
             </thead>
         </table>
@@ -596,9 +596,11 @@ if(window.localStorage.getItem("alarmactive")=="YES"){
     console.log("valor dsdfcdsfsd"+i);
     console.log("ya entre");
 
-showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
+//showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
-                    numale++;
+                   // numale++;
+numale=1;
+   /// console.log("valor NUMALE"+numale);
 
 window.localStorage.setItem("alarmactive","NO");
 }
@@ -708,14 +710,14 @@ function validateCCEmail(email) {
     }
     else{
         return false;
-    }
+0    }
 }
 function showAlert(alertar) {
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
     var _3_sec_from_now = new Date(now + 3 *1000);
     media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
-    //cada 5 segundos se llamara esto        
+    //cada 10 segundos se llamara esto        
     intervalNotification=setInterval(function(){
         cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
@@ -778,7 +780,7 @@ function dismissBadge(){
    
 navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
 
-    media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+    media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     pauseAudio();
     clearInterval(intervalNotification); 
 }
