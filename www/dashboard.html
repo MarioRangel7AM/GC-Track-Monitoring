@@ -179,10 +179,11 @@ function onDeviceReady() {
 // cuando cargue la APP aplicamos estos codigos
 $( document ).ready(function() {
     userid = window.localStorage.getItem("iduser");
-    window.localStorage.setItem("isPressureNotified","0");
     bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
     var output="";
     var media;
+
+    window.localStorage.setItem("isPressureNotified",0);
     //OCULTAMOS EL ICONO INFO TRACKER
     $('#infoTracker').fadeOut();
     // cargamos bombas
@@ -569,6 +570,7 @@ function getTracker(idTracker){
 
 function checkPump(){
     
+
 var data="";
     $.post( "http://gctrack-betaalterno.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
      .done(function( data ) {
