@@ -293,7 +293,7 @@ $('#goback').click(function(){
                   
                 }else{
                     // No hay para mostrar
-                    alert('There is no incidents');
+                   // alert('There is no incidents');
                 }
                 console.log(registros);
                
@@ -449,7 +449,7 @@ return false;
 	}
 	else{
 
-	navigator.notification.alert("Phone number must be between 10 and 15 digits", null, "Invalid phone", "OK");//metodo para crear alertas personalizadas
+	navigator.notification.alert("Phone number must be between 10 and 15 digits and must not contain spaces", null, "Invalid phone", "OK");//metodo para crear alertas personalizadas
 
 	return false;
 	}
@@ -494,7 +494,7 @@ function getPumps(){
           
         }else{
             // No hay para mostrar
-            alert('No hay locaciones ni bombas para esta cuenta');
+           // alert('No hay locaciones ni bombas para esta cuenta');
         }
         console.log(locaciones);
         showPumps();
@@ -553,7 +553,7 @@ function viewTrackers (idlocation) {
             
         }else{
             // No hay para mostrar
-            alert('No hay Registros');
+            //alert('No hay Registros');
         }
     });
 }

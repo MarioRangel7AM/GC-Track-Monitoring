@@ -267,7 +267,23 @@ $( document ).ready(function() {
     }
     });
     $('#logout').click(function(){
-        $.getJSON( "http://gctrack-betaalterno.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
+//cuadro de dialogo para confirmar alguna accion
+        navigator.notification.confirm(
+    "If you logout, you won't receive any further alarms and notifications", // message
+     onConfirm,            // callback to invoke with index of button pressed
+    "WARNING",           // title
+    ["OK","Cancel"]     // buttonLabels
+);
+
+
+       
+    });
+
+
+
+    function onConfirm(buttonIndex) {
+if(buttonIndex==1){//the ok button
+ $.getJSON( "http://gctrack-betaalterno.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
         .done(function( data ) {
         //console.log(data); 
         console.log("Mensaje"+data.mensaje);
@@ -276,15 +292,25 @@ $( document ).ready(function() {
          cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
         window.localStorage.removeItem("sucess");
        // logoutAndClose();
+        
+
+
+
+
         cordova.plugins.notification.badge.set(0);
     numale=0;
-    // media.pause();
-        //clearInterval(intervalNotification);
         
         location.href='index.html';
         }
         });
-    });
+
+}
+else{
+
+//no hagas nada
+    }
+
+}
     // mostrando status de tracker
     $('#list_trackers').fadeOut();
     $('#view_tracker_status').fadeIn();
@@ -540,7 +566,6 @@ function getTracker(idTracker){
     });
 } // fin de getTracker
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
-var x=0; //variable contador para prueba de depuracion
 
 function checkPump(){
     
@@ -572,7 +597,7 @@ var data="";
             //alert(listDevices[i].status);
             if(listDevices[i].status!='0'){
                 // encontramos un problema
-                resultpump = 1;
+                resultpump = 1;//esto se pone en 1 en el momento del error
                 //revisamos si esta notificado de esto
                 if(isNotified == 1){
                     //no hacemos accion
@@ -606,6 +631,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
                    // numale++;
 numale=1; 
         isNotified=1;
+        window.localStorage.setItem("alarmactive","NO");
 
    /// console.log("valor NUMALE"+numale);
 }
@@ -657,7 +683,10 @@ numale=1;
                     generalres = 0;
                     isNotified = 0;
                    // navigator.vibrate(500);
-                    showAlertWithoutSound("Systems ready");
+                    
+                    showAlertWithoutSound("Systems ready");//callas las alarmas
+
+
                 } 
             }
         } 
@@ -752,7 +781,8 @@ function onStatus(status) {
     }
 }
 function showAlertWithoutSound(alertar) { 
-    //es similar al showAlert pero no tiene alarma, por ejemplo cuando el sistema esta en estado normal y en este caso usara el sonido de notificaciones default del movil Tambien aqui se llama a systems ready
+
+    //este metodo se llama cuando el sistema vuelve a la normalidad
     cordova.plugins.notification.badge.set(0);
     numale=0;
     var now  = new Date().getTime();
@@ -765,6 +795,8 @@ function showAlertWithoutSound(alertar) {
     cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
     //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     }, this);
+
+
     media.pause();
     pauseAudio();
     clearInterval(intervalNotification);
@@ -775,10 +807,9 @@ function dismissBadge(){
     console.log("VALOR "+ontracker);  
     cordova.plugins.notification.badge.set(0);
     numale=0;
-    $.post( "http://gctrack-betaalterno.mybluemix.net/checkAlarms.php", {id_tracker: ontracker, id_user : currentIdUser})
+    $.post( "http://gctrack-betaalterno.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
     .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
     
-    console.log("Funciono");
      });
  
  cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
