@@ -182,8 +182,9 @@ $( document ).ready(function() {
     bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
     var output="";
     var media;
-
-    window.localStorage.setItem("isPressureNotified","0");
+    if(window.localStorage.getItem("isPressureNotified")==null){
+        window.localStorage.setItem("isPressureNotified","0");
+    }
     //OCULTAMOS EL ICONO INFO TRACKER
     $('#infoTracker').fadeOut();
     // cargamos bombas
