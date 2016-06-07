@@ -182,7 +182,7 @@ $( document ).ready(function() {
     bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
     var output="";
     var media;
-    if(window.localStorage.getItem("isPressureNotified")==null){
+    if(window.localStorage.getItem("isPressureNotified")==null){//si devuelve nulo lo seteas a 0
         window.localStorage.setItem("isPressureNotified","0");
     }
     //OCULTAMOS EL ICONO INFO TRACKER
@@ -778,14 +778,14 @@ function validateCCEmail(email) {
 function showAlert(alertar) {
    
 playAudio();
-   
+    media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
+   media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
+
     
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
     var _3_sec_from_now = new Date(now + 3 *1000);
-    media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
-   media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
-
+   
 
 
     
