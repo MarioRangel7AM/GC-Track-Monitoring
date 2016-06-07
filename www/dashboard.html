@@ -295,6 +295,8 @@ if(buttonIndex==1){//the ok button
         
 
 
+
+
         cordova.plugins.notification.badge.set(0);
     numale=0;
         
@@ -629,6 +631,7 @@ showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//mu
                    // numale++;
 numale=1; 
         isNotified=1;
+        window.localStorage.setItem("alarmactive","NO");
 
    /// console.log("valor NUMALE"+numale);
 }
@@ -683,7 +686,6 @@ numale=1;
                     
                     showAlertWithoutSound("Systems ready");//callas las alarmas
 
-        window.localStorage.setItem("alarmactive","NO");
 
                 } 
             }
