@@ -620,14 +620,25 @@ var data="";
 
     //console.log("valor del"+i+"LocAL STORAGE"+window.localStorage.getItem("alarmactive"));
 
+
+console.log("ERROR ID"+listDevices[i].error_id);
           
 if(window.localStorage.getItem("alarmactive")=="YES"){
    // console.log("valor dsdfcdsfsd"+i+"LocAL STORAGE"+window.localStorage.getItem("alarmactive"));
     //console.log("ya entre");
 
+if(listDevices[i].error_id=="0-0"){// no emitas una alarma pero si muestra una advertencia de la baja de presion
+        navigator.notification.alert("Sudden Pressure Change, please check on field", null, "WARNING", "OK");
+numale=1;
+
+
+}else{
+
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
-                   // numale++;
+      
+
+      }             // numale++;
 numale=1; 
         isNotified=1;
         window.localStorage.setItem("alarmactive","NO");
@@ -663,7 +674,12 @@ numale=1;
                     }
                 }
             }
+          
             break; //rompe el for
+       
+
+
+
         }// fin del for
         // seteamos numero de alertas
         if(numale>0){
