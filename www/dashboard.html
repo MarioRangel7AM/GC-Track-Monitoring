@@ -804,6 +804,10 @@ function showAlertWithoutSound(alertar) {
 }  
 // metodo para borrar los valores de la  de burbuja de notificacion
 function dismissBadge(){
+
+        window.localStorage.setItem("alarmactive","NO");
+
+    
     console.log("VALOR "+ontracker);  
     cordova.plugins.notification.badge.set(0);
     numale=0;
