@@ -672,7 +672,7 @@ numale=1;
                     ////console.log("Estamos en vista");
                     //console.log("ID>>>"+listDevices[i].ID+"Valor:"+listDevices[i].status);
                     $('#presiondata').html(listDevices[i].pressure);
-                    if(parseInt(listDevices[i].status)!=0){
+                    if(parseInt(listDevices[i].status)!=0&&listDevices[i].error_id!="5-5"){
                         $('#pump_status_res').html(listDevices[i].message);
                         //icono
                         $('#statusnormal').fadeOut();
