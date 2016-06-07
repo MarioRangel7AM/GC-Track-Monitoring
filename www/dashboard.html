@@ -745,6 +745,11 @@ function validateCCEmail(email) {
 
 
 function showAlert(alertar) {
+   
+playAudio();
+   
+    media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
+
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
     var _3_sec_from_now = new Date(now + 3 *1000);
@@ -760,10 +765,7 @@ function showAlert(alertar) {
         //sound:'file://alarm.mp3'      
     });
 
- playAudio();
-   
-    media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
-}      
+ }      
 
 
 
