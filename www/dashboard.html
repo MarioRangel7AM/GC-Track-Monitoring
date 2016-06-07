@@ -804,6 +804,10 @@ function showAlertWithoutSound(alertar) {
 }  
 // metodo para borrar los valores de la  de burbuja de notificacion
 function dismissBadge(){
+
+        window.localStorage.setItem("alarmactive","NO");
+
+    
     console.log("VALOR "+ontracker);  
     cordova.plugins.notification.badge.set(0);
     numale=0;
@@ -820,7 +824,6 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
     media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     pauseAudio();
     clearInterval(intervalNotification); 
-        window.localStorage.setItem("alarmactive","NO");
 
 }
 function playAudio() {
@@ -828,6 +831,8 @@ function playAudio() {
 }
 function pauseAudio() {
     myMedia.pause();
+
+
 }
 // metodo de logout
 /*function logoutAndClose(){
