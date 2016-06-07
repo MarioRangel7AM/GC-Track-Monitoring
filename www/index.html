@@ -19,7 +19,7 @@
             <div class="col-md-2 col-xs-2">
                 <img class="img-user" src="images/login_user.png">
             </div>
-            <div class="col-md-10 col-xs-10">
+            <div class="col-md-10 col-xs-10" style="padding-left:10%">
                 <input id="inemail" name="mail" type="email" class="logininput" placeholder="Username" value="">
             </div>
         </div>
@@ -27,8 +27,8 @@
             <div class="col-md-2 col-xs-2">
                 <img class="img-user" src="images/login_pass.png">
             </div>
-            <div class="col-md-10 col-xs-10">
-                <input id="inpass" name="password" type="password" class="logininput" placeholder="password" value="">
+            <div class="col-md-10 col-xs-10" style="padding-left:10%">
+                <input id="inpass" name="password" type="password" class="logininput" placeholder="Password" value="">
             </div>
         </div>
         <div class="logcont" style="margin-top:25px;">
@@ -61,6 +61,7 @@
  window.localStorage.setItem("iduser", data.iduser);  
 window.localStorage.setItem("sucess","true"); 
 				   location.href='dashboard.html';
+                   navigator.notification.alert("GC-Track will monitor your system on the background. Please, do not force this app to terminate or completely close it.", null, "Reminder", "OK");
                 }else{
 	navigator.notification.alert("Please check you email address and password", null, "Error", "OK");//metodo para crear alertas personalizadas
 
