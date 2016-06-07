@@ -606,7 +606,7 @@ var data="";
 //aqui se vera si el usuario respondio a la alarma
 console.log("ERROR ID"+listDevices[i].error_id);
 
-if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="1"){//SI SE ENCUENTRA ESTO MANDARA UN  AVISO PERO NO SONAR LA ALARMA, YA QUE ES UN CAMBIO SUBITO DE PRESION
+if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")!="1"){//SI SE ENCUENTRA ESTO MANDARA UN  AVISO PERO NO SONAR LA ALARMA, YA QUE ES UN CAMBIO SUBITO DE PRESION
 
  navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
 window.localStorage.setItem("isPressureNotified","1");
