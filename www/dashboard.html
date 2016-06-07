@@ -182,7 +182,6 @@ $( document ).ready(function() {
     bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
     var output="";
     var media;
-    var intervalNotification;
     //OCULTAMOS EL ICONO INFO TRACKER
     $('#infoTracker').fadeOut();
     // cargamos bombas
@@ -227,7 +226,7 @@ $( document ).ready(function() {
     if(trackers_location[0].Bombas['b3']>0){
         bactivas++;
     }
-    console.log("CANTIDAD DE TRACKERS "+ trackers_location.length);
+    //console.log("CANTIDAD DE TRACKERS "+ trackers_location.length);
     if(bactivas>1){
         $('#listmoretracks').html('');
         if(trackers_location[0].Bombas['b1']>0){
@@ -286,9 +285,9 @@ if(buttonIndex==1){//the ok button
  $.getJSON( "http://gctrack-betaalterno.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
         .done(function( data ) {
         //console.log(data); 
-        console.log("Mensaje"+data.mensaje);
+        //console.log("Mensaje"+data.mensaje);
         if(data.mensaje=='goodbye'){
-            console.log("ADENTRO DEL IF");
+            //console.log("ADENTRO DEL IF");
          cordova.plugins.backgroundMode.disable();//desactiva el modo de segundo plano
         window.localStorage.removeItem("sucess");
        // logoutAndClose();
@@ -426,7 +425,7 @@ function getPumps(){
 function showPumps(){
     output = "";
     for (var i in locaciones) {
-    // imprimimos
+    // imprimimos aqui es donde al darle click se despliega la informacion de los trackers
         output+='<div class="row"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
         currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
         // guardamos
@@ -461,7 +460,7 @@ trackers_location = [];
 bombas_location  = [];
     $.post( "http://gctrack-betaalterno.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
         .done(function( data ) {
-            console.log('ViewTrackers:'+data);
+           // console.log('ViewTrackers:'+data);
             var json_obj = $.parseJSON(data);
             if(json_obj.numresult>0){
         // si hay para mostrar
@@ -610,7 +609,7 @@ var data="";
            $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: json_obj.tracker[i].ID, id_user : currentIdUser})
     .done(function( data ) {
         data=$.parseJSON(data);
-        console.log("DATA"+data.answer);
+       // console.log("DATA"+data.answer);
         if(data.answer=="YES"){    
        // console.log("hola");  
         window.localStorage.setItem("alarmactive","YES");
@@ -623,8 +622,8 @@ var data="";
 
           
 if(window.localStorage.getItem("alarmactive")=="YES"){
-    console.log("valor dsdfcdsfsd"+i+"LocAL STORAGE"+window.localStorage.getItem("alarmactive"));
-    console.log("ya entre");
+   // console.log("valor dsdfcdsfsd"+i+"LocAL STORAGE"+window.localStorage.getItem("alarmactive"));
+    //console.log("ya entre");
 
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
@@ -751,15 +750,16 @@ function showAlert(alertar) {
     var _3_sec_from_now = new Date(now + 3 *1000);
     media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
     //cada 10 segundos se llamara esto        
-    intervalNotification=setInterval(function(){
+    
         cordova.plugins.notification.local.schedule({
         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
         text: "EMERGENCY "+alertar,
         at: now,
-        badge: 1
+        badge: 1,
+        every:"minute"
         //sound:'file://alarm.mp3'      
     });
-    },10000);
+
  playAudio();
    
     media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
@@ -799,16 +799,14 @@ function showAlertWithoutSound(alertar) {
 
     media.pause();
     pauseAudio();
-    clearInterval(intervalNotification);
 
 }  
 // metodo para borrar los valores de la  de burbuja de notificacion
 function dismissBadge(){
 
-        window.localStorage.setItem("alarmactive","NO");
-
+       
     
-    console.log("VALOR "+ontracker);  
+   // console.log("VALOR "+ontracker);  
     cordova.plugins.notification.badge.set(0);
     numale=0;
     $.post( "http://gctrack-betaalterno.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
@@ -823,7 +821,10 @@ function dismissBadge(){
 navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     pauseAudio();
-    clearInterval(intervalNotification); 
+ window.localStorage.setItem("alarmactive","NO");
+
+
+
 
 }
 function playAudio() {
