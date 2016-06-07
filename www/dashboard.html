@@ -179,6 +179,7 @@ function onDeviceReady() {
 // cuando cargue la APP aplicamos estos codigos
 $( document ).ready(function() {
     userid = window.localStorage.getItem("iduser");
+    window.localStorage.setItem("isPressureNotified","0");
     bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
     var output="";
     var media;
@@ -606,7 +607,7 @@ var data="";
 //aqui se vera si el usuario respondio a la alarma
 console.log("ERROR ID"+listDevices[i].error_id);
 
-if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")!="1"){//SI SE ENCUENTRA ESTO MANDARA UN  AVISO PERO NO SONAR LA ALARMA, YA QUE ES UN CAMBIO SUBITO DE PRESION
+if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="0"){//SI SE ENCUENTRA ESTO MANDARA UN  AVISO PERO NO SONAR LA ALARMA, YA QUE ES UN CAMBIO SUBITO DE PRESION
 
  navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
 window.localStorage.setItem("isPressureNotified","1");
@@ -672,7 +673,7 @@ numale=1;
                     ////console.log("Estamos en vista");
                     //console.log("ID>>>"+listDevices[i].ID+"Valor:"+listDevices[i].status);
                     $('#presiondata').html(listDevices[i].pressure);
-                    if(parseInt(listDevices[i].status)!=0&&listDevices[i].error_id!="5-5"){
+                    if(parseInt(listDevices[i].status)!=0){
                         $('#pump_status_res').html(listDevices[i].message);
                         //icono
                         $('#statusnormal').fadeOut();
