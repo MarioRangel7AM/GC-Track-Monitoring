@@ -593,9 +593,16 @@ var data="";
         //revisamos que todo este bien
         var tam = listDevices.length;
         resultpump = 0;
-        for(i=0;i<tam;i++){
+                for(i=0;i<tam;i++){
             //alert(listDevices[i].status);
+            if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="0"){//SI SE ENCUENTRA ESTO MANDARA UN  AVISO PERO NO SONAR LA ALARMA, YA QUE ES UN CAMBIO SUBITO DE PRESION
+
+ navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
+window.localStorage.setItem("isPressureNotified","1");
+}
+
             if(listDevices[i].status!='0'){
+
                 // encontramos un problema
                 resultpump = 1;//esto se pone en 1 en el momento del error
                 //revisamos si esta notificado de esto
@@ -607,15 +614,10 @@ var data="";
 //aqui se vera si el usuario respondio a la alarma
 console.log("ERROR ID"+listDevices[i].error_id);
 
-if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="0"){//SI SE ENCUENTRA ESTO MANDARA UN  AVISO PERO NO SONAR LA ALARMA, YA QUE ES UN CAMBIO SUBITO DE PRESION
-
- navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
-window.localStorage.setItem("isPressureNotified","1");
-}
 
 
 
-else{          
+         
 
 console.log("ENTRE AL ELSE WEY");
            $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: json_obj.tracker[i].ID, id_user : currentIdUser})
@@ -654,7 +656,7 @@ numale=1;
    /// console.log("valor NUMALE"+numale);
 }
 
-}
+
 
 }
     
