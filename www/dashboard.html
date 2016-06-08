@@ -182,6 +182,9 @@ $( document ).ready(function() {
     bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
     var output="";
     var media;
+    if(window.localStorage.getItem("isPressureNotified")==null){//si devuelve nulo lo seteas a 0
+        window.localStorage.setItem("isPressureNotified","0");
+    }
     //OCULTAMOS EL ICONO INFO TRACKER
     $('#infoTracker').fadeOut();
     // cargamos bombas
@@ -282,7 +285,7 @@ $( document ).ready(function() {
 
     function onConfirm(buttonIndex) {
 if(buttonIndex==1){//the ok button
- $.getJSON( "http://gctrack-betaalterno.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
+ $.getJSON( "http://gct-production.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
         .done(function( data ) {
         //console.log(data); 
         //console.log("Mensaje"+data.mensaje);
@@ -329,7 +332,7 @@ else{
     $('#goback').fadeIn();
     $('#sendReport').fadeIn();
     $('#gotoweb').fadeOut();
-    $.post( "http://gctrack-betaalterno.mybluemix.net/getlog.php", {id_tracker: ontracker})
+    $.post( "http://gct-production.mybluemix.net/getlog.php", {id_tracker: ontracker})
     .done(function( data ) {
         registros = [];
     //console.log(data);
@@ -402,7 +405,7 @@ function getPumps(){
     $('#infoTracker').fadeIn();
     //console.log('ID DE USUARIO '+userid);
     currentIdUser=userid;
-    $.post( "http://gctrack-betaalterno.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gct-production.mybluemix.net/getpumps.php", {id_user: userid})
         .done(function( data ) {
         locaciones = [];
         //console.log('deget'+data);
@@ -458,7 +461,7 @@ $('#owl-demo').css('margin-left','8%');
 $("#infoTracker").fadeIn();
 trackers_location = [];
 bombas_location  = [];
-    $.post( "http://gctrack-betaalterno.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+    $.post( "http://gct-production.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
         .done(function( data ) {
            // console.log('ViewTrackers:'+data);
             var json_obj = $.parseJSON(data);
@@ -499,7 +502,7 @@ function getTracker(idTracker){
     window.localStorage.setItem("trackerId",ontracker);
     //console.log('ID TRACKER  '+ontracker);
     // window.localStorage.setItem("lasttrack", ontracker); //esta puede ser la linea de codigo que este causando que se quede la informacion de la sesion anterior
-    $.post( "http://gctrack-betaalterno.mybluemix.net/gettracker.php", {id_tracker: idTracker})
+    $.post( "http://gct-production.mybluemix.net/gettracker.php", {id_tracker: idTracker})
     .done(function( data ) {
         //console.log('gettracker:'+data);
         var json_obj = $.parseJSON(data);
@@ -568,8 +571,9 @@ function getTracker(idTracker){
 
 function checkPump(){
     
+
 var data="";
-    $.post( "http://gctrack-betaalterno.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
+    $.post( "http://gct-production.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
      .done(function( data ) {
         //console.log("DATA RECIBIDA DE LA BOMBA: "+data);
         listDevices = []; //limpiamos
@@ -592,9 +596,16 @@ var data="";
         //revisamos que todo este bien
         var tam = listDevices.length;
         resultpump = 0;
-        for(i=0;i<tam;i++){
+                for(i=0;i<tam;i++){
             //alert(listDevices[i].status);
+            if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="0"){//SI SE ENCUENTRA ESTO MANDARA UN  AVISO PERO NO SONAR LA ALARMA, YA QUE ES UN CAMBIO SUBITO DE PRESION
+
+ navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
+window.localStorage.setItem("isPressureNotified","1");
+}
+
             if(listDevices[i].status!='0'){
+
                 // encontramos un problema
                 resultpump = 1;//esto se pone en 1 en el momento del error
                 //revisamos si esta notificado de esto
@@ -604,9 +615,13 @@ var data="";
                     //le mandamos la alerta
                     
 //aqui se vera si el usuario respondio a la alarma
-          
 
-           $.post( "http://gctrack-betaalterno.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: json_obj.tracker[i].ID, id_user : currentIdUser})
+
+
+
+         
+
+           $.post( "http://gct-production.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: json_obj.tracker[i].ID, id_user : currentIdUser})
     .done(function( data ) {
         data=$.parseJSON(data);
        // console.log("DATA"+data.answer);
@@ -620,20 +635,29 @@ var data="";
 
     //console.log("valor del"+i+"LocAL STORAGE"+window.localStorage.getItem("alarmactive"));
 
+
+
+
           
 if(window.localStorage.getItem("alarmactive")=="YES"){
    // console.log("valor dsdfcdsfsd"+i+"LocAL STORAGE"+window.localStorage.getItem("alarmactive"));
     //console.log("ya entre");
 
+
+
 showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                   //  navigator.vibrate(1600);
-                   // numale++;
+      
+
+                // numale++;
 numale=1; 
         isNotified=1;
         window.localStorage.setItem("alarmactive","NO");
 
    /// console.log("valor NUMALE"+numale);
 }
+
+
 
 }
     
@@ -663,7 +687,12 @@ numale=1;
                     }
                 }
             }
+          
             break; //rompe el for
+       
+
+
+
         }// fin del for
         // seteamos numero de alertas
         if(numale>0){
@@ -684,7 +713,7 @@ numale=1;
                    // navigator.vibrate(500);
                     
                     showAlertWithoutSound("Systems ready");//callas las alarmas
-
+window.localStorage.setItem("isPressureNotified","0");
 
                 } 
             }
@@ -715,7 +744,7 @@ $('#sendReport').click(function(){
     } 
     var today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
     //console.log(tableElement);
-    $.post( "http://gctrack-betaalterno.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
+    $.post( "http://gct-production.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
     .done(function( data ) {
         //console.log(data);
         navigator.notification.alert("You report has been send", null, "Send report", "OK");
@@ -747,14 +776,14 @@ function validateCCEmail(email) {
 function showAlert(alertar) {
    
 playAudio();
-   
+    media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
+   media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
+
     
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
     var _3_sec_from_now = new Date(now + 3 *1000);
-    media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
-   media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
-
+   
 
 
     
@@ -779,10 +808,10 @@ function onError(error) {
 }
 // onStatus Callback 
 function onStatus(status) {
-    if( status==Media.MEDIA_STOPPED ) {
-        media.play({ playAudioWhenScreenIsLocked : true });
-        myMedia.play({ playAudioWhenScreenIsLocked : true });
-    }
+   // if( status==Media.MEDIA_STOPPED ) {
+      //  media.play({ playAudioWhenScreenIsLocked : true });
+        //myMedia.play({ playAudioWhenScreenIsLocked : true });
+   // }
 }
 function showAlertWithoutSound(alertar) { 
 
@@ -801,8 +830,8 @@ function showAlertWithoutSound(alertar) {
     }, this);
 
 
-    media.pause();
-    pauseAudio();
+    media.stop();
+    stopAudio();
 
 }  
 // metodo para borrar los valores de la  de burbuja de notificacion
@@ -813,7 +842,7 @@ function dismissBadge(){
    // console.log("VALOR "+ontracker);  
     cordova.plugins.notification.badge.set(0);
     numale=0;
-    $.post( "http://gctrack-betaalterno.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
+    $.post( "http://gct-production.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
     .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
     
      });
@@ -823,8 +852,8 @@ function dismissBadge(){
  }, this);
    
 navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-    media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
-    pauseAudio();
+    media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+    stopAudio();
  window.localStorage.setItem("alarmactive","NO");
 
 
@@ -834,8 +863,8 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 function playAudio() {
     myMedia.play({ playAudioWhenScreenIsLocked : true });
 }
-function pauseAudio() {
-    myMedia.pause();
+function stopAudio() {
+    myMedia.stop();
 
 
 }
