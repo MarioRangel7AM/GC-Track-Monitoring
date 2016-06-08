@@ -861,15 +861,18 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
 
 }
-function playAudio() {
 
-	var dur = myMedia.getDuration();
-    var pos = myMedia.getCurrentPosition();
-	alert("Duracion: "+dur+ "\nPosicion: "+pos);
-	if(myMedia.status == Media.MEDIA_STOPPED){
+
+function playAudio() {
+var timerId2 = setInterval(function() { 
+    if(myMedia.status == Media.MEDIA_STOPPED){
 	 	myMedia.seekTo(0);
 	}
     myMedia.play({ playAudioWhenScreenIsLocked : true });
+    var dur = myMedia.getDuration();
+    var pos = myMedia.getCurrentPosition();
+    alert("Duracion: "+dur+ "\nPosicion: "+pos);
+   }, 10000); 
 }
 
 
