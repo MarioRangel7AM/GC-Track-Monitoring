@@ -864,7 +864,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
 
 function playAudio() {
-if(window.localStorage.getItem("alarmactive")=="YES"){
+if(window.localStorage.getItem("alarmactive")=="NO"||window.localStorage.getItem("alarmactive")==null){
 var timerId2 = setInterval(function() { 
     if(myMedia.status == Media.MEDIA_STOPPED){
 	 	myMedia.seekTo(0);
@@ -873,7 +873,6 @@ var timerId2 = setInterval(function() {
     var dur = myMedia.getDuration();
     var pos = myMedia.getCurrentPosition();
    }, 60000); 
-}
 }
 
 
