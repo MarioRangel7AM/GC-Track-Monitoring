@@ -41,7 +41,7 @@
     }
 	
 	.row{
-	width:105%;
+	width:100%;
 	}
 
 </style>
@@ -51,11 +51,10 @@
 
 <div id="demo">
 
-        <div id="owl-demo" class="owl-carousel" >
+        <div id="owl-demo" class="owl-carousel" style="display:none">
           
           <div class="item" id="refreshPage"><img src="img/iconorefreshgctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--Refresh-->
           <div class="item" id="CONTACT SUPPORT"><a href="contacto.html"><img src="img/iconosupportgctrack55x55-2.png" style="margin-top:-15px;" class="img-cintillo"></a></div><!--Support-->
-		  <div class="item" id="gotoweb"><a href="http://www.gc-track.com"><img src="img/iconowebgctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></a></div><!--web gctrack -->
           <div class="item" id="goback"><img src="img/iconogoback55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--go back-->
 
         </div>
@@ -228,7 +227,7 @@ $( document ).ready(function() {
     
   
   });
- 
+  $(".owl-wrapper").css('padding-left','25%');
   // Custom Navigation Events
   $(".next").click(function(){
     owl.trigger('owl.next');
@@ -294,7 +293,7 @@ $('#goback').click(function(){
                   
                 }else{
                     // No hay para mostrar
-                    alert('There is no incidents');
+                   // alert('There is no incidents');
                 }
                 console.log(registros);
                
@@ -352,9 +351,8 @@ $('#goback').click(function(){
 window.localStorage.setItem("name",data.email_user);
 
 	document.getElementById("nombre").value = data.email_user;
+	console.log("Usuario "+data.email_user);
 	
-	});
-
 	username=window.localStorage.getItem("name");
 	
 	console.log("user name  "+ username);
@@ -375,6 +373,11 @@ document.getElementById("empresa").value=data.empresa;
     });
 
 	
+	
+	
+	});
+
+	
 	}
 
 
@@ -393,13 +396,15 @@ document.getElementById("empresa").value=data.empresa;
        console.log(data);
                 var data = $.parseJSON(data);
 if(data.result=="YES"){
-alert('The data has been updated');
+	navigator.notification.alert("The data has been updated", null, "Update User Data", "OK");//metodo para crear alertas personalizadas
+
         location.reload();
 
 
 }
 else{
-alert('Information cannot be updated, please contact the app vendor');
+	navigator.notification.alert("The data cannot be updated, please contact support", null, "Error", "OK");//metodo para crear alertas personalizadas
+
 }
 	 
 
@@ -408,7 +413,7 @@ alert('Information cannot be updated, please contact the app vendor');
 }
 else{
 
-alert("Please check the fields");
+	navigator.notification.alert("please check all the fields", null, "Some fields are incorrect", "OK");//metodo para crear alertas personalizadas
 
 
 }
@@ -427,6 +432,7 @@ var regexPhone1=/^([0-9]+){9}$/;//<--- con esto vamos a validar el numero
 esValido=true;
 }
 else{
+
 return false;
 }
 if(userName.length>2){
@@ -442,7 +448,9 @@ return false;
 	esValido=true;
 	}
 	else{
-alert('phone number must be between 9 and 15 digits');
+
+	navigator.notification.alert("Phone number must be between 10 and 15 digits and must not contain spaces", null, "Invalid phone", "OK");//metodo para crear alertas personalizadas
+
 	return false;
 	}
 	
@@ -486,7 +494,7 @@ function getPumps(){
           
         }else{
             // No hay para mostrar
-            alert('No hay locaciones ni bombas para esta cuenta');
+           // alert('No hay locaciones ni bombas para esta cuenta');
         }
         console.log(locaciones);
         showPumps();
@@ -545,7 +553,7 @@ function viewTrackers (idlocation) {
             
         }else{
             // No hay para mostrar
-            alert('No hay Registros');
+            //alert('No hay Registros');
         }
     });
 }

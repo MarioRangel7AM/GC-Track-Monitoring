@@ -19,7 +19,7 @@
             <div class="col-md-2 col-xs-2">
                 <img class="img-user" src="images/login_user.png">
             </div>
-            <div class="col-md-10 col-xs-10">
+            <div class="col-md-10 col-xs-10" style="padding-left:10%">
                 <input id="inemail" name="mail" type="email" class="logininput" placeholder="Username" value="">
             </div>
         </div>
@@ -27,15 +27,15 @@
             <div class="col-md-2 col-xs-2">
                 <img class="img-user" src="images/login_pass.png">
             </div>
-            <div class="col-md-10 col-xs-10">
-                <input id="inpass" name="password" type="password" class="logininput" placeholder="password" value="">
+            <div class="col-md-10 col-xs-10" style="padding-left:10%">
+                <input id="inpass" name="password" type="password" class="logininput" placeholder="Password" value="">
             </div>
         </div>
         <div class="logcont" style="margin-top:25px;">
             <input type="button" id="dologin" class="loginbutton" value="Enter">
         </div>
         <div class="logcont" style="margin-top:25px;">
-            <input type="button" id="dohelp" class="loginbutton" value="Help">
+            <input type="button" id="dohelp" class="loginbutton" value="About">
         </div>
       
 
@@ -50,94 +50,46 @@
     <script type="text/javascript">
   
   
-  
-  
     $('#dologin').click(function(){
             inemail = $('#inemail').val();
             inpass = $('#inpass').val();
-          
-
-		  $.post( "http://gctrack-beta2.mybluemix.net/auth.php", { email: inemail, pass: inpass })
+            $.post( "http://gct-production.mybluemix.net/auth.php", { email: inemail, pass: inpass })
              .done(function( data ) {
-                console.log(data);
-                var data = $.parseJSON(data);
-                
+                var data=$.parseJSON(data);
+				console.log(data);
                 if(data.resp=='Correcto'){
-                    window.localStorage.setItem("iduser", data.iduser);
-                    location.href='dashboard.html';
+ window.localStorage.setItem("iduser", data.iduser);  
+window.localStorage.setItem("sucess","true"); 
+				   location.href='dashboard.html';
+                   navigator.notification.alert("GC-Track will monitor your system on the background. Please, do not force this app to terminate or completely close it.", null, "Reminder", "OK");
                 }else{
-                    alert( "Please check your user name and password and verify that there is no blank fields" );
+	navigator.notification.alert("Please check you email address and password", null, "Error", "OK");//metodo para crear alertas personalizadas
+
                 }
              });
-       
- });
-		
-
+        });
+        
 		
 		
-        $( document ).ready(function() {
-          
-
- 
-          
- 
-
- $.post( "http://gctrack-beta2.mybluemix.net/auth.php", { loging: "Show" })
+		$('#dohelp').click(function(){
+ 		location.href='help.html';
+		
+		});
+		$( document ).ready(function() {
+            
+            $.post( "http://gct-production.mybluemix.net/auth.php", { loging: "Show" })
              .done(function( data ) {
-               
-                   
-
-
-			   var data = $.parseJSON(data);
-
-			   if (localStorage.getItem("iduser") === 'loggedout') {
-                      window.localStorage.setItem("iduser", "sesionCerrada");
-					  data.resp="Cerrado";
-					  console.log("data resp "+data.resp);
-
-}
-if( localStorage.getItem("iduser")=='sesionCerrada'){
-				   
-				   
-				   
-				   
-				   }
-
-				
-else if(data.resp=='Correcto'){
-                    window.localStorage.setItem("iduser", data.iduser);
+               var data=$.parseJSON(data);
+			   if(window.localStorage.getItem("sucess")=="true"){
                     location.href='dashboard.html';
                 }else{
                    $('#logincont').fadeIn();
                 }
-				
-				
-				
              });
-        
-                
-       
-
-   
-                
-       
-
-	   
-	   
-		  });
-  
-  
-  
-  
-  $('#dohelp').click(function(){
-  
-  location.href="help.html";
-  
-  
-  
-  });
-  
+        });
 	
-    </script>
+    
+	
+	</script>
 </body>
 </html>

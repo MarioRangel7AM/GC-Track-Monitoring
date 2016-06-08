@@ -53,47 +53,6 @@ section.positioned {
 	width:80%;
 }
 
-.container{
-  overflow-y: none;
-}
-
-/*
-table {
-  border-spacing: 0;
-  width:100%;
-}
-td + td {
-  border-left:1px solid #eee;
-}
-td, th {
-  border-bottom:1px solid #eee;
-  background: #ddd;
-  color: #000;
-  padding: 10px 25px;
-}
-th {
-  height: 0;
-  line-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  color: transparent;
-  border: none;
-  white-space: nowrap;
-}
-th div{
-  position: absolute;
-  background: transparent;
-  color: #fff;
-  padding: 9px 25px;
-  top: 0;
-  margin-left: -25px;
-  line-height: normal;
-  border-left: 1px solid #800;
-}
-th:first-child div{
-  border: none;
-}*/
-
 .formtext{
 	font-size:18px;
 	color:white;
@@ -112,7 +71,6 @@ th:first-child div{
 	
 }
 
-
 @media only screen and (max-width: 360px) {//media query para adaptar a diferentes resoluciones, en este caso 360px maxim
 	
 	.locationmark{
@@ -124,8 +82,6 @@ th:first-child div{
     margin-top: -29px;
 	
 }
-
-	
 	
 }
 #tracker_location{
@@ -163,7 +119,7 @@ th:first-child div{
 }
 
 .img-user-profile{
-	height: 25px;
+width:100%;
 }
 .img-user-contact{
 	height: 25px;
@@ -180,7 +136,7 @@ th:first-child div{
 	width: 100%;
 	padding-left: 20px;
 	margin-left: -15px;
-	font-size: 38px;
+	font-size: 18px;
 }
 
 .myprofileinput{
@@ -200,6 +156,7 @@ th:first-child div{
 	color:#FFF;
 	height: 25px;
 	background-color: inherit;
+	margin-bottom:10px;
 	border:0px;
 	border-radius: 5px;
 	background: url('../images/bg_input.png');
@@ -237,12 +194,15 @@ th:first-child div{
 
 .updatebutton{
 	background-color: #eaa7b2;
-    width: 100%;
+    width: 75%;
     padding: 10px;
     border: 0px;
     border-radius: 5px;
+	margin-left:50px;
     color: #dd0330;
     font-size: 18px;
+	margin-top:10px;
+	
 }
 
 .contactbutton{
@@ -257,8 +217,7 @@ th:first-child div{
 
 .division{
 	margin-top:2px;
-	margin-bottom:2px;
-	
+	margin-bottom:2px;	
 }
 
 .statsText{
@@ -308,7 +267,7 @@ th:first-child div{
 }
 
 .dashmarg{
-	margin-top: 25px;
+	margin-top: 10px;
 }
 
 #dashstats{
@@ -336,10 +295,14 @@ th:first-child div{
     z-index: 1;
     background-color: #E04359;
 }
+#description{
+	min-height: 70px;
+	padding-top: 10px;	
+}
 
 #tblog{
+  margin-top: 30px;
 	background-color: #FFF;
-	/*margin-bottom: 75px;*/
 }
 
 #tblog tr td{
@@ -351,30 +314,28 @@ th:first-child div{
 	text-align: center;
 }
 
-.header{
-    top: 0px;
-    background-color: #FFF;
-    width: 100%;
-}
-
-#tbheaderfixed{
-	width: 100%;
-	position: fixed;
-	top:0px;
+#tblogheader{
+  background-color: #FFF;
+  border: 2px solid #D7032C;
+  text-align: center;
+  position: fixed;
+  margin-top: -10px;
+  z-index: 11;
 }
 
 
-#tbheaderfixed > div{
-    border: 2px solid #D7032C;
-    border-right: 0px;
-    float: left;
-    background-color: #FFF;
-    min-height: 38px;
-    padding: 7px;
+#tblogheader tr th{
+  text-align: center;
 }
 
 #view_tracker_status{
   padding-top: initial;
+}
+
+#contact-label{
+	text-align: center;
+	color: white;
+	font-size: xx-large;
 }
 
 table.scroll {

@@ -15,14 +15,13 @@
         border-radius: 20px;
         text-align: center;
         height:8px;
-       
     }
-    .owl-theme .owl-controls {
-        display: none !important;
-    }
-    #owl-demo{
-         margin-bottom: 10px;
-    }
+	.owl-theme .owl-controls {
+	    display: none !important;
+	}
+	#owl-demo{
+	     margin-bottom: 10px;
+	}
    
 
 
@@ -36,7 +35,7 @@
 }
 
 .owl-wrapper{
-	height:60px;
+	height: 60px;
 }
 /* display none until init */
 .owl-carousel{

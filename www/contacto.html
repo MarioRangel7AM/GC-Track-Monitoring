@@ -25,18 +25,14 @@
   
 
   </div>
-
-	
 	
 <!--   div del cintillo-->
 
 <div id="demo">
 
-        <div id="owl-demo" class="owl-carousel" >
+        <div id="owl-demo" class="owl-carousel" style="display: none" >
           
           <div class="item" id="refreshPage"><img src="img/iconorefreshgctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--Refresh-->
-          <div class="item" id="CONTACT SUPPORT"><a href="contacto.html"><img src="img/iconosupportgctrack55x55-2.png" style="margin-top:-15px;" class="img-cintillo"></a></div><!--Support-->
-		  <div class="item" id="gotoweb"><a href="http://www.gc-track.com"><img src="img/iconowebgctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></a></div><!--web gctrack -->
           <div class="item" id="goback"><img src="img/iconogoback55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--go back-->
 
         </div>
@@ -45,19 +41,25 @@
     <div id="view_tracker_status" style=" margin-top:-20px;">
         	<div id="logincont"  class="container loginform" style="margin-top:30px;">
         <div class="row">
+            <div id="contact-label-div">
+                <p id="contact-label">Contact us!<p>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-2 col-xs-2">
                 <img class="img-user-contact" src="images/login_user.png">
             </div>
             <div class="col-md-10 col-xs-10">
-                <input id="asunto" name="asunto" type="text" class="contactinput" placeholder="subject" value="">
+                <input id="asunto" name="asunto" type="text" class="contactinput" placeholder="Subject" value="">
             </div>
         </div>
-        <div class="row" style="margin-top:20px;">
+        <div class="row" style="margin-top:10px;">
             <div class="col-md-2 col-xs-2">
                 <img class="img-user-contact" src="images/login_pass.png">
             </div>
             <div class="col-md-10 col-xs-10">
-  <textarea name="Message" id="textarea" cols="35" rows="5" placeholder="problem description" class="contactinput"></textarea>
+  <input name="Message"  id="description" placeholder="Description" class="contactinput">
 
             </div>
         </div>
@@ -66,7 +68,7 @@
                 <img class="img-user-contact" src="images/login_user.png">
             </div>
             <div class="col-md-10 col-xs-10">
-                <input id="emailcontacto" name="asunto" type="text" class="contactinput" placeholder="contact email" value="">
+                <input id="emailcontacto" name="asunto" type="text" class="contactinput" placeholder="Contact email" value="">
             </div>
         </div>
         
@@ -177,6 +179,7 @@ $( document ).ready(function() {
      
 
  });
+  $("#demo").css('text-align','-webkit-right');
  
   // Custom Navigation Events
   $(".next").click(function(){
@@ -196,7 +199,7 @@ $( document ).ready(function() {
  
   $('#contact').click(function(){
            	       var subject=document.getElementById('asunto').value;
-           	       var message=document.getElementById('textarea').value;
+           	       var message=document.getElementById('description').value;
 				   var email=document.getElementById('emailcontacto').value;
 				   
 var idTracker= localStorage.getItem("idTrackerToContactSupport"); 
@@ -209,14 +212,15 @@ if(validateUserData(subject,message,email)){
 			 
 			 .done(function( data ) {
        console.log(data);
-                alert("Your request has been sent");
-				//var data = $.parseJSON(data);
+	navigator.notification.alert("You request has been sent", null, "Contact Support", "OK");//metodo para crear alertas personalizadas
+
+	   //var data = $.parseJSON(data);
               
              });
           
 		  }
 else{
-alert("All fields must be filled, please also check that you are writing a valid email address");
+	navigator.notification.alert("Please check all the fields", null, "Error", "OK");//metodo para crear alertas personalizadas
 
 }		  
 		   
@@ -253,9 +257,6 @@ function validateEmail(email) {
        console.log(data);
                 var data = $.parseJSON(data);
 window.localStorage.setItem("email_user",data.email_user);
-
-	
-	});
 var user=window.localStorage.getItem("email_user");
        console.log("dfcsdfsdf"+user);
 
@@ -271,6 +272,9 @@ document.getElementById("emailcontacto").value=data.contact_email;
 
 	   
     });
+
+	
+	});
 }
 
  
@@ -322,7 +326,7 @@ $('#goback').click(function(){
                   
                 }else{
                     // No hay para mostrar
-                    alert('No hay registros de incidentes');
+                   // alert('No hay registros de incidentes');
                 }
                 console.log(registros);
                
@@ -397,7 +401,7 @@ function getPumps(){
           
         }else{
             // No hay para mostrar
-            alert('No hay locaciones ni bombas para esta cuenta');
+           // alert('No hay locaciones ni bombas para esta cuenta');
         }
         console.log(locaciones);
         showPumps();
@@ -456,7 +460,7 @@ function viewTrackers (idlocation) {
             
         }else{
             // No hay para mostrar
-            alert('No hay Registros');
+           // alert('No hay Registros');
         }
     });
 }
