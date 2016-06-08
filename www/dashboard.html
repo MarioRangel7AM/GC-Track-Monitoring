@@ -779,7 +779,7 @@ function showAlert(alertar) {
    
 playAudio();
     media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
-   //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
+   media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
 
     
     var now = new Date().getTime();
@@ -810,10 +810,10 @@ function onError(error) {
 }
 // onStatus Callback 
 function onStatus(status) {
-    if( status==Media.MEDIA_STOPPED ) {
-        media.play({ playAudioWhenScreenIsLocked : true });
+   // if( status==Media.MEDIA_STOPPED ) {
+      //  media.play({ playAudioWhenScreenIsLocked : true });
         //myMedia.play({ playAudioWhenScreenIsLocked : true });
-    }
+   // }
 }
 function showAlertWithoutSound(alertar) { 
 
@@ -832,8 +832,8 @@ function showAlertWithoutSound(alertar) {
     }, this);
 
 
-    media.pause();
-    pauseAudio();
+    media.stop();
+    stopAudio();
 
 }  
 // metodo para borrar los valores de la  de burbuja de notificacion
@@ -854,8 +854,8 @@ function dismissBadge(){
  }, this);
    
 navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-    media.pause();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
-    pauseAudio();
+    media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+    stopAudio();
  window.localStorage.setItem("alarmactive","NO");
 
 
@@ -865,8 +865,8 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 function playAudio() {
     myMedia.play({ playAudioWhenScreenIsLocked : true });
 }
-function pauseAudio() {
-    myMedia.pause();
+function stopAudio() {
+    myMedia.stop();
 
 
 }
