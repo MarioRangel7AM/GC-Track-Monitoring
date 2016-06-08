@@ -864,7 +864,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
 
 function playAudio() {
-if(window.localStorage.getItem("alarmactive")=="NO"||window.localStorage.getItem("alarmactive")==null){
+if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")==null){
 var timerId2 = setInterval(function() { 
     if(myMedia.status == Media.MEDIA_STOPPED){
 	 	myMedia.seekTo(0);
