@@ -141,6 +141,7 @@
 //variables globales de la aplicacion
 var screenpos = 'dashboard';
 var isNotified = 0;
+var timerId2 = 0;
 var generalres = 0;
 var userid = 1;
 var locaciones = [];
@@ -856,8 +857,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
     media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     stopAudio();
  window.localStorage.setItem("alarmactive","NO");
-
-
+ timerId2.clearInterval();
 
 
 }
@@ -865,7 +865,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
 function playAudio() {
 if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")==null){
-var timerId2 = setInterval(function() { 
+timerId2 = setInterval(function() { 
     if(myMedia.status == Media.MEDIA_STOPPED){
 	 	myMedia.seekTo(0);
 	}
