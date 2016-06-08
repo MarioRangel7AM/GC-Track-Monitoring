@@ -774,10 +774,11 @@ function validateCCEmail(email) {
 
 
 function showAlert(alertar) {
-   
-playAudio();
+    
+	  playAudio();
+    
     media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
-   media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
+    media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
 
     
     var now = new Date().getTime();
@@ -861,12 +862,15 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
 }
 function playAudio() {
+	var dur = myMedia.getDuration();
+	console.log("Duracion: "+dur);
+	ìf(myMedia.status == Media.MEDIA_STOPPED){
+		myMedia.seekTo(0);
+	}
     myMedia.play({ playAudioWhenScreenIsLocked : true });
 }
 function stopAudio() {
     myMedia.stop();
-
-
 }
 // metodo de logout
 /*function logoutAndClose(){
