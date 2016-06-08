@@ -864,6 +864,7 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
 
 function playAudio() {
+if(window.localStorage.getItem("alarmactive")=="YES"){
 var timerId2 = setInterval(function() { 
     if(myMedia.status == Media.MEDIA_STOPPED){
 	 	myMedia.seekTo(0);
@@ -871,8 +872,7 @@ var timerId2 = setInterval(function() {
     myMedia.play({ playAudioWhenScreenIsLocked : true });
     var dur = myMedia.getDuration();
     var pos = myMedia.getCurrentPosition();
-    alert("Duracion: "+dur+ "\nPosicion: "+pos);
-   }, 10000); 
+   }, 60000); 
 }
 
 
