@@ -862,8 +862,10 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
 
 }
 function playAudio() {
+
 	var dur = myMedia.getDuration();
-	console.log("Duracion: "+dur);
+    var pos = myMedia.getCurrentPosition();
+	alert("Duracion: "+dur+ "\nPosicion: "+pos);
 	if(myMedia.status == Media.MEDIA_STOPPED){
 	 	myMedia.seekTo(0);
 	}
