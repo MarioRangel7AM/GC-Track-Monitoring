@@ -857,8 +857,9 @@ navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo p
     media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     stopAudio();
  window.localStorage.setItem("alarmactive","NO");
+alert("TimerId2= "+timerId2);
  timerId2.clearInterval();
-
+alert("TimerId2Cleared= "+timerId2);
 
 }
 
