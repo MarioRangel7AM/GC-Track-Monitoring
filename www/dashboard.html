@@ -153,34 +153,27 @@ var currentlocation="";
 var tableOffset = 0;
 var trackers_location = [];
 var currentPumpstatus='';
-var numale = 0;//numero de alertas de las alarmas de la bomba, las cuales se muestran como burbuja en el icono de la app
+var numale = 0;//Número de burbujas en el icono
 var currentIdUser=0;
 var bombas_location  = [];
 var myMedia=null;
+
 document.addEventListener("deviceready", onDeviceReady, false);
-// tenemos que guardar en la APP las locaciones
-// guaramos las bombas por locacion
-// actualizamos el estado de las bombas
-// probamos las alertas de las bombas
-// mostremos historial
-// metodos que se cargan al iniciar la aplicacion
-function onDeviceReady() {
-    // Empty
-    //console.log(navigator.notification);
-    //console.log(navigator.vibrate);
-    cordova.plugins.notification.badge.set(0);//burbuja de notificaion para ios
-    cordova.plugins.backgroundMode.enable();//activa el modo de segundo plano
+
+function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
+    cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
+    cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
     cordova.plugins.backgroundMode.configure({
         title: 'GCTrack',
         text: 'Currently monitoring',
         ticker: 'reading'
     });
+    //Cargamos el archivo mp3 para la alarma en android.
     myMedia = new Media("/android_asset/www/alarm.mp3", onSuccess,onError,onStatus);
 }
-// cuando cargue la APP aplicamos estos codigos
-$( document ).ready(function() {
+
+$( document ).ready(function() {//Método de JQuery que se ejecuta una vez la aplicación se inicia.
     userid = window.localStorage.getItem("iduser");
-    bandera=0;//variable bandera para mostrar/ocultar los divs de informacion de la bomba
     var output="";
     var media;
     if(window.localStorage.getItem("isPressureNotified")==null){//si devuelve nulo lo seteas a 0
@@ -438,7 +431,7 @@ function showPumps(){
     // guardamos en contenedor
     $('#list_trackers').html(output);
 }
-var bandera=0;
+
 function viewLocations(){
     // Esta función se ejecuta en el segundo click y al inicio
     // Centramos los iconos aumentando el margen izquierdo 
