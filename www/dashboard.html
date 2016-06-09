@@ -408,7 +408,7 @@ function getPumps() {
         //Si no encontramos Trackers emitimos una alerta de que no se han encontrado locaciones para este usuario
             navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
         }
-    //Usamos la función para mostrar los Trackers en el área de estado
+    //Usamos la función para llenar los Trackers en el área de estado
     showPumps();
     });
 }
@@ -416,66 +416,63 @@ function getPumps() {
 //Función para mostrar los Trackers disponibles de un usuario
 function showPumps(){
     output = "";
+    //Recuperamos la información de la variable locaciones llenada en getPumps()
     for (var i in locaciones) {
-// imprimimos aqui es donde al darle click se despliega la informacion de los trackers
-output+='<div class="row"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
-currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
-// guardamos
-}
-output+="";
-// guardamos en contenedor
-$('#list_trackers').html(output);
+        output+='<div class="row"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
+        currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
+    }
+    output+="";
+    //La insertamos en la sección #list_trackers
+    $('#list_trackers').html(output);
 }
 
-function viewLocations(){
-// Esta función se ejecuta en el segundo click y al inicio
-// Centramos los iconos aumentando el margen izquierdo 
-$('#owl-demo').css('margin-left','16%');
-$('#infoTracker').fadeOut();
-$('#tracker_location').fadeOut();
-$('#list_trackers').fadeIn();
-$("#showlog").css("display", "none");
-$("#datalogged").css("display", "none");
-$('#sendReport').fadeOut();
-// Esta línea es necesaria para poder ocultar correctamente el estado del tracker.
-$("#pumpstatuscont").css("display","none");
-// Esta Linea ajusta de nuevo el margen izquierdo para centrar los objetos
+function viewLocations() {
+    // Centramos los iconos aumentando el margen izquierdo 
+    $('#owl-demo').css('margin-left','16%');
+    $('#infoTracker').fadeOut();
+    $('#tracker_location').fadeOut();
+    $('#list_trackers').fadeIn();
+    $("#showlog").css("display", "none");
+    $("#datalogged").css("display", "none");
+    $('#sendReport').fadeOut();
+    // Esta línea es necesaria para poder ocultar correctamente el estado del tracker.
+    $("#pumpstatuscont").css("display","none");
+    // Esta Linea ajusta de nuevo el margen izquierdo para centrar los objetos
 }
-// para ver los trackers de una locacion
+
+//Función para mostrar los datos del estado del Tracker
 function viewTrackers (idlocation) {
-////console.log(idtracker);
-// obtenemos los tracker de esa locacion
-//Ajustamos el margen izquierdo para centrar los objetos
-$('#owl-demo').css('margin-left','8%'); 
-$("#infoTracker").fadeIn();
-trackers_location = [];
-bombas_location  = [];
-$.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
-.done(function( data ) {
-// console.log('ViewTrackers:'+data);
-var json_obj = $.parseJSON(data);
-if(json_obj.numresult>0){
-// si hay para mostrar
-if(json_obj.numresult==1){
-trackers_location.push(json_obj.trackers[0]);//se debe guardar la bomba incluso si es solo una, esto fue la causa del error
-getTracker(json_obj.trackers[0].ID);
-}else{
-    output='<ul class="listTrackers">';
-    for (var i in json_obj.trackers) 
-    {
-        output+='<li><a class="btnTrack trackerdevice" onClick="getTracker('+json_obj.trackers[i].ID+')" href="#'+json_obj.trackers[i].ID+'">'+json_obj.trackers[i].ID + ' - ' + json_obj.trackers[i].Descripcion+ '</a></li>' ;
-        trackers_location.push(json_obj.trackers[i]);              
-    }
-    output+="</ul>";
-//$('#toggleTrackers_'+idlocation).html(output);
-// mostramos el primer tracker
-getTracker(json_obj.trackers[0].ID);
-}
-}else{
-// No hay para mostrar
-navigator.notification.alert("No logs available", null, "Empty log", "OK");
-}
-});
+    //Ajustamos el margen izquierdo para centrar los objetos del menú principal
+    $('#owl-demo').css('margin-left','8%'); 
+    //Mostramos el código html llenada en showPumps()
+    $("#infoTracker").fadeIn();
+    //Reservamos variables para el estado del tracker y sus bombas
+    trackers_location = [];
+    bombas_location  = [];
+    //Preguntamos a Bluemix información de las bombas del Tracker
+    $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+    .done(function( data ) {
+    
+        var json_obj = $.parseJSON(data);
+        if(json_obj.numresult>0){//Si y solo si existe información del Tracker para este usuario
+            if(json_obj.numresult==1){//Si solo existe información de una bomba
+                trackers_location.push(json_obj.trackers[0]);
+                getTracker(json_obj.trackers[0].ID);
+            }else{//Si existe más de una bomba
+                output='<ul class="listTrackers">';
+                for (var i in json_obj.trackers) {
+                    output+='<li><a class="btnTrack trackerdevice" onClick="getTracker('+json_obj.trackers[i].ID+')" href="#'+json_obj.trackers[i].ID+'">'+json_obj.trackers[i].ID + ' - ' + json_obj.trackers[i].Descripcion+ '</a></li>' ;
+                    trackers_location.push(json_obj.trackers[i]);              
+                }
+                output+="</ul>";
+                // mostramos el primer tracker
+                getTracker(json_obj.trackers[0].ID);
+            }
+        }else{//Si no existen datos de bombas del Tracker
+        //Mostramos una aerta donde indicamos que no existe información de las bombas de ese Tracker
+        navigator.notification.alert("No logs available", null, "Empty log", "OK");
+        }
+    });
 }
 // para lanzar vision de tracker individual
 function getTracker(idTracker){
