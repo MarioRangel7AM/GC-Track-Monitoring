@@ -183,10 +183,8 @@ $( document ).ready(function() {
     }
     // Ocultamos la barra del tracker
     $('#infoTracker').fadeOut();
-    // Llamamos el método getPumps para preguntar a Bluemix cuantos Trackers tenemo
+    // Llamamos el método getPumps para preguntar a Bluemix cuantos Trackers están disponibles para este usuario y mostrarlos
     getPumps();
-    // mostramos bombas
-    showPumps();
     // desaparecemos elementos
     $('#goback').fadeOut();
     $('#sendReport').fadeOut();
@@ -390,30 +388,32 @@ $( document ).ready(function() {
 });//Fin de la función JQuery de carga del documento
 
 //Función para obtener la cantidad de Trackers disponibles
-function getPumps(){
-    //Mostramos la información del Tracker
+function getPumps() {
+    //Mostramos el campo de la información del Tracker
     $('#infoTracker').fadeIn();
     currentIdUser=userid;
+    //Preguntamos a Bluemix cuales son los trackers a los que tiene acceso este usuario dependiendo de su compañia y si se encuentra activo.
     $.post( "http://gct-dev.mybluemix.net/getpumps.php", {id_user: userid})
     .done(function( data ) {
         //Reservamos una variable para ver las ubicaciones de Trackers
         locaciones = [];
         var json_obj = $.parseJSON(data);
+        //Si existen ubicaciones de Trackers los mostramos
         if(json_obj.numresult>0){
-            for (var i in json_obj.locations) 
-            {
+            for (var i in json_obj.locations) {
                 locacion = {ID : json_obj.locations[i].ID,business : json_obj.name_business ,loc_name : json_obj.locations[i].Nombre};
                 locaciones.push(locacion);
             }
         }else{
-        // No hay para mostrar
-        navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
+        //Si no encontramos Trackers emitimos una alerta de que no se han encontrado locaciones para este usuario
+            navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
         }
-//console.log(locaciones);
-showPumps();
-});
+    //Usamos la función para mostrar los Trackers en el área de estado
+    showPumps();
+    });
 }
-// mostramos las bombas
+
+//Función para mostrar los Trackers disponibles de un usuario
 function showPumps(){
     output = "";
     for (var i in locaciones) {
