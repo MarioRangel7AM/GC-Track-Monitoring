@@ -839,26 +839,25 @@ function showAlertWithoutSound(alertar) {
 // metodo para borrar los valores de la  de burbuja de notificacion
 function dismissBadge(){
 
-       
-    
-   // console.log("VALOR "+ontracker);  
-    cordova.plugins.notification.badge.set(0);
-    numale=0;
-    $.post( "http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
-    .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
-    
-     });
- 
- cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
- 
- }, this);
-   
-navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-    media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
-    stopAudio();
- window.localStorage.setItem("alarmactive","NO");
+// console.log("VALOR "+ontracker);  
+cordova.plugins.notification.badge.set(0);
+numale=0;
+$.post( "http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
+.done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
+
+});
+
+cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
+
+}, this);
+
+//navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+stopAudio();
+window.localStorage.setItem("alarmactive","NO");
 alert("TimerId2= "+timerId2);
- timerId2.clearInterval();
+timerId2.clearInterval();
+timerId2=0;
 alert("TimerId2Cleared= "+timerId2);
 
 }
@@ -866,14 +865,14 @@ alert("TimerId2Cleared= "+timerId2);
 
 function playAudio() {
 if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")==null){
-timerId2 = setInterval(function() { 
+    timerId2 = setInterval(function() { 
     if(myMedia.status == Media.MEDIA_STOPPED){
 	 	myMedia.seekTo(0);
 	}
     myMedia.play({ playAudioWhenScreenIsLocked : true });
     var dur = myMedia.getDuration();
     var pos = myMedia.getCurrentPosition();
-   }, 60000); 
+   }, 1000); 
 }
 }
 
