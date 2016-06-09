@@ -177,12 +177,13 @@ $( document ).ready(function() {
     userid = window.localStorage.getItem("iduser");
     var output="";
     var media;
-    if(window.localStorage.getItem("isPressureNotified")==null){//si devuelve nulo lo seteas a 0
+    //Creamos el valor para verificar si se ha notificado un cambio súbito en la presión
+    if(window.localStorage.getItem("isPressureNotified")==null){
         window.localStorage.setItem("isPressureNotified","0");
     }
     // Ocultamos la barra del tracker
     $('#infoTracker').fadeOut();
-    // cargamos bombas
+    // Llamamos el método getPumps para preguntar a Bluemix cuantos Trackers tenemo
     getPumps();
     // mostramos bombas
     showPumps();
@@ -209,195 +210,205 @@ $( document ).ready(function() {
         touchDrag               : false,
         mouseDrag               : false
     });
-    // al ver el tipo de bomba?
+    //Método de acción de presionar el botón #pumptypeicon
     $('#pumptypeicon').click(function(){
-    // revisamos cuantas bombas hay y si tiene mas de 2 mostramos el submenu de seleccion
-    // veamos las bombas activas
-    var bactivas = 0;
-    if(trackers_location[0].Bombas['b1']>0){
-        bactivas++;
-    }
-    if(trackers_location[0].Bombas['b2']>0){
-        bactivas++;
-    }
-    if(trackers_location[0].Bombas['b3']>0){
-        bactivas++;
-    }
-    if(bactivas>1){
-        $('#listmoretracks').html('');
+        //Si tiene más de 1 bomba mostramos un icono correspondiente al tipo.
+        //Checamos cuantas bombas hay activas.
+        var bactivas = 0;
         if(trackers_location[0].Bombas['b1']>0){
-            if(trackers_location[0].Bombas['b1']==2){
-                $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(2)" href="#"><img src="images/red-bombaelectrica.png"> B1 - Electric Pump</a></div>');
-            }
-            if(trackers_location[0].Bombas['b1']==1){
-                $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(1)" href="#"><img src="images/iconobombadiesel2.png"> B1 - Diesel Pump</a></div>');
-            }
-            if(trackers_location[0].Bombas['b1']==3){
-                $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(3)" href="#"><img src="images/red-bombajockey.png"> B1 - Jockey Pump</a></div>');
-            }
+            bactivas++;
         }
         if(trackers_location[0].Bombas['b2']>0){
-            if(trackers_location[0].Bombas['b2']==2){
-                $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(2)" href="#"><img src="images/red-bombaelectrica.png"> B2 - Electric Pump</a></div>');
-            }
-            if(trackers_location[0].Bombas['b2']==1){
-                $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(1)" href="#"><img src="images/iconobombadiesel2.png"> B2 - Diesel Pump</a></div>');
-            }
-            if(trackers_location[0].Bombas['b2']==3){
-                $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(3)" href="#"><img src="images/red-bombajockey.png"> B2 - Jockey Pump</a></div>');
-            }
+        bactivas++;
         }
         if(trackers_location[0].Bombas['b3']>0){
-            if(trackers_location[0].Bombas['b3']==2){
-                $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(2)" href="#"><img src="images/red-bombaelectrica.png"> B3 - Electric Pump</a></div>');
-            }
-            if(trackers_location[0].Bombas['b3']==1){
-                $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(1)" href="#"><img src="images/iconobombadiesel2.png"> B3 - Diesel Pump</a></div>');
-            }
-            if(trackers_location[0].Bombas['b3']==3){
-                $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(3)" href="#"><img src="images/red-bombajockey.png"> B3 - Jockey Pump</a></div>');
-            }
+            bactivas++;
         }
-        $('#listmoretracks').fadeIn();
-    }
-});//Fin de la función de carga del documento
-
-//Función de acción del botón logout
-$('#logout').click(function() {
-    //cuadro de dialogo para confirmar alguna accion
-    navigator.notification.confirm(
-        "If you logout, you won't receive any further alarms and notifications", // message
-        onConfirm,            // callback to invoke with index of button pressed
-        "WARNING",           // title
-        ["OK","Cancel"]     // buttonLabels
-    );
-});//Fin de la función del botón logout
-
-//Función para cualquiera de los dos botones del mensaje de confirmación de logout
-function onConfirm(buttonIndex) {
-    if(buttonIndex==1){ //El botón OK ha sido presionado
-        $.getJSON( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
-        .done(function( data ) {
-            if(data.mensaje=='goodbye'){
-                //Si recibimos el mensaje de confirmación cerramos el modo de background
-                cordova.plugins.backgroundMode.disable();
-                window.localStorage.removeItem("sucess");
-                cordova.plugins.notification.badge.set(0);
-                numale=0;
-                location.href='index.html';
+        if(bactivas>1){
+            $('#listmoretracks').html('');
+            if(trackers_location[0].Bombas['b1']>0){
+                if(trackers_location[0].Bombas['b1']==2){
+                    $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(2)" href="#"><img src="images/red-bombaelectrica.png"> B1 - Electric Pump</a></div>');
+                }
+                if(trackers_location[0].Bombas['b1']==1){
+                    $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(1)" href="#"><img src="images/iconobombadiesel2.png"> B1 - Diesel Pump</a></div>');
+                }
+                if(trackers_location[0].Bombas['b1']==3){
+                    $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(3)" href="#"><img src="images/red-bombajockey.png"> B1 - Jockey Pump</a></div>');
+                }
             }
-        });
-    }// Si no fue el botón OK (es decir CANCEL) ignoramos cualquier acción.
-}
+            if(trackers_location[0].Bombas['b2']>0){
+                if(trackers_location[0].Bombas['b2']==2){
+                    $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(2)" href="#"><img src="images/red-bombaelectrica.png"> B2 - Electric Pump</a></div>');
+                }
+                if(trackers_location[0].Bombas['b2']==1){
+                    $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(1)" href="#"><img src="images/iconobombadiesel2.png"> B2 - Diesel Pump</a></div>');
+                }
+                if(trackers_location[0].Bombas['b2']==3){
+                    $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(3)" href="#"><img src="images/red-bombajockey.png"> B2 - Jockey Pump</a></div>');
+                }
+            }
+            if(trackers_location[0].Bombas['b3']>0){
+                if(trackers_location[0].Bombas['b3']==2){
+                    $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(2)" href="#"><img src="images/red-bombaelectrica.png"> B3 - Electric Pump</a></div>');
+                }
+                if(trackers_location[0].Bombas['b3']==1){
+                    $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(1)" href="#"><img src="images/iconobombadiesel2.png"> B3 - Diesel Pump</a></div>');
+                }
+                if(trackers_location[0].Bombas['b3']==3){
+                    $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(3)" href="#"><img src="images/red-bombajockey.png"> B3 - Jockey Pump</a></div>');
+                }
+            }
+            $('#listmoretracks').fadeIn();
+        }
+    });//Fin del método para la acción de presionarl el botón de tipo de bomba.
 
-//Mostramos la información del Tracker
-$('#list_trackers').fadeOut();
-$('#view_tracker_status').fadeIn();
-$('#tracker_location').fadeIn();
-$('#list_trackers').fadeOut();
-viewLocations();// Ejecutamos el método para ver la ubicación de los Trackers disponibles
-$('.dashmarg').fadeOut();
+    //Función de acción del botón logout
+    $('#logout').click(function() {
+        //cuadro de dialogo para confirmar alguna accion
+        navigator.notification.confirm(
+            "If you logout, you won't receive any further alarms and notifications", // message
+            onConfirm,            // callback to invoke with index of button pressed
+            "WARNING",           // title
+            ["OK","Cancel"]     // buttonLabels
+        );
+    });//Fin de la función del botón logout
 
-//Método para la acción de presionar el botón #showlog
-$('#showlog').click(function() {
-// Para hacer responsiva la posición de la tabla
-// con respecto al botón. Jorge Parra.
-var botonesTrackers = document.getElementsByClassName('locationmark');
-var botonTrackerActivo = botonesTrackers[0];
-var relleno = $(botonTrackerActivo).height();
-$('#datalogged').css("padding-top",relleno);
-$('#owl-demo').css('margin-left','0%');
-$('#goback').fadeIn();
-$('#sendReport').fadeIn();
-$('#gotoweb').fadeOut();
-$.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
-.done(function( data ) {
-    registros = [];
-//console.log(data);
-var json_obj = $.parseJSON(data);
-// reseteamos tabla
-$('#tblog > tbody').html('');
-/*$('#tblog > tbody').append('<thead class="header" ><tr><th>Date</th><th>Pump status</th><th>Pump Pressure</th></tr></thead><tbody>');*/
-if(json_obj.numresult>0){
-    for (var i in json_obj.logs) {
-        registro = {ID : json_obj.logs[i].ID, hora : json_obj.logs[i].hora ,Estado : json_obj.logs[i].ID, message:json_obj.logs[i].message, error_id:json_obj.logs[i].error_id, Presion: json_obj.logs[i].presion};
-        registros.push(registro);
-        $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
+    //Función para cualquiera de los dos botones del mensaje de confirmación de logout
+    function onConfirm(buttonIndex) {
+        if(buttonIndex==1){ //El botón OK ha sido presionado
+            $.getJSON( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
+            .done(function( data ) {
+                if(data.mensaje=='goodbye'){
+                    //Si recibimos el mensaje de confirmación cerramos el modo de background
+                    cordova.plugins.backgroundMode.disable();
+                    window.localStorage.removeItem("sucess");
+                    cordova.plugins.notification.badge.set(0);
+                    numale=0;
+                    location.href='index.html';
+                }
+            });
+        }// Si no fue el botón OK (es decir CANCEL) ignoramos cualquier acción.
     }
-}else{
-// No hay para mostrar
-alert('No incident logs');
-}
-//console.log(registros);
-$('#pumpstatuscont').fadeOut();
-$('#datalogged').fadeIn();
-$('#logout').fadeOut();
-$('#goback').fadeIn();
-});
-});//din del log
-//para regresar
-$('#goback').click(function(){
-    location.href="dashboard.html";
-});
-//Para refrescar la pantalla
-$('#refreshPage').click(function(){
-    location.reload(true);
-});
-// para contacto
-$('#contact').click(function(){
-    window.localStorage.setItem("idTrackerToContactSupport", ontracker);
-    location.href='contacto.html';
-});
-//revision de scroll - esto es para el datatable del historial de alarmas
-$(window).bind("scroll", function() {
-    var tableOffset = $("#tblog").offset().top;
-    var offset = $(this).scrollTop();
-    var w1 = $('#tbheader td:nth-child(1)').width()+20;
-    var w2 = $('#tbheader td:nth-child(2)').width()+20;
-    var w3 = $('#tbheader td:nth-child(3)').width()+20;
-    var h1 = $('#tbheader td:nth-child(1)').height()+20;
-    $('#tbheaderfixed div:nth-child(1)').css('width',w1);
-    $('#tbheaderfixed div:nth-child(2)').css('width',w2);
-    $('#tbheaderfixed div:nth-child(3)').css('width',w3);
-    $('#tbheaderfixed div:nth-child(2)').css('height',h1);
-    $('#tbheaderfixed div:nth-child(3)').css('height',h1);
-    if (offset >= tableOffset) {
-        $('#tbheader').css('visibility', 'visible');
-        $('#tbheaderfixed').css('visibility', 'visible');
-    }else{
-        $('#tbheader').css('visibility', 'visible');
-        $('#tbheaderfixed').css('visibility', 'hidden');
-    }
-});
-var setpadd = $('#floattopheader').height();
-$('#fixedcontainer').css('padding-top',setpadd );
-// fin de codigo de Scroll
-// que no se supone que traia la informacion de tracker? segun Carlos dijo que si
-$('#infoTracker').click(function(){
-    var text="IDtracker:  "+ontracker+"\n"+"Brand: Firetrol"+"\n"+"Model: XFFD322";
-navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
-});
-});// fin del onready
-// obtiene todas las bombas por usuario
+
+    //Mostramos la información del Tracker
+    $('#list_trackers').fadeOut();
+    $('#view_tracker_status').fadeIn();
+    $('#tracker_location').fadeIn();
+    $('#list_trackers').fadeOut();
+    viewLocations();// Ejecutamos el método para ver la ubicación de los Trackers disponibles
+    $('.dashmarg').fadeOut();
+
+    //Método para la acción de presionar el botón #showlog
+    $('#showlog').click(function() {
+        //Calculamos la altura actual de la barra del Tracker para mostrar apartir de ahí mostrar la tabla 
+        var botonesTrackers = document.getElementsByClassName('locationmark');
+        var botonTrackerActivo = botonesTrackers[0];
+        var relleno = $(botonTrackerActivo).height();
+        $('#datalogged').css("padding-top",relleno);
+        $('#owl-demo').css('margin-left','0%');
+        //Ocultamos el botón del menú principal que permite ver la página web
+        //Mostramos los botones sendReport y goBack del menú principal 
+        $('#goback').fadeIn();
+        $('#sendReport').fadeIn();
+        $('#gotoweb').fadeOut();
+        //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
+        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        .done(function( data ) {
+            registros = [];
+            var json_obj = $.parseJSON(data);
+            //Refrescamos la estructura de la tabla actual
+            $('#tblog > tbody').html('');
+            if(json_obj.numresult>0){
+                //Si existen valores dentro de la bitácora que hayan dado alerta los mostramos uno a uno.
+                for (var i in json_obj.logs) {
+                    registro = {ID : json_obj.logs[i].ID, hora : json_obj.logs[i].hora ,Estado : json_obj.logs[i].ID, message:json_obj.logs[i].message, error_id:json_obj.logs[i].error_id, Presion: json_obj.logs[i].presion};
+                    registros.push(registro);
+                    $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
+                }
+            }else{
+                //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
+                alert('No incident logs');
+            }
+            $('#pumpstatuscont').fadeOut();
+            $('#datalogged').fadeIn();
+            $('#logout').fadeOut();
+            $('#goback').fadeIn();
+        });//Fin de la consulta a Bluemix para obtener la bitácora de incidentes.
+    });//Fin del método para la acción de presionar #showlog
+
+    //Método para la acción del botón #goBack
+    $('#goback').click(function(){
+        //Si se presiona goBack devuelve a la pantalla principal
+        location.href="dashboard.html";
+    });
+
+    //Método para la acción del botón #refreshPage
+    $('#refreshPage').click(function(){
+        //Refrescamos la página actual. (Contacto, Perfil, Soporte o Dashboard)
+        location.reload(true);
+    });
+
+    //Método para la acción del botón #contact
+    $('#contact').click(function(){
+        //Insertamos la variable idTracker en memoria del dispositivo para que esta pueda ser consultada en la página de contacto.
+        window.localStorage.setItem("idTrackerToContactSupport", ontracker);
+        location.href='contacto.html';
+    });
+
+    //Función de la acción del desplazamiento de la tabla #showlog
+    $(window).bind("scroll", function() {
+        var tableOffset = $("#tblog").offset().top;
+        var offset = $(this).scrollTop();
+        var w1 = $('#tbheader td:nth-child(1)').width()+20;
+        var w2 = $('#tbheader td:nth-child(2)').width()+20;
+        var w3 = $('#tbheader td:nth-child(3)').width()+20;
+        var h1 = $('#tbheader td:nth-child(1)').height()+20;
+        $('#tbheaderfixed div:nth-child(1)').css('width',w1);
+        $('#tbheaderfixed div:nth-child(2)').css('width',w2);
+        $('#tbheaderfixed div:nth-child(3)').css('width',w3);
+        $('#tbheaderfixed div:nth-child(2)').css('height',h1);
+        $('#tbheaderfixed div:nth-child(3)').css('height',h1);
+        if (offset >= tableOffset) {
+            $('#tbheader').css('visibility', 'visible');
+            $('#tbheaderfixed').css('visibility', 'visible');
+        }else{
+            $('#tbheader').css('visibility', 'visible');
+            $('#tbheaderfixed').css('visibility', 'hidden');
+        }
+    });
+
+    //Ponemos el contenido de Dashboard después de consultar la altura del encabezado
+    var setpadd = $('#floattopheader').height();
+    $('#fixedcontainer').css('padding-top',setpadd );
+
+    //Método para
+    $('#infoTracker').click(function(){
+        var text="IDtracker:  "+ontracker+"\n"+"Brand: Firetrol"+"\n"+"Model: XFFD322";
+        navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
+    });
+});//Fin de la función JQuery de carga del documento
+
+//Función para obtener la cantidad de Trackers disponibles
 function getPumps(){
+    //Mostramos la información del Tracker
     $('#infoTracker').fadeIn();
-//console.log('ID DE USUARIO '+userid);
-currentIdUser=userid;
-$.post( "http://gct-dev.mybluemix.net/getpumps.php", {id_user: userid})
-.done(function( data ) {
-    locaciones = [];
-//console.log('deget'+data);
-var json_obj = $.parseJSON(data);
-if(json_obj.numresult>0){
-    for (var i in json_obj.locations) 
-    {
-        locacion = {ID : json_obj.locations[i].ID,business : json_obj.name_business ,loc_name : json_obj.locations[i].Nombre};
-        locaciones.push(locacion);
-    }
-}else{
-// No hay para mostrar
-navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
-}
+    currentIdUser=userid;
+    $.post( "http://gct-dev.mybluemix.net/getpumps.php", {id_user: userid})
+    .done(function( data ) {
+        //Reservamos una variable para ver las ubicaciones de Trackers
+        locaciones = [];
+        var json_obj = $.parseJSON(data);
+        if(json_obj.numresult>0){
+            for (var i in json_obj.locations) 
+            {
+                locacion = {ID : json_obj.locations[i].ID,business : json_obj.name_business ,loc_name : json_obj.locations[i].Nombre};
+                locaciones.push(locacion);
+            }
+        }else{
+        // No hay para mostrar
+        navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
+        }
 //console.log(locaciones);
 showPumps();
 });
