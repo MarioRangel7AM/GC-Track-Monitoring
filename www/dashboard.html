@@ -178,7 +178,7 @@ $( document ).ready(function() {
     var output="";
     var media;
     //Creamos el valor para verificar si se ha notificado un cambio súbito en la presión
-    if(window.localStorage.getItem("isPressureNotified")==null){
+    if(window.localStorage.getItem("isPressureNotified")===null){
         window.localStorage.setItem("isPressureNotified","0");
     }
     // Ocultamos la barra del tracker
@@ -213,47 +213,47 @@ $( document ).ready(function() {
         //Si tiene más de 1 bomba mostramos un icono correspondiente al tipo.
         //Checamos cuantas bombas hay activas.
         var bactivas = 0;
-        if(trackers_location[0].Bombas['b1']>0){
+        if(trackers_location[0].Bombas.b1>0){
             bactivas++;
         }
-        if(trackers_location[0].Bombas['b2']>0){
+        if(trackers_location[0].Bombas.b2>0){
         bactivas++;
         }
-        if(trackers_location[0].Bombas['b3']>0){
+        if(trackers_location[0].Bombas.b3>0){
             bactivas++;
         }
         if(bactivas>1){
             $('#listmoretracks').html('');
-            if(trackers_location[0].Bombas['b1']>0){
-                if(trackers_location[0].Bombas['b1']==2){
+            if(trackers_location[0].Bombas.b1>0){
+                if(trackers_location[0].Bombas.b1==2){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(2)" href="#"><img src="images/red-bombaelectrica.png"> B1 - Electric Pump</a></div>');
                 }
-                if(trackers_location[0].Bombas['b1']==1){
+                if(trackers_location[0].Bombas.b1==1){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(1)" href="#"><img src="images/iconobombadiesel2.png"> B1 - Diesel Pump</a></div>');
                 }
-                if(trackers_location[0].Bombas['b1']==3){
+                if(trackers_location[0].Bombas.b1==3){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(3)" href="#"><img src="images/red-bombajockey.png"> B1 - Jockey Pump</a></div>');
                 }
             }
-            if(trackers_location[0].Bombas['b2']>0){
-                if(trackers_location[0].Bombas['b2']==2){
+            if(trackers_location[0].Bombas.b2>0){
+                if(trackers_location[0].Bombas.b2==2){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(2)" href="#"><img src="images/red-bombaelectrica.png"> B2 - Electric Pump</a></div>');
                 }
-                if(trackers_location[0].Bombas['b2']==1){
+                if(trackers_location[0].Bombas.b2==1){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(1)" href="#"><img src="images/iconobombadiesel2.png"> B2 - Diesel Pump</a></div>');
                 }
-                if(trackers_location[0].Bombas['b2']==3){
+                if(trackers_location[0].Bombas.b2==3){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(3)" href="#"><img src="images/red-bombajockey.png"> B2 - Jockey Pump</a></div>');
                 }
             }
-            if(trackers_location[0].Bombas['b3']>0){
-                if(trackers_location[0].Bombas['b3']==2){
+            if(trackers_location[0].Bombas.b3>0){
+                if(trackers_location[0].Bombas.b3==2){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(2)" href="#"><img src="images/red-bombaelectrica.png"> B3 - Electric Pump</a></div>');
                 }
-                if(trackers_location[0].Bombas['b3']==1){
+                if(trackers_location[0].Bombas.b3==1){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(1)" href="#"><img src="images/iconobombadiesel2.png"> B3 - Diesel Pump</a></div>');
                 }
-                if(trackers_location[0].Bombas['b3']==3){
+                if(trackers_location[0].Bombas.b3==3){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(3)" href="#"><img src="images/red-bombajockey.png"> B3 - Jockey Pump</a></div>');
                 }
             }
@@ -499,18 +499,18 @@ $('#trackdata_id').html(json_obj.tracker.ID);
 //cambiamos el tipo de bomba
 //console.log('iniciamos ciclo:');
 // intentaremos mostrar la primera bomba/ por lo general siempre existe
-if(trackers_location[0].Bombas['b1']!=0){
-    if(trackers_location[0].Bombas['b1']==2){
+if(trackers_location[0].Bombas.b1!==0){
+    if(trackers_location[0].Bombas.b1==2){
         $('#pumptypeicon').attr('src','images/bombaelectrica.png');
-        $('#pumptypename').html('Electric<br>Pump')
+        $('#pumptypename').html('Electric<br>Pump');
     }
-    if(trackers_location[0].Bombas['b1']==1){
+    if(trackers_location[0].Bombas.b1==1){
         $('#pumptypeicon').attr('src','img/iconobombadiesel55x55.png');
-        $('#pumptypename').html('Diesel<br>Pump')
+        $('#pumptypename').html('Diesel<br>Pump');
     }
-    if(trackers_location[0].Bombas['b1']==3){
+    if(trackers_location[0].Bombas.b1==3){
         $('#pumptypeicon').attr('src','images/bombajockey.png');
-        $('#pumptypename').html('Jokey<br>Pump')
+        $('#pumptypename').html('Jokey<br>Pump');
     }
 }
 if(json_obj.tracker.Estado==1){
@@ -565,6 +565,7 @@ function checkPump(){
 listDevices = []; //limpiamos
 var json_obj = $.parseJSON(data);
 ////console.log(data);
+      //Un for in debe tenenr un if antes para que no entre en condiciones no requeridas
 for (var i in json_obj.tracker) 
 {
 //guardaremos nuestros dispositivos para consulta de estado
@@ -576,7 +577,7 @@ device = {
     status : json_obj.tracker[i].status, 
     message: json_obj.tracker[i].message, 
     error_id : json_obj.tracker[i].error_id
-}
+};
 listDevices.push(device);
 }
 //revisamos que todo este bien
@@ -606,7 +607,7 @@ if(isNotified == 1){
 
 
 
-
+//Función declarada dentro de un loop!!!!
 $.post( "http://gct-dev.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: json_obj.tracker[i].ID, id_user : currentIdUser})
 .done(function( data ) {
     data=$.parseJSON(data);
@@ -662,7 +663,7 @@ if(parseInt(listDevices[i].ID) == parseInt(ontracker)){
 ////console.log("Estamos en vista");
 //console.log("ID>>>"+listDevices[i].ID+"Valor:"+listDevices[i].status);
 $('#presiondata').html(listDevices[i].pressure);
-if(parseInt(listDevices[i].status)!=0){
+if(parseInt(listDevices[i].status)!==0){
     $('#pump_status_res').html(listDevices[i].message);
 //icono
 $('#statusnormal').fadeOut();
@@ -688,11 +689,11 @@ if(numale>0){
 }
 //aqui vemos si le avisamos que ya esta todo correcto despues de tener registrado que hay problemas
 if(resultpump != generalres){
-    if(resultpump==1 && generalres==0){
+    if(resultpump==1 && generalres===0){
 //signfica que se encontro problemas y registramos el marcador global
 generalres = 1;
 }else{
-    if(resultpump==0 && generalres==1){
+    if(resultpump===0 && generalres===1){
 //signfica que ya no se encontro problemas y volvemos a la normalidad
 generalres = 0;
 isNotified = 0;
@@ -723,12 +724,12 @@ var hours=today.getHours();
 var minutes=today.getMinutes();
 var yyyy = today.getFullYear();
 if(dd<10){
-    dd='0'+dd
+    dd='0'+dd;
 } 
 if(mm<10){
-    mm='0'+mm
+    mm='0'+mm;
 } 
-var today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
+today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
 //console.log(tableElement);
 $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
 .done(function( data ) {
@@ -749,7 +750,7 @@ return re.test(email);
 // otro metodo? elijan cual es el correo y borren el que no necesiten
 function validateCCEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(re.test(email)||email=="cancel"||email==""){
+    if(re.test(email)||email=="cancel"||email===""){
         return true;
     }
     else{
@@ -769,9 +770,6 @@ media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL 
 
 var now = new Date().getTime();
 //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
-var _3_sec_from_now = new Date(now + 3 *1000);
-
-
 
 
 cordova.plugins.notification.local.schedule({
@@ -801,19 +799,17 @@ function onStatus(status) {
 // }
 }
 function showAlertWithoutSound(alertar) { 
-
-//este metodo se llama cuando el sistema vuelve a la normalidad
-cordova.plugins.notification.badge.set(0);
-numale=0;
-var now  = new Date().getTime();
-var _3_sec_from_now = new Date(now + 3*1000);
-cordova.plugins.notification.local.schedule({
-id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
-text: alertar,
-at: now,
-});
-cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-//navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+    //este metodo se llama cuando el sistema vuelve a la normalidad
+    cordova.plugins.notification.badge.set(0);
+    numale=0;
+    var now  = new Date().getTime();
+    cordova.plugins.notification.local.schedule({
+        id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
+        text: alertar,
+        at: now,
+        });
+    cordova.plugins.notification.local.cancelAll(function() {
+    //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
 }, this);
 
 
@@ -849,7 +845,7 @@ alert("TimerId2Cleared= "+timerId2);
 
 
 function playAudio() {
-    if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")==null){
+    if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")===null){
         timerId2 = setInterval(function() { 
             if(myMedia.status == Media.MEDIA_STOPPED){
                 myMedia.seekTo(0);
@@ -891,15 +887,15 @@ function changeBomba(viewBomba){
 $('#listmoretracks').fadeOut();
 if(viewBomba==2){
     $('#pumptypeicon').attr('src','images/bombaelectrica.png');
-    $('#pumptypename').html('Electric<br>Pump')
+    $('#pumptypename').html('Electric<br>Pump');
 }
 if(viewBomba==1){
     $('#pumptypeicon').attr('src','img/iconobombadiesel55x55.png');
-    $('#pumptypename').html('Diesel<br>Pump')
+    $('#pumptypename').html('Diesel<br>Pump');
 }
 if(viewBomba==3){
     $('#pumptypeicon').attr('src','images/bombajockey.png');
-    $('#pumptypename').html('Jokey<br>Pump')
+    $('#pumptypename').html('Jokey<br>Pump');
 }
 // cambiaremos el estado de la bomba
 } 
