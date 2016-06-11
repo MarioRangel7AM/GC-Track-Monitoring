@@ -160,7 +160,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
     cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
-    //Cargamos el archivo mp3 para la alarma en android.
+cordova.plugins.backgroundMode.enable();
+
 }
 //Función JQuery de carga del documento
 $( document ).ready(function() {
@@ -268,6 +269,7 @@ $( document ).ready(function() {
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
                     window.localStorage.removeItem("sucess");
                     cordova.plugins.notification.badge.set(0);
+                    cordova.plugins.backgroundMode.disable();
                     numale=0;
                     location.href='index.html';
                 }
@@ -594,7 +596,6 @@ function checkPump() {
                     }
                 }
             }
-            break; //
         }// fin del for
         // Agregamos la burbuja al icono de la app dependiendo del número de alertas
         if(numale>0){
@@ -680,6 +681,7 @@ function showAlert(alertar) {
         every:"minute",
         sound:sound    
     });
+
 }      
 function showAlertWithoutSound(alertar) { 
     //Este método se llama cuando el sistema vuelve a la normalidad
@@ -705,7 +707,7 @@ function dismissBadge(){
     });
     cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
     }, this);
-    //navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+    navigator.notification.alert("Alarm dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     window.localStorage.setItem("alarmactive","NO");
     
 
