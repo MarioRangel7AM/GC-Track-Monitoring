@@ -670,6 +670,8 @@ function validateCCEmail(email) {
 }
 //Método para emitir una alerta sonora
 function showAlert(alertar) {
+    navigator.notification.beep(1);
+
     var now = new Date().getTime();
    // var sound = device.platform == 'iOS' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
     window.plugin.notification.local.add({ 
@@ -678,9 +680,8 @@ function showAlert(alertar) {
         text: "EMERGENCY "+alertar,
         at: now,
         badge: 1,
-        every:"minute",
-        sound: 'www/sounds/alarm.wav' });
-    navigator.notification.beep(2);
+        every:"minute"
+        });
 
 
 }
