@@ -160,12 +160,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
     cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
-    cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
-    cordova.plugins.backgroundMode.configure({
-        title: 'GCTrack',
-        text: 'Currently monitoring',
-        ticker: 'reading'
-    });
     //Cargamos el archivo mp3 para la alarma en android.
 }
 //Función JQuery de carga del documento
@@ -272,7 +266,6 @@ $( document ).ready(function() {
             .done(function( data ) {
                 if(data.mensaje=='goodbye'){
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
-                    cordova.plugins.backgroundMode.disable();
                     window.localStorage.removeItem("sucess");
                     cordova.plugins.notification.badge.set(0);
                     numale=0;
@@ -683,7 +676,7 @@ function showAlert(alertar) {
         text: "EMERGENCY "+alertar,
         at: now,
         badge: 1,
-        every:"minute"
+        every:"minute",
         sound:'file://alarm.mp3'      
     });
 }      
