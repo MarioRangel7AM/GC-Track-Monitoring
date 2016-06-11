@@ -163,7 +163,9 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
 cordova.plugins.backgroundMode.enable();
 
 cordova.plugins.notification.local.on("trigger", function(notification) {
-    alert("triggered: ");//funcion que se llamara al momento de activarse una notificiacion
+    navigator.notification.beep(1);
+
+
 });
 }
 //Función JQuery de carga del documento
