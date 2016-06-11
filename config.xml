@@ -65,10 +65,7 @@
   <gap:splash src="www/res/screen/ios/screen-ipad-portrait.png" gap:platform="ios" width="768" height="1024"/>
   <gap:splash src="www/res/screen/ios/screen-ipad-landscape.png" gap:platform="ios" width="1024" height="768"/>
   <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone"/>
-  <gap:config-file platform="ios" parent="UIBackgroundModes" overwrite="true">
-<array>
-<string>audio</string>
-</array>
+  
 </gap:config-file>
   <access origin="*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
@@ -93,5 +90,4 @@
   <preference name="android-build-tool" value="gradle" />
   <plugin name="de.appplant.cordova.plugin.local-notification"/>
   <plugin name="cordova-plugin-badge" spec="0.7.2" source="npm" />
-<plugin name="de.appplant.cordova.plugin.background-mode" spec="0.6.4" source="pgb" />
   </widget>
