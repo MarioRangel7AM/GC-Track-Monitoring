@@ -567,8 +567,9 @@ function checkPump() {
                         }
                     });
                     if(window.localStorage.getItem("alarmactive")=="YES"){
+                        navigator.vibrate(1600);
+                        
                         showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
-                        //navigator.vibrate(1600);
                         numale=1; 
                         isNotified=1;
                         window.localStorage.setItem("alarmactive","NO");
@@ -611,7 +612,7 @@ function checkPump() {
                     //signfica que ya no se encontro problemas y volvemos a la normalidad
                     generalres = 0;
                     isNotified = 0;
-                    // navigator.vibrate(500);
+                     navigator.vibrate(500);
                     showAlertWithoutSound("Systems ready");//callas las alarmas
                     window.localStorage.setItem("isPressureNotified","0");
                 } 
