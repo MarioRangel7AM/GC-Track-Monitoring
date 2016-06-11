@@ -569,7 +569,6 @@ function checkPump() {
                         }
                     });
                     if(window.localStorage.getItem("alarmactive")=="YES"){
-                        navigator.vibrate(1600);
                         
                         showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                         numale=1; 
