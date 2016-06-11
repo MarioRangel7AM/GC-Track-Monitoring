@@ -162,11 +162,6 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
     cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
 cordova.plugins.backgroundMode.enable();
 
-cordova.plugins.notification.local.on("trigger", function(notification) {
-    navigator.notification.beep(1);
-
-
-});
 }
 //Función JQuery de carga del documento
 $( document ).ready(function() {
@@ -688,6 +683,11 @@ function showAlert(alertar) {
         every:"minute"
         });
    
+cordova.plugins.notification.local.on("trigger", function(notification) {
+    navigator.notification.beep(1);
+
+
+});
 
 
 
