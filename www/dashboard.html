@@ -672,17 +672,18 @@ function validateCCEmail(email) {
 function showAlert(alertar) {
     var now = new Date().getTime();
    // var sound = device.platform == 'iOS' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
-    cordova.plugins.notification.local.schedule({
-        id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
+    window.plugin.notification.local.add({ 
+
+         id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
         text: "EMERGENCY "+alertar,
         at: now,
         badge: 1,
         every:"minute",
-        sound:'res://platform_default'
+        sound: 'www/sounds/alarm.wav' });
 
-    });
+}
 
-}      
+
 function showAlertWithoutSound(alertar) { 
     //Este método se llama cuando el sistema vuelve a la normalidad
     cordova.plugins.notification.badge.set(0);
