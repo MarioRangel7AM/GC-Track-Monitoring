@@ -162,6 +162,9 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
     cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
 cordova.plugins.backgroundMode.enable();
 
+cordova.plugins.notification.local.on("trigger", function(notification) {
+    alert("triggered: ");//funcion que se llamara al momento de activarse una notificiacion
+});
 }
 //Función JQuery de carga del documento
 $( document ).ready(function() {
@@ -671,10 +674,10 @@ function validateCCEmail(email) {
 //Método para emitir una alerta sonora
 function showAlert(alertar) {
     navigator.notification.beep(1);
-
+//al fin suena el ruido 
     var now = new Date().getTime();
    // var sound = device.platform == 'iOS' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
-    window.plugin.notification.local.add({ 
+    window.plugin.notification.local.add({ //la funcion alertar solo se llamara cuando se detecte un uno
 
          id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
         text: "EMERGENCY "+alertar,
@@ -682,6 +685,8 @@ function showAlert(alertar) {
         badge: 1,
         every:"minute"
         });
+   
+
 
 
 }
