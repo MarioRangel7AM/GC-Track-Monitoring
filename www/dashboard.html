@@ -673,13 +673,12 @@ function validateCCEmail(email) {
 function showAlert(alertar) {
     var now = new Date().getTime();
    // var sound = device.platform == 'iOS' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
-    cordova.plugins.notification.local.schedule({
-        id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
-        text: "EMERGENCY "+alertar,
-        at: now,
-        badge: 1,
-        every:"minute",
-        sound:"beep.caf"
+    window.plugin.notification.local.add({
+             id:         1,  // A unique id of the notifiction
+            title:      'EMERGENCY',  // The title of the message
+            message:    alertar,  // The message that is displayed
+            sound:      'file://alarm.wav'
+          
     });
 
 }      
