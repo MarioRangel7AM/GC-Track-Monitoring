@@ -156,6 +156,7 @@ var currentPumpstatus='';
 var numale = 0;//Número de burbujas en el icono
 var currentIdUser=0;
 var bombas_location  = [];
+var interval;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
@@ -270,6 +271,7 @@ $( document ).ready(function() {
                     window.localStorage.removeItem("sucess");
                     cordova.plugins.notification.badge.set(0);
                     cordova.plugins.backgroundMode.disable();
+                    clearInterval(interval);
                     numale=0;
                     location.href='index.html';
                 }
@@ -672,7 +674,9 @@ function validateCCEmail(email) {
 function showAlert(alertar) {
    
 
-   var interval=setInterval(function (){ navigator.notification.beep(1);
+   interval=setInterval(function (){ 
+
+    navigator.notification.beep(1);
 //al fin suena el ruido 
     var now = new Date().getTime();
    // var sound = device.platform == 'iOS' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
@@ -706,6 +710,7 @@ function showAlertWithoutSound(alertar) {
     cordova.plugins.notification.local.cancelAll(function() {
         //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     }, this);
+    clearInterval(interval);//detiene el intervalo de notificaciones y alarma
    
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
@@ -719,6 +724,7 @@ function dismissBadge(){
     }, this);
     navigator.notification.alert("Alarm dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     window.localStorage.setItem("alarmactive","NO");
+    clearInterval(interval);
     
 
     }
