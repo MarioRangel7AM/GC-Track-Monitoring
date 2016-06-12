@@ -679,8 +679,7 @@ function showAlert(alertar) {
          id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
         text: "EMERGENCY "+alertar,
         at: now,
-        badge: 1,
-        every:"minute"
+        badge: 1
         });
    
 cordova.plugins.notification.local.on("trigger", function(notification) {
