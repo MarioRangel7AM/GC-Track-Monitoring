@@ -130,6 +130,8 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/PushNotification.js"></script>
+
     <!-- Owl Carousel Assets -->
     <link href="owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="owl-carousel/owl.theme.css" rel="stylesheet">
@@ -157,15 +159,61 @@ var numale = 0;//Número de burbujas en el icono
 var currentIdUser=0;
 var bombas_location  = [];
 var interval;
+var pushNotification;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
+    pushNotification = window.plugins.pushNotification;
+
+
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
     cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
-cordova.plugins.backgroundMode.enable();
 
 }
 //Función JQuery de carga del documento
 $( document ).ready(function() {
+   
+                alert("device "+device.platform);
+
+if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+    pushNotification.register(
+    successHandler,
+    errorHandler,
+    {
+        "senderID":"replace_with_sender_id",
+        "ecb":"onNotification"
+    });
+} else if ( device.platform == 'blackberry10'){
+    pushNotification.register(
+    successHandler,
+    errorHandler,
+    {
+        invokeTargetId : "replace_with_invoke_target_id",
+        appId: "replace_with_app_id",
+        ppgUrl:"replace_with_ppg_url", //remove for BES pushes
+        ecb: "pushNotificationHandler",
+        simChangeCallback: replace_with_simChange_callback,
+        pushTransportReadyCallback: replace_with_pushTransportReady_callback,
+        launchApplicationOnPush: true
+    });
+} else {
+    pushNotification.register(
+    tokenHandler,
+    errorHandler,
+    {
+        "badge":"true",
+        "sound":"true",
+        "alert":"true",
+        "ecb":"onNotificationAPN"
+    });
+}
+
+
+
+
+
+
+
+
     userid = window.localStorage.getItem("iduser");
     var output="";
     //Creamos el valor para verificar si se ha notificado un cambio súbito en la presión
@@ -270,7 +318,6 @@ $( document ).ready(function() {
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
                     window.localStorage.removeItem("sucess");
                     cordova.plugins.notification.badge.set(0);
-                    cordova.plugins.backgroundMode.disable();
                     clearInterval(interval);
                     numale=0;
                     location.href='index.html';
