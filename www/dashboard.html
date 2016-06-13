@@ -168,11 +168,12 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
     cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
 
+                alert("device "+device.model);
+
 }
 //Función JQuery de carga del documento
 $( document ).ready(function() {
    
-                alert("device "+device.model);
 
 
 
