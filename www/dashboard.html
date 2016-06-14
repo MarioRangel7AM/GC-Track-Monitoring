@@ -176,14 +176,18 @@ alert("devidce token es el  "+token);
 
 $.post( "http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:token})
         .done(function( data ) {
-        //console.log(data);
-        var data = $.parseJSON(data);
+         //console.log(data);
+
 alert("el dato parseado es"+data.aps.alert);        
+
+        var data = $.parseJSON(data);
         });
 
 
     },
     function(){alert('Error al registrarse en el servidor APNS');},
+    
+//opciones
     {
         "badge":"true",
         "sound": "true",
@@ -198,6 +202,8 @@ alert("el dato parseado es"+data.aps.alert);
 }
 
 function onNotificationAPN (event) {
+
+    alert("entrando al apn");
     if (event.alert) {
        alert(event.alert);
     }
