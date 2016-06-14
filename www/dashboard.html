@@ -202,14 +202,6 @@ alert("FUERA DEL POST");
 
 }
 
-//Función JQuery de carga del documento
-
-
-
-$( document ).ready(function() {
-   
-
-
 function onNotificationAPN (event) {
 
     alert("entrando al apn");
@@ -226,6 +218,16 @@ function onNotificationAPN (event) {
         window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
     }
 }
+
+
+//Función JQuery de carga del documento
+
+
+
+$( document ).ready(function() {
+   
+
+
 
 
 
