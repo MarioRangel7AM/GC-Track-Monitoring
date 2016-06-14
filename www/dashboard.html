@@ -178,7 +178,7 @@ $( document ).ready(function() {
     if(window.localStorage.getItem("isPressureNotified")===null){
         window.localStorage.setItem("isPressureNotified","0");
     }
-    // Ocultamos la barra del tracker
+    // Ocultamos el icono de información del tracker
     $('#infoTracker').fadeOut();
     // Llamamos el método getPumps para preguntar a Bluemix cuantos Trackers están disponibles para este usuario y mostrarlos
     getPumps();
@@ -375,7 +375,7 @@ $( document ).ready(function() {
 });//Fin de la función JQuery de carga del documento
 //Función para obtener la cantidad de Trackers disponibles
 function getPumps() {
-    //Mostramos el campo de la información del Tracker
+    //Mostramos el botón de la información del Tracker
     $('#infoTracker').fadeIn();
     currentIdUser=userid;
     //Preguntamos a Bluemix cuales son los trackers a los que tiene acceso este usuario dependiendo de su compañia y si se encuentra activo.
@@ -460,11 +460,10 @@ function viewTrackers (idlocation) {
 //Función para mostrar la información de un Tracker
 function getTracker(idTracker) {
     //Mostramos los campos de estado
-    $('#pumpstatuscont').fadeIn();
+    console.log("SI ESTÁ ENTRANDO AQUÍ 1");
     $('#datalogged').fadeOut();
     $('#logout').fadeIn();
     $('#goback').fadeOut();
-    $('.dashmarg').fadeIn();
     $('#listmoretracks').fadeOut();
     onscreen = 'viewtracker';
     ontracker = idTracker;
@@ -475,6 +474,9 @@ function getTracker(idTracker) {
     .done(function( data ) {
         var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){ //Si obtenemos respuesta de Bluemix con la info
+            $('.dashmarg').fadeIn();
+            $('#statuserror').css({display:"none"});
+            $('#statusnormal').css({display:"none"});
             $('#presiondata').html(json_obj.tracker.Presion);
             $('#trackdata_id').html(json_obj.tracker.ID);
             // intentaremos mostrar la primera bomba/ por lo general siempre existe
@@ -492,12 +494,13 @@ function getTracker(idTracker) {
                     $('#pumptypename').html('Jokey<br>Pump');
                 }
             }
+            
             if(json_obj.tracker.Estado==1){
                 $('#pump_status_res').html(json_obj.tracker.message);
                 $('#statusnormal').fadeOut("normal", function () {
                     $('#statusnormal').css({display:"none"});
                 });
-                $('#statuserror').fadeOut("normal", function () {
+                $('#statuserror').fadeIn("normal", function () {
                     $('#statuserror').css({display:"block"});
                 });
                 currentPumpstatus = json_obj.tracker.message;
@@ -505,9 +508,9 @@ function getTracker(idTracker) {
             }else{
                 $('#pump_status_res').html(json_obj.tracker.message);
                 $('#statuserror').fadeOut("normal", function () {
-                    $('#statuserro').css({display:"none"});
+                    $('#statuserror').css({display:"none"});
                 });
-                $('#statusnormal').fadeOut("normal", function () {
+                $('#statusnormal').fadeIn("normal", function () {
                     $('#statusnormal').css({display:"block"});
                 });
             }
@@ -515,10 +518,13 @@ function getTracker(idTracker) {
             $('#loc_business').html(json_obj.tracker.loc_business);
             $('#loc_pos').html(json_obj.tracker.loc_pos);
             //Mostramos la información del tracker al darle click
+            //Al parecer esto no es necesario -------------
+            console.log("SI ESTÁ ENTRANDO AQUÍ 3");
+            
             $('#list_trackers').fadeOut();
-            $('#view_tracker_status').fadeIn();
             $('#tracker_location').fadeIn();
-            $('#list_trackers').fadeOut();
+            $('#view_tracker_status').fadeIn();
+            $('#pumpstatuscont').fadeIn();
             //Calculamos el tamaño del banner del tracker para darle el espacio a la información.
             var botonesTrackers = document.getElementsByClassName('locationmark');
             var botonTrackerActivo = botonesTrackers[0];
@@ -771,7 +777,7 @@ var timerId = setInterval(function() {
     }else{
         $('#offlinediag').fadeIn();
     }
-}, 3000);
+}, 5000);
 
 //Función para cambiar la imágen de las bombas
 function changeBomba(viewBomba){
