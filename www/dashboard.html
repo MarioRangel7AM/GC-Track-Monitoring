@@ -166,27 +166,24 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
 
-   var pushNotification = window.plugins.pushNotification;
+   window.plugins.pushNotification.register(
+    function(token){
+        alert(token);
+    },
+    function(){alert('Error al registrarse en el servidor APNS');},
+    {
+        "badge":"true",
+        "sound": "true",
+        "alert": "true",
+        "ecb": "onNotificationAPN"
+    });
 
-    cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
 
-                alert("device "+device.model);
-
-
-    var pushNotification = window.plugins.pushNotification;
-pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
-    app.myLog.value+=JSON.stringify(['registerDevice status: ', status])+"\n";
-    app.storeToken(status.deviceToken);
-});
-// result contains any token description text returned from the plugin call
 
 
 }
 
-function tokenHandler (result) {
-    alert('token  = ' + result);
-    console.log("TOKENFNBN"+result);
-}
+
 
 //Función JQuery de carga del documento
 
@@ -195,6 +192,20 @@ function tokenHandler (result) {
 $( document ).ready(function() {
    
 
+function onNotificationAPN (event) {
+    if (event.alert) {
+       alert(event.alert);
+    }
+
+    if (event.sound) {
+        var snd = new Media(event.sound);
+        snd.play();
+    }
+
+    if (event.badge) {
+        window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
+    }
+}
 
 
 
