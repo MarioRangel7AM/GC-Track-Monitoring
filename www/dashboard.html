@@ -139,9 +139,6 @@
 <!-- 
 Función principal de JavaScript para el manejo de los eventos 
 -->
-
-<div id=app></div>
-
 <script type="text/javascript" charset="utf-8">
 //variables globales de la aplicacion
 var screenpos = 'dashboard';
@@ -163,69 +160,29 @@ var currentIdUser=0;
 var bombas_location  = [];
 var interval;
 var pushNotification;
+var deviceToken;
+document.addEventListener("deviceready", onDeviceReady, false);
+//Función Javascript de carga del documento
 
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
+
+function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
+
+   
+window.plugins.pushNotification.register(
+    function(token){
+        alert("EL TOKEN ES "+token);
+
+deviceToken=token;
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-        window.plugins.pushNotification.register(
-        function(token){
-            window.pushToken = token;
-            // En una aplicación seria ahora lo deberíamos mandar al servidor
-            alert("EL TOKEN ES "+window.pushToken);
-
-$.post( "http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:window.pushToken})
-        .done(function( data ) {
-        //console.log(data);
-        //var data = $.parseJSON(data);
-        alert("token enviado");
-        });
+    function(){alert('Error al registrarse en el servidor APNS');},
+    {
+        "badge":"true",
+        "sound": "true",
+        "alert": "true",
+        "ecb": "onNotificationAPN"
+    });
 
 
-
-
-
-
-
-
-        },
-        function(){
-            alert('Error al registrarse en el servidor APNS');
-        },{
-            "badge":"true",
-            "sound":"true",
-            "alert":"true",
-            "ecb":"onNotificationAPN"
-        });
-    }
-};
-function onNotificationAPN (event) {
-    if (event.alert) {
-       alert(event.alert);
-    }
-
-    if (event.sound) {
-        var snd = new Media(event.sound);
-        snd.play();
-    }
-
-    if (event.badge) {
-        window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
-    }
 }
 
 
@@ -236,8 +193,14 @@ function onNotificationAPN (event) {
 
 $( document ).ready(function() {
    
-app.initialize();
+alert("devidce token es "+deviceToken);
 
+$.post( "http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:window.pushToken})
+        .done(function( data ) {
+        //console.log(data);
+        //var data = $.parseJSON(data);
+        alert("token enviado");
+        });
 
 
 
