@@ -192,16 +192,25 @@ alert("el dato parseado es"+data.aps.alert);
     });
 
 
-window.plugins.pushNotification.getPendingNotifications(function(notifications) {
-    app.myLog.value+=JSON.stringify(['getPendingNotifications', notifications])+"\n";
-    alert("dato "+JSON.stringify(['getPendingNotifications', notifications]));
-});
 
 
 
 }
 
+function onNotificationAPN (event) {
+    if (event.alert) {
+       alert(event.alert);
+    }
 
+    if (event.sound) {
+        var snd = new Media(event.sound);
+        snd.play();
+    }
+
+    if (event.badge) {
+        window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
+    }
+}
 
 //Función JQuery de carga del documento
 
