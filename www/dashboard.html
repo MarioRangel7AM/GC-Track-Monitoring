@@ -166,7 +166,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
 
-    pushNotification = window.plugins.pushNotification;
+   var pushNotification = window.plugins.pushNotification;
 
     cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
 
