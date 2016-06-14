@@ -172,7 +172,16 @@ window.plugins.pushNotification.register(
     function(token){
         alert("EL TOKEN ES "+token);
 
-deviceToken=token;
+alert("devidce token es "+deviceToken);
+
+$.post( "http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:window.pushToken})
+        .done(function( data ) {
+        //console.log(data);
+        //var data = $.parseJSON(data);
+        alert("token enviado");
+        });
+
+
     },
     function(){alert('Error al registrarse en el servidor APNS');},
     {
@@ -193,14 +202,6 @@ deviceToken=token;
 
 $( document ).ready(function() {
    
-alert("devidce token es "+deviceToken);
-
-$.post( "http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:window.pushToken})
-        .done(function( data ) {
-        //console.log(data);
-        //var data = $.parseJSON(data);
-        alert("token enviado");
-        });
 
 
 
