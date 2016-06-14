@@ -177,8 +177,7 @@ alert("devidce token es el  "+token);
 $.post("http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:token})
         .done(function( data ) {
          //console.log(data);
-         var json_data=$.parseJSON(data);
-alert("enviando al php"+json_data);
+alert("recibiendo del  php"+data);
 //alert("el dato parseado es"+data.aps.alert);        
 
   //      var data = $.parseJSON(data);
