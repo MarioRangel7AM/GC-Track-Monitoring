@@ -131,6 +131,7 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/PushNotification.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/startpushnotifications.js"></script>
 
     <!-- Owl Carousel Assets -->
     <link href="owl-carousel/owl.carousel.css" rel="stylesheet">
@@ -139,6 +140,11 @@
 <!-- 
 Función principal de JavaScript para el manejo de los eventos 
 -->
+
+<script type="text/javascript">
+    app.initialize();
+
+</script>
 <script type="text/javascript" charset="utf-8">
 //variables globales de la aplicacion
 var screenpos = 'dashboard';
@@ -166,18 +172,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
 
-   window.plugins.pushNotification.register(//metodo para registrar notificaiones push
-    function(token){
-        alert(token);
-    },
-    function(){alert('Error al registrarse en el servidor APNS');},
-    {
-        "badge":"true",
-        "sound": "true",
-        "alert": "true",
-        "ecb": "onNotificationAPN"
-    });
-
+   
 
 
 
@@ -186,20 +181,6 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
 
 
 //Función JQuery de carga del documento
-function onNotificationAPN (event) {
-    if (event.alert) {
-       alert(event.alert);
-    }
-
-    if (event.sound) {
-        var snd = new Media(event.sound);
-        snd.play();
-    }
-
-    if (event.badge) {
-        window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
-    }
-}
 
 
 
