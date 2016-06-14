@@ -166,7 +166,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
 
-   window.plugins.pushNotification.register(
+   window.plugins.pushNotification.register(//metodo para registrar notificaiones push
     function(token){
         alert(token);
     },
@@ -186,12 +186,6 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
 
 
 //Función JQuery de carga del documento
-
-
-
-$( document ).ready(function() {
-   
-
 function onNotificationAPN (event) {
     if (event.alert) {
        alert(event.alert);
@@ -206,6 +200,12 @@ function onNotificationAPN (event) {
         window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
     }
 }
+
+
+
+$( document ).ready(function() {
+   
+
 
 
 
