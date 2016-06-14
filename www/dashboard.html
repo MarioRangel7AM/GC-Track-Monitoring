@@ -173,17 +173,19 @@ window.plugins.pushNotification.register(
         alert("EL TOKEN ES "+token);
 
 alert("devidce token es el  "+token);
-
+var datajson;
 $.post("http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:token})
         .done(function( data ) {
          //console.log(data);
-    var datajson = $.parseJSON(data);
+ datajson = $.parseJSON(data);
 
-alert("recibiendo del  php"+datajson.aps.alert);
 //alert("el dato parseado es"+data.aps.alert);        
 
   //      var data = $.parseJSON(data);
         });
+
+
+alert("recibiendo del  php"+datajson.aps.alert);
 
 alert("FUERA DEL POST");
     },
@@ -203,7 +205,6 @@ alert("FUERA DEL POST");
 
 }
 
-//Función JQuery de carga del documento
 
 
 
