@@ -179,7 +179,7 @@ $.post("http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:t
          //console.log(data);
     var datajson = $.parseJSON(data);
 
-alert("recibiendo del  php"+data.aps.alert);
+alert("recibiendo del  php"+datajson.aps.alert);
 //alert("el dato parseado es"+data.aps.alert);        
 
   //      var data = $.parseJSON(data);
