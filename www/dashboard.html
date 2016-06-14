@@ -173,16 +173,11 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
                 alert("device "+device.model);
 
 
-    pushNotification.register(
-    tokenHandler,
-    errorHandler,
-    {
-        "badge":"true",
-        "sound":"true",
-        "alert":"true",
-        "ecb":"onNotificationAPN"
-    });
-
+    var pushNotification = window.plugins.pushNotification;
+pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
+    app.myLog.value+=JSON.stringify(['registerDevice status: ', status])+"\n";
+    app.storeToken(status.deviceToken);
+});
 // result contains any token description text returned from the plugin call
 
 
