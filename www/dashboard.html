@@ -162,10 +162,12 @@ var interval;
 var pushNotification;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
-    pushNotification = window.plugins.pushNotification;
 
 
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
+
+    pushNotification = window.plugins.pushNotification;
+
     cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
 
                 alert("device "+device.model);
@@ -180,23 +182,21 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
         "alert":"true",
         "ecb":"onNotificationAPN"
     });
-//if there is a sucess
-function successHandler (result) {
-    alert('result = ' + result);
-}
-
-// result contains any error description text returned from the plugin call
-function errorHandler (error) {
-    alert('error = ' + error);
-}
 
 // result contains any token description text returned from the plugin call
-function tokenHandler (result) {
-    alert('result = ' + result);
-}
+
 
 }
+
+function tokenHandler (result) {
+    alert('token  = ' + result);
+    console.log("TOKENFNBN"+result);
+}
+
 //Función JQuery de carga del documento
+
+
+
 $( document ).ready(function() {
    
 

@@ -91,6 +91,5 @@
   <preference name="android-build-tool" value="gradle" />
   <plugin name="de.appplant.cordova.plugin.local-notification"/>
   <plugin name="cordova-plugin-badge" spec="0.7.2" source="npm" />
-  <plugin name="de.appplant.cordova.plugin.background-mode" spec="0.6.4" source="pgb" />
-
+<plugin name="com.phonegap.plugins.pushplugin" spec="2.4.0" source="pgb" />
   </widget>
