@@ -192,6 +192,13 @@ $.post( "http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:
     });
 
 
+window.plugins.pushNotification.getPendingNotifications(function(notifications) {
+    app.myLog.value+=JSON.stringify(['getPendingNotifications', notifications])+"\n";
+    alert("dato "+JSON.stringify(['getPendingNotifications', notifications]));
+});
+
+
+
 }
 
 
@@ -202,7 +209,6 @@ $.post( "http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:
 
 $( document ).ready(function() {
    
-
 
 
 
