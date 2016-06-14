@@ -174,7 +174,7 @@ window.plugins.pushNotification.register(
 
 alert("devidce token es el  "+token);
 
-$.post( "http://psh-notifications.mybluemix.net/sample_server.php",{token:window.pushToken})
+$.post( "http://psh-notifications.mybluemix.net/sample_server.php",{deviceToken:token})
         .done(function( data ) {
         //console.log(data);
         //var data = $.parseJSON(data);
