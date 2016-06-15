@@ -463,10 +463,10 @@ function isAlarmActive(idTracker,currentIdUser){
     .done(function( data ) {
         data=$.parseJSON(data);
         if(data.answer=="YES"){
-        console.log("isAlarmActive?--- YES\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
+        // console.log("isAlarmActive?--- YES\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
             window.localStorage.setItem("alarmactive","YES");
         }else{
-        console.log("isAlarmActive?--- NO\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
+        // console.log("isAlarmActive?--- NO\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
 
         }
     });
@@ -550,7 +550,7 @@ function getTracker(idTracker) {
 }
 //Función para solicitar a Bluemix el estado de cada bomba del Tracker
 function checkPump() {
-    console.log("Checking Pump---");
+    // console.log("Checking Pump---");
     var data="";
     $.post( "http://gct-dev.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
     .done(function( data ) {
@@ -576,7 +576,6 @@ function checkPump() {
         resultpump = 0;
         for (i=0; i<tam; i++) {
             //Verifica que el estado no sea un error 5-5 que corresponde al cambio súbito de presión
-            console.log("Tracker ID: "+listDevices[i].ID+" Estado: "+listDevices[i].status +" Mensaje: "+listDevices[i].message+"\n---------");
             if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="0") {
                 navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
                 window.localStorage.setItem("isPressureNotified","1");
@@ -589,8 +588,6 @@ function checkPump() {
                     //le mandamos la alerta
                     //aqui se vera si el usuario respondio a la alarma
                     //Verificamos si la alarma continua encenddida
-                    console.log("isNotified--- 0\nNOTIFICANDO ALARMA a las "+Date($.now())+" timerId2: "+timerId2);
-                    
                     isAlarmActive(json_obj.tracker[i].ID,currentIdUser);
                     if(window.localStorage.getItem("alarmactive")=="YES"){
                         isNotified=1;
@@ -599,16 +596,12 @@ function checkPump() {
                         //navigator.vibrate(1600);
                         window.localStorage.setItem("alarmactive","NO");
                     }
-                }else{
-                    console.log("isNotified--- 1\nALARMA YA NOTIFICADA a las "+Date($.now())+"timerId2: "+timerId2);
                 }
             }
             //actualizamos la vista del tracker que estoy viendo
             if(parseInt(listDevices[i].ID) == parseInt(ontracker)){
                 if(onscreen=='viewtracker'){
                     //actualizamos la vista
-                    ////console.log("Estamos en vista");
-                    //console.log("ID>>>"+listDevices[i].ID+"Valor:"+listDevices[i].status);
                     $('#presiondata').html(listDevices[i].pressure);
                     if(parseInt(listDevices[i].status)!==0){
                         $('#pump_status_res').html(listDevices[i].message);
@@ -670,10 +663,8 @@ $('#sendReport').click(function() {
             mm='0'+mm;
         } 
         today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
-        //console.log(tableElement);
         $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
         .done(function( data ) {
-        //console.log(data);
         navigator.notification.alert("You report has been send", null, "Send report", "OK");
         //var data = $.parseJSON(data);
         });
@@ -746,13 +737,12 @@ function showAlertWithoutSound(alertar) {
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
-    console.log("DismissBadge----");
     cordova.plugins.notification.badge.set(0);
     numale=0;
     $.post("http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
         .done(function( data ) {
-            var json_obj = $.parseJSON(data);
-            console.log(json_obj);
+            //var json_obj = $.parseJSON(data);
+            //console.log(json_obj);
     });
     cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
     }, this);
@@ -773,7 +763,6 @@ function playAudio() {
                 var dur = myMedia.getDuration();
                 var pos = myMedia.getCurrentPosition();
             }
-            alert("RinG rIng RiNG!");
         }, 3000);
     }
 }
@@ -782,7 +771,6 @@ function stopAudio() {
     if(myMedia!==null){
         myMedia.stop();
     }
-    alert("Silencio.");
     clearInterval(timerId2);
     timerId2=0;
 }
