@@ -170,32 +170,15 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
    
 window.plugins.pushNotification.register(
     function(token){
-        alert("EL TOKEN ES "+token);
-
-alert("devidce token es el  "+token);
-
-$.post("http://psh-notifications.mybluemix.net/sample_push.php",{deviceToken:token})
-        .done(function( data ) {
-         //console.log(data);
-
-alert("enviando al php"+json_data);
-//alert("el dato parseado es"+data.aps.alert);        
-
-  //      var data = $.parseJSON(data);
-        });
-
-alert("FUERA DEL POST");
+        alert(token);
     },
     function(){alert('Error al registrarse en el servidor APNS');},
-    
-//opciones
     {
         "badge":"true",
         "sound": "true",
         "alert": "true",
         "ecb": "onNotificationAPN"
     });
-
 
 
 
