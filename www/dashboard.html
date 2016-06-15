@@ -126,7 +126,7 @@
     <div id="offlinediag" style="display:none;">
         <h2>No connection...</h2>
     </div>
-    <!-- <script type="text/javascript" src="cordova.js"></script> -->
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- Owl Carousel Assets -->
@@ -159,13 +159,13 @@ var myMedia=null;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
-    // cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
-    // cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
-    // cordova.plugins.backgroundMode.configure({
-    //     title: 'GCTrack',
-    //     text: 'Currently monitoring',
-    //     ticker: 'reading'
-    // });
+    cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
+    cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
+    cordova.plugins.backgroundMode.configure({
+        title: 'GCTrack',
+        text: 'Currently monitoring',
+        ticker: 'reading'
+    });
     //Cargamos el archivo mp3 para la alarma en android.
     myMedia = new Media("/android_asset/www/alarm.mp3", onSuccess,onError,onStatus);
 }
@@ -274,9 +274,9 @@ $( document ).ready(function() {
             .done(function( data ) {
                 if(data.mensaje=='goodbye'){
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
-                    //cordova.plugins.backgroundMode.disable();
+                    cordova.plugins.backgroundMode.disable();
                     window.localStorage.removeItem("sucess");
-                    //cordova.plugins.notification.badge.set(0);
+                    cordova.plugins.notification.badge.set(0);
                     numale=0;
                     location.href='index.html';
                 }
@@ -626,9 +626,9 @@ function checkPump() {
 
         // Agregamos la burbuja al icono de la app dependiendo del número de alertas
         if(numale>0){
-            //cordova.plugins.notification.badge.set(numale);
+            cordova.plugins.notification.badge.set(numale);
         }else{
-            //cordova.plugins.notification.badge.set(0);
+            cordova.plugins.notification.badge.set(0);
         }
         //aqui vemos si le avisamos que ya esta todo correcto despues de tener registrado que hay problemas
         if(resultpump != generalres){
@@ -704,14 +704,14 @@ function showAlert(alertar) {
     //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
-    // cordova.plugins.notification.local.schedule({
-    //     id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
-    //     text: "EMERGENCY "+alertar,
-    //     at: now,
-    //     badge: 1,
-    //     every:"minute"
-    //     //sound:'file://alarm.mp3'      
-    // });
+    cordova.plugins.notification.local.schedule({
+        id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
+        text: "EMERGENCY "+alertar,
+        at: now,
+        badge: 1,
+        every:"minute"
+        //sound:'file://alarm.mp3'      
+    });
 }      
 // onSuccess Callback
 function onSuccess() {
@@ -729,33 +729,33 @@ function onStatus(status) {
 //Función para emitir una notificación sin sonido
 function showAlertWithoutSound(alertar) { 
     //Este método se llama cuando el sistema vuelve a la normalidad
-    //cordova.plugins.notification.badge.set(0);
+    cordova.plugins.notification.badge.set(0);
     numale=0;
     var now  = new Date().getTime();
-    // cordova.plugins.notification.local.schedule({
-    //     id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
-    //     text: alertar,
-    //     at: now,
-    // });
-    // cordova.plugins.notification.local.cancelAll(function() {
-    //     //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-    // }, this);
-    //media.stop();
+    cordova.plugins.notification.local.schedule({
+        id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
+        text: alertar,
+        at: now,
+    });
+    cordova.plugins.notification.local.cancelAll(function() {
+        //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+    }, this);
+    media.stop();
     stopAudio();
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
     console.log("DismissBadge----");
-    //cordova.plugins.notification.badge.set(0);
+    cordova.plugins.notification.badge.set(0);
     numale=0;
     $.post("http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
         .done(function( data ) {
             var json_obj = $.parseJSON(data);
             console.log(json_obj);
     });
-    //cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-    //}, this);
-    //navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+    cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
+    }, this);
+    navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     //media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     stopAudio();
     window.localStorage.setItem("alarmactive","NO");
