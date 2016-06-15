@@ -589,18 +589,18 @@ function checkPump() {
                     //le mandamos la alerta
                     //aqui se vera si el usuario respondio a la alarma
                     //Verificamos si la alarma continua encenddida
-                    console.log("isNotified--- 0\nNOTIFICANDO ALARMA a las "+Date($.now()));
+                    console.log("isNotified--- 0\nNOTIFICANDO ALARMA a las "+Date($.now())+" timerId2: "+timerId2);
                     
                     isAlarmActive(json_obj.tracker[i].ID,currentIdUser);
                     if(window.localStorage.getItem("alarmactive")=="YES"){
+                        isNotified=1;
+                        numale=1; 
                         showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                         //navigator.vibrate(1600);
-                        numale=1; 
-                        isNotified=1;
                         window.localStorage.setItem("alarmactive","NO");
                     }
                 }else{
-                    console.log("Check Pump ALARMA YA NOTIFICADA a las "+Date($.now()));
+                    console.log("isNotified--- 1\nALARMA YA NOTIFICADA a las "+Date($.now())+"timerId2: "+timerId2);
                 }
             }
             //actualizamos la vista del tracker que estoy viendo
