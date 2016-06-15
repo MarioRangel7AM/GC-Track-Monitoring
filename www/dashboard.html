@@ -126,7 +126,7 @@
     <div id="offlinediag" style="display:none;">
         <h2>No connection...</h2>
     </div>
-    <script type="text/javascript" src="cordova.js"></script>
+    <!-- <script type="text/javascript" src="cordova.js"></script> -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- Owl Carousel Assets -->
@@ -159,13 +159,13 @@ var myMedia=null;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
-    cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
-    cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
-    cordova.plugins.backgroundMode.configure({
-        title: 'GCTrack',
-        text: 'Currently monitoring',
-        ticker: 'reading'
-    });
+    // cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
+    // cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
+    // cordova.plugins.backgroundMode.configure({
+    //     title: 'GCTrack',
+    //     text: 'Currently monitoring',
+    //     ticker: 'reading'
+    // });
     //Cargamos el archivo mp3 para la alarma en android.
     myMedia = new Media("/android_asset/www/alarm.mp3", onSuccess,onError,onStatus);
 }
@@ -274,9 +274,9 @@ $( document ).ready(function() {
             .done(function( data ) {
                 if(data.mensaje=='goodbye'){
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
-                    cordova.plugins.backgroundMode.disable();
+                    //cordova.plugins.backgroundMode.disable();
                     window.localStorage.removeItem("sucess");
-                    cordova.plugins.notification.badge.set(0);
+                    //cordova.plugins.notification.badge.set(0);
                     numale=0;
                     location.href='index.html';
                 }
@@ -457,10 +457,24 @@ function viewTrackers (idlocation) {
         }
     });
 }
+
+function isAlarmActive(idTracker,currentIdUser){
+    $.post( "http://gct-dev.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: idTracker, id_user : currentIdUser})
+    .done(function( data ) {
+        data=$.parseJSON(data);
+        if(data.answer=="YES"){
+        console.log("isAlarmActive?--- YES\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
+            window.localStorage.setItem("alarmactive","YES");
+        }else{
+        console.log("isAlarmActive?--- NO\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
+
+        }
+    });
+}
+
 //Función para mostrar la información de un Tracker
 function getTracker(idTracker) {
     //Mostramos los campos de estado
-    console.log("SI ESTÁ ENTRANDO AQUÍ 1");
     $('#datalogged').fadeOut();
     $('#logout').fadeIn();
     $('#goback').fadeOut();
@@ -519,8 +533,6 @@ function getTracker(idTracker) {
             $('#loc_pos').html(json_obj.tracker.loc_pos);
             //Mostramos la información del tracker al darle click
             //Al parecer esto no es necesario -------------
-            console.log("SI ESTÁ ENTRANDO AQUÍ 3");
-            
             $('#list_trackers').fadeOut();
             $('#tracker_location').fadeIn();
             $('#view_tracker_status').fadeIn();
@@ -538,6 +550,7 @@ function getTracker(idTracker) {
 }
 //Función para solicitar a Bluemix el estado de cada bomba del Tracker
 function checkPump() {
+    console.log("Checking Pump---");
     var data="";
     $.post( "http://gct-dev.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
     .done(function( data ) {
@@ -563,6 +576,7 @@ function checkPump() {
         resultpump = 0;
         for (i=0; i<tam; i++) {
             //Verifica que el estado no sea un error 5-5 que corresponde al cambio súbito de presión
+            console.log("Tracker ID: "+listDevices[i].ID+" Estado: "+listDevices[i].status +" Mensaje: "+listDevices[i].message+"\n---------");
             if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="0") {
                 navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
                 window.localStorage.setItem("isPressureNotified","1");
@@ -574,14 +588,10 @@ function checkPump() {
                 if(isNotified != 1){
                     //le mandamos la alerta
                     //aqui se vera si el usuario respondio a la alarma
-                    //Función declarada dentro de un loop!!!!
-                    $.post( "http://gct-dev.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: json_obj.tracker[i].ID, id_user : currentIdUser})
-                    .done(function( data ) {
-                        data=$.parseJSON(data);
-                        if(data.answer=="YES"){    
-                            window.localStorage.setItem("alarmactive","YES");
-                        }
-                    });
+                    //Verificamos si la alarma continua encenddida
+                    console.log("isNotified--- 0\nNOTIFICANDO ALARMA a las "+Date($.now()));
+                    
+                    isAlarmActive(json_obj.tracker[i].ID,currentIdUser);
                     if(window.localStorage.getItem("alarmactive")=="YES"){
                         showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                         //navigator.vibrate(1600);
@@ -589,6 +599,8 @@ function checkPump() {
                         isNotified=1;
                         window.localStorage.setItem("alarmactive","NO");
                     }
+                }else{
+                    console.log("Check Pump ALARMA YA NOTIFICADA a las "+Date($.now()));
                 }
             }
             //actualizamos la vista del tracker que estoy viendo
@@ -609,14 +621,14 @@ function checkPump() {
                     }
                 }
             }
-            break; //
+            // break; //
         }// fin del for
 
         // Agregamos la burbuja al icono de la app dependiendo del número de alertas
         if(numale>0){
-            cordova.plugins.notification.badge.set(numale);
+            //cordova.plugins.notification.badge.set(numale);
         }else{
-            cordova.plugins.notification.badge.set(0);
+            //cordova.plugins.notification.badge.set(0);
         }
         //aqui vemos si le avisamos que ya esta todo correcto despues de tener registrado que hay problemas
         if(resultpump != generalres){
@@ -688,18 +700,18 @@ function validateCCEmail(email) {
 function showAlert(alertar) {
     //Llamamos al método para reproducir 
     playAudio();
-    media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
-    media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
+    //media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
+    //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
-    cordova.plugins.notification.local.schedule({
-        id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
-        text: "EMERGENCY "+alertar,
-        at: now,
-        badge: 1,
-        every:"minute"
-        //sound:'file://alarm.mp3'      
-    });
+    // cordova.plugins.notification.local.schedule({
+    //     id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
+    //     text: "EMERGENCY "+alertar,
+    //     at: now,
+    //     badge: 1,
+    //     every:"minute"
+    //     //sound:'file://alarm.mp3'      
+    // });
 }      
 // onSuccess Callback
 function onSuccess() {
@@ -717,54 +729,62 @@ function onStatus(status) {
 //Función para emitir una notificación sin sonido
 function showAlertWithoutSound(alertar) { 
     //Este método se llama cuando el sistema vuelve a la normalidad
-    cordova.plugins.notification.badge.set(0);
+    //cordova.plugins.notification.badge.set(0);
     numale=0;
     var now  = new Date().getTime();
-    cordova.plugins.notification.local.schedule({
-        id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
-        text: alertar,
-        at: now,
-    });
-    cordova.plugins.notification.local.cancelAll(function() {
-        //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-    }, this);
-    media.stop();
+    // cordova.plugins.notification.local.schedule({
+    //     id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
+    //     text: alertar,
+    //     at: now,
+    // });
+    // cordova.plugins.notification.local.cancelAll(function() {
+    //     //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+    // }, this);
+    //media.stop();
     stopAudio();
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
-    cordova.plugins.notification.badge.set(0);
+    console.log("DismissBadge----");
+    //cordova.plugins.notification.badge.set(0);
     numale=0;
-    $.post( "http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
-        .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
+    $.post("http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
+        .done(function( data ) {
+            var json_obj = $.parseJSON(data);
+            console.log(json_obj);
     });
-    cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-    }, this);
+    //cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
+    //}, this);
     //navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-    media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+    //media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     stopAudio();
     window.localStorage.setItem("alarmactive","NO");
-    alert("TimerId2= "+timerId2);
-    timerId2.clearInterval();
-    timerId2=0;
-    alert("TimerId2Cleared= "+timerId2);
 }
 //Función para reproducir un audio
 function playAudio() {
     if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")===null){
-        timerId2 = setInterval(function() { 
-            if(myMedia.status == Media.MEDIA_STOPPED){
-                myMedia.seekTo(0);
-            }
-            myMedia.play({ playAudioWhenScreenIsLocked : true });
-            var dur = myMedia.getDuration();
-            var pos = myMedia.getCurrentPosition();
-        }, 1000); 
+            timerId2 = setInterval(function() { 
+                if(myMedia!==null){
+                    if(myMedia.status === Media.MEDIA_STOPPED){
+                        myMedia.seekTo(0);
+                    }
+                    myMedia.play({ playAudioWhenScreenIsLocked : true });
+                    var dur = myMedia.getDuration();
+                    var pos = myMedia.getCurrentPosition();
+                }
+                alert("RinG rIng RiNG!");
+            }, 10000);
+        
     }
 }
 //Función para detener la reproducción de un archivo de audio
 function stopAudio() {
-    myMedia.stop();
+    if(myMedia!==null){
+        myMedia.stop();
+    }
+    alert("Silencio.");
+    clearInterval(timerId2);
+    timerId2=0;
 }
 
 // Repetidor de la función checkPump()
