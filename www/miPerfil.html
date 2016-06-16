@@ -274,7 +274,7 @@ $('#goback').click(function(){
 
     // para mostrar el log
     $('#showlog').click(function(){
-        $.post( "http://gct-production.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
              .done(function( data ) {
                 registros = [];
                 console.log(data);
@@ -327,7 +327,7 @@ $('#goback').click(function(){
 	function putUserName(){
 	var userid=window.localStorage.getItem("iduser");
 	console.log("id usuario: "+userid);
-	 $.post( "http://gct-production.mybluemix.net/getuserbyid.php", {user_id:userid})
+	 $.post( "http://gct-dev.mybluemix.net/getuserbyid.php", {user_id:userid})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -344,7 +344,7 @@ $('#goback').click(function(){
 	var userid=window.localStorage.getItem("iduser");
 	var username="";
 	console.log("id usuario: "+userid);
-	 $.post( "http://gct-production.mybluemix.net/getuserbyid.php", {user_id:userid})
+	 $.post( "http://gct-dev.mybluemix.net/getuserbyid.php", {user_id:userid})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -356,7 +356,7 @@ window.localStorage.setItem("name",data.email_user);
 	username=window.localStorage.getItem("name");
 	
 	console.log("user name  "+ username);
-	 $.post( "http://gct-production.mybluemix.net/getContactData.php", {user_name: username})
+	 $.post( "http://gct-dev.mybluemix.net/getContactData.php", {user_name: username})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -391,7 +391,7 @@ document.getElementById("empresa").value=data.empresa;
 	
 	if(validateUserData(userName,correoContacto,telefono,rol,empresa)){
 
-	$.post( "http://gct-production.mybluemix.net/updateUserData.php", {user_name: userName,correoContacto:correoContacto,telefonoContacto:telefono,rolContacto:rol,empresaContacto:empresa})
+	$.post( "http://gct-dev.mybluemix.net/updateUserData.php", {user_name: userName,correoContacto:correoContacto,telefonoContacto:telefono,rolContacto:rol,empresaContacto:empresa})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -480,7 +480,7 @@ return false;
 // obtiene todas las bombas por usuario
 function getPumps(){
     console.log('Con'+userid);
-    $.post( "http://gct-production.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gct-dev.mybluemix.net/getpumps.php", {id_user: userid})
      .done(function( data ) {
         locaciones = [];
         console.log('deget'+data);
@@ -532,7 +532,7 @@ $('.row').click(function(){
 function viewTrackers (idlocation) {
     //console.log(idtracker);
     // obtenemos los tracker de esa locacion
-     $.post( "http://gct-production.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+     $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
      .done(function( data ) {
         console.log(data);
         var json_obj = $.parseJSON(data);
