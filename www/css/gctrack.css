@@ -44,9 +44,10 @@ section.positioned {
   height: 400px; 
 }
 
-.iconlist{
-	
-	width:100%;
+
+.iconlist:not(#pumptypeicon){
+	width:70%;
+	margin-left:30%;
 }
 
 .img-cintillo{
@@ -91,6 +92,9 @@ section.positioned {
     position: fixed;
     z-index: 12;
 	height:80px;
+}
+#pumptypeicon{
+	width:100%;
 }
 
 .locationmark p{
