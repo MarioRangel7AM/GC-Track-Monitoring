@@ -40,6 +40,9 @@
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
   <gap:plugin name="com.badrit.backgroundjs" spec="0.1.0" source="pgb" />
+  <feature name="PushPlugin">
+  <param name="ios-package" value="PushPlugin" />
+</feature>
   <icon src="icon.png" gap:platform="ios" width="57" height="57"/>
   <icon src="iconx72.png" gap:platform="ios" width="72" height="72"/>
   <icon src="www/res/icon/android/iconoappgctrack-36.png" gap:platform="android" gap:qualifier="ldpi"/>
@@ -88,5 +91,4 @@
   <preference name="android-build-tool" value="gradle" />
   <plugin name="de.appplant.cordova.plugin.local-notification"/>
   <plugin name="cordova-plugin-badge" spec="0.7.2" source="npm" />
-<plugin name="com.phonegap.plugins.pushplugin" spec="2.4.0" source="pgb" />
   </widget>
