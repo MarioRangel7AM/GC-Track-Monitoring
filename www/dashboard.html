@@ -700,7 +700,7 @@ function showAlert(alertar) {
 //al fin suena el ruido 
     var now = new Date().getTime();
    // var sound = device.platform == 'iOS' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
-    window.plugin.notification.local.schedule({ //la funcion alertar solo se llamara cuando se detecte un uno
+    window.plugin.notification.local.add({ //la funcion alertar solo se llamara cuando se detecte un uno
 
          id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
         text: "EMERGENCY "+alertar,
@@ -708,7 +708,7 @@ function showAlert(alertar) {
         badge: 1
         });
    
-},3000);
+},10000);
 
 
 
