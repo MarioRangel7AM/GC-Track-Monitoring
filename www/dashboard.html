@@ -493,15 +493,15 @@ function getTracker(idTracker) {
             if(trackers_location[0].Bombas.b1!==0){
                 if(trackers_location[0].Bombas.b1==2){
                     $('#pumptypeicon').attr('src','images/bombaelectrica.png');
-                    $('#pumptypename').html('Pump: Electric');
+                    $('#pumptypename').html('Electric Pump');
                 }
                 if(trackers_location[0].Bombas.b1==1){
                     $('#pumptypeicon').attr('src','img/iconobombadiesel55x55.png');
-                    $('#pumptypename').html('Pump: Diesel');
+                    $('#pumptypename').html('Diesel Pump');
                 }
                 if(trackers_location[0].Bombas.b1==3){
                     $('#pumptypeicon').attr('src','images/bombajockey.png');
-                    $('#pumptypename').html('Pump: Jockey');
+                    $('#pumptypename').html('Jockey Pump');
                 }
             }
             
@@ -791,15 +791,15 @@ function changeBomba(viewBomba){
     $('#listmoretracks').fadeOut();
     if(viewBomba==2){
         $('#pumptypeicon').attr('src','images/bombaelectrica.png');
-        $('#pumptypename').html('Pump: Electric');
+        $('#pumptypename').html('Electric Pump');
     }
     if(viewBomba==1){
         $('#pumptypeicon').attr('src','img/iconobombadiesel55x55.png');
-        $('#pumptypename').html('Pump: Diesel');
+        $('#pumptypename').html('Diesel Pump');
     }
     if(viewBomba==3){
         $('#pumptypeicon').attr('src','images/bombajockey.png');
-        $('#pumptypename').html('Pump: Jockey');
+        $('#pumptypename').html('Jockey Pump');
     }
 } 
 </script>
