@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div id="list_trackers">
-                <div class="row" ><div class="locationmark"><h2>Cargando...</h2></div></div>
+                <div class="row" ><div class="locationmark"><h2>Loading...</h2></div></div>
             </div> 
             <div id="pumpstatuscont">
                 <div id="listmoretracks" style="display:none;">
@@ -125,6 +125,9 @@
     </div>
     <div id="offlinediag" style="display:none;">
         <h2>No connection...</h2>
+    </div>
+    <div id="loadingdiag" style="display:none;">
+        <h2>Loading...</h2>
     </div>
     <!-- <script type="text/javascript" src="cordova.js"></script> -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -332,6 +335,7 @@ $( document ).ready(function() {
         //Si se presiona goBack devuelve a la pantalla principal
         location.href="dashboard.html";
     });
+
     //Método para la acción del botón #refreshPage
     $('#refreshPage').click(function(){
         //Refrescamos la página actual. (Contacto, Perfil, Soporte o Dashboard)
@@ -342,6 +346,12 @@ $( document ).ready(function() {
         //Insertamos la variable idTracker en memoria del dispositivo para que esta pueda ser consultada en la página de contacto.
         window.localStorage.setItem("idTrackerToContactSupport", ontracker);
         location.href='contacto.html';
+    });
+    $("#list_trackers").click(function(){
+        var div = $("#track0");
+        div.animate({color: '#E04359', opacity: '0.4'}, "slow");
+        div.animate({color: '#FFF', opacity: '1.0'}, "normal");
+        $('#loadingdiag').fadeIn();
     });
     //Función de la acción del desplazamiento de la tabla #showlog
     $(window).bind("scroll", function() {
@@ -403,7 +413,7 @@ function showPumps(){
     output = "";
     //Recuperamos la información de la variable locaciones llenada en getPumps()
     for (var i in locaciones) {
-        output+='<div class="row"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
+        output+='<div id="track'+i+'" class="row"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
         currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
     }
     output+="";
@@ -533,6 +543,7 @@ function getTracker(idTracker) {
             $('#tracker_location').fadeIn();
             $('#view_tracker_status').fadeIn();
             $('#pumpstatuscont').fadeIn();
+            $('#loadingdiag').fadeOut();
             //Calculamos el tamaño del banner del tracker para darle el espacio a la información.
             var botonesTrackers = document.getElementsByClassName('locationmark');
             var botonTrackerActivo = botonesTrackers[0];

@@ -387,6 +387,16 @@ tbody td:last-child, thead th:last-child {
     color: rgb(255, 124, 8);
 }
 
+#loadingdiag{
+	padding: 1px;
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    width: 100%;
+    background-color: #FFF;
+    color: rgb(255, 124, 8);
+}
+
 #backcont{
 	text-align: center;
     position: fixed;
