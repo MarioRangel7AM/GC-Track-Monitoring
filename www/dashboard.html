@@ -261,13 +261,12 @@ $( document ).ready(function() {
     //Función de acción del botón logout
     $('#logout').click(function() {
         //cuadro de dialogo para confirmar alguna accion
-        // navigator.notification.confirm(
-        //     "If you logout, you won't receive any further alarms and notifications", // message
-        //     onConfirm,            // callback to invoke with index of button pressed
-        //     "WARNING",           // title
-        //     ["OK","Cancel"]     // buttonLabels
-        // );
-        onConfirm(1);
+        navigator.notification.confirm(
+            "If you logout, you won't receive any further alarms and notifications", // message
+            onConfirm,            // callback to invoke with index of button pressed
+            "WARNING",           // title
+            ["OK","Cancel"]     // buttonLabels
+        );
 
     });//Fin de la función del botón logout
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
