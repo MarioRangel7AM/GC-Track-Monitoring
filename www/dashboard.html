@@ -307,8 +307,7 @@ $( document ).ready(function() {
             var json_obj = $.parseJSON(data);
             //Refrescamos la estructura de la tabla actual
             $('#tblog > tbody').html('');
-            if(json_obj.numresult>0){
-            alert('Indicent logs found!');
+            if(json_obj.logs.length>0){
                 //Si existen valores dentro de la bitácora que hayan dado alerta los mostramos uno a uno.
                 for (var i in json_obj.logs) {
                     registro = {ID : json_obj.logs[i].ID, hora : json_obj.logs[i].hora ,Estado : json_obj.logs[i].ID, message:json_obj.logs[i].message, error_id:json_obj.logs[i].error_id, Presion: json_obj.logs[i].presion};
@@ -317,16 +316,16 @@ $( document ).ready(function() {
                 }
                 $('#owl-demo').css('margin-left','0%');
                 //Ocultamos el botón del menú principal que permite ver la página web
-                //Mostramos los botones sendReport y goBack del menú principal 
+                //Mostramos los botones sendReport y goBack del menú principal             
+                $('#pumpstatuscont').fadeOut();
+                $('#logout').fadeOut();
+                $('#goback').fadeIn();
                 $('#sendReport').fadeIn();
                 $('#datalogged').fadeIn();
             }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
-                alert('No incident logs');
+                alert('No incident logs found!');
             }
-            $('#pumpstatuscont').fadeOut();
-            $('#logout').fadeOut();
-            $('#goback').fadeIn();
         });//Fin de la consulta a Bluemix para obtener la bitácora de incidentes.
     });//Fin del método para la acción de presionar #showlog
     //Método para la acción del botón #goBack
