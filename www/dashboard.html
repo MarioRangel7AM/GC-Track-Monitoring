@@ -261,12 +261,14 @@ $( document ).ready(function() {
     //Función de acción del botón logout
     $('#logout').click(function() {
         //cuadro de dialogo para confirmar alguna accion
-        navigator.notification.confirm(
-            "If you logout, you won't receive any further alarms and notifications", // message
-            onConfirm,            // callback to invoke with index of button pressed
-            "WARNING",           // title
-            ["OK","Cancel"]     // buttonLabels
-        );
+        // navigator.notification.confirm(
+        //     "If you logout, you won't receive any further alarms and notifications", // message
+        //     onConfirm,            // callback to invoke with index of button pressed
+        //     "WARNING",           // title
+        //     ["OK","Cancel"]     // buttonLabels
+        // );
+        onConfirm(1);
+
     });//Fin de la función del botón logout
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
     function onConfirm(buttonIndex) {
@@ -306,6 +308,7 @@ $( document ).ready(function() {
             //Refrescamos la estructura de la tabla actual
             $('#tblog > tbody').html('');
             if(json_obj.numresult>0){
+            alert('Indicent logs found!');
                 //Si existen valores dentro de la bitácora que hayan dado alerta los mostramos uno a uno.
                 for (var i in json_obj.logs) {
                     registro = {ID : json_obj.logs[i].ID, hora : json_obj.logs[i].hora ,Estado : json_obj.logs[i].ID, message:json_obj.logs[i].message, error_id:json_obj.logs[i].error_id, Presion: json_obj.logs[i].presion};
@@ -317,7 +320,6 @@ $( document ).ready(function() {
                 //Mostramos los botones sendReport y goBack del menú principal 
                 $('#sendReport').fadeIn();
                 $('#datalogged').fadeIn();
-                alert('Indicent logs found!');
             }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
                 alert('No incident logs');
