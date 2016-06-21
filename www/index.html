@@ -101,6 +101,8 @@ alert("token es resultado"+resultado);
     $('#dologin').click(function(){
             inemail = $('#inemail').val();
             inpass = $('#inpass').val();
+var token=window.localStorage.getItem("token");
+
             $.post( "http://gct-dev.mybluemix.net/auth.php", { email: inemail, pass: inpass })
              .done(function( data ) {
                 var data=$.parseJSON(data);
@@ -108,7 +110,6 @@ alert("token es resultado"+resultado);
                 if(data.resp=='Correcto'){
  window.localStorage.setItem("iduser", data.iduser);  
 window.localStorage.setItem("sucess","true"); 
-var token=window.localStorage.getItem("token");
   
 
 				   location.href='dashboard.html';
@@ -118,6 +119,18 @@ var token=window.localStorage.getItem("token");
 
                 }
              });
+
+$.post("http://gct-dev.mybluemix.net/registerToken.php",{ TokenValue:token, id_user:window.localStorage.getItem("iduser") })
+.done(function(data){
+
+
+
+
+
+
+});
+
+
         });
         
 		
