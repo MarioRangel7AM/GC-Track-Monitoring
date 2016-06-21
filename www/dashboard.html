@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-md-9 col-xs-9">
                             <div class="row statsbg statsText">
-                                Pressure:<br>
+                                Pressure: 
                                 <span id="presiondata">0</span> PSI
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="col-md-9 col-xs-9">
                             <div id="pumpstatus" class="row statsbg statsText">
-                                Status:<br>
+                                Status: 
                                 <span id="pump_status">Normal</span>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                         </div>
                         <div class="col-md-9 col-xs-9">
                             <div id="" class="row statserror statsText" onClick="dismissBadge()">
-                                Status:<br>
+                                Status: 
                                 <span id="pump_status_res">Error</span><!--LOS IDS SON UNICOS NO PONGAS OTRAS COSAS O HABRA ERRORES-->
                             </div>
                         </div>
@@ -222,7 +222,7 @@ $( document ).ready(function() {
         }
         if(bactivas>1){
             $('#listmoretracks').html('');
-            if(trackers_location[0].Bombas.b1>0){
+            if(trackers_location[0].Bmbas.b1>0){
                 if(trackers_location[0].Bombas.b1==2){
                     $('#listmoretracks').append('<div class="imoretracks"><a onClick="changeBomba(2)" href="#"><img src="images/red-bombaelectrica.png"> B1 - Electric Pump</a></div>');
                 }
@@ -271,7 +271,7 @@ $( document ).ready(function() {
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
     function onConfirm(buttonIndex) {
         if(buttonIndex==1){ //El botón OK ha sido presionado
-            $.getJSON( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
+            $.getJSON( "http://gct-test.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
                 if(data.mensaje=='goodbye'){
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
@@ -299,7 +299,7 @@ $( document ).ready(function() {
         var relleno = $(botonTrackerActivo).height();
         $('#datalogged').css("padding-top",relleno);
         //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
-        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        $.post( "http://gct-test.mybluemix.net/getlog.php", {id_tracker: ontracker})
         .done(function( data ) {
             registros = [];
             var json_obj = $.parseJSON(data);
@@ -379,7 +379,7 @@ function getPumps() {
     $('#infoTracker').fadeIn();
     currentIdUser=userid;
     //Preguntamos a Bluemix cuales son los trackers a los que tiene acceso este usuario dependiendo de su compañia y si se encuentra activo.
-    $.post( "http://gct-dev.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gct-test.mybluemix.net/getpumps.php", {id_user: userid})
     .done(function( data ) {
         //Reservamos una variable para ver las ubicaciones de Trackers
         locaciones = [];
@@ -429,7 +429,7 @@ function viewTrackers (idlocation) {
     trackers_location = [];
     bombas_location  = [];
     //Preguntamos a Bluemix información de las bombas del Tracker
-    $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+    $.post( "http://gct-test.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
     .done(function( data ) {
     
         var json_obj = $.parseJSON(data);
@@ -455,7 +455,7 @@ function viewTrackers (idlocation) {
 }
 
 function isAlarmActive(idTracker,currentIdUser){
-    $.post( "http://gct-dev.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: idTracker, id_user : currentIdUser})
+    $.post( "http://gct-test.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: idTracker, id_user : currentIdUser})
     .done(function( data ) {
         data=$.parseJSON(data);
         if(data.answer=="YES"){
@@ -480,7 +480,7 @@ function getTracker(idTracker) {
     //Seteamos el Tracker actual a la variable de la memoria del dispositivo
     window.localStorage.setItem("trackerId",ontracker);
     //Preguntamos a Bluemix la información del Tracker
-    $.post( "http://gct-dev.mybluemix.net/gettracker.php", {id_tracker: idTracker})
+    $.post( "http://gct-test.mybluemix.net/gettracker.php", {id_tracker: idTracker})
     .done(function( data ) {
         var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){ //Si obtenemos respuesta de Bluemix con la info
@@ -551,7 +551,7 @@ function getTracker(idTracker) {
 function checkPump() {
     // console.log("Checking Pump---");
     var data="";
-    $.post( "http://gct-dev.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
+    $.post( "http://gct-test.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
     .done(function( data ) {
         listDevices = []; //Reutilizamos la variable listDevices cada que se manda a llamar
         var json_obj = $.parseJSON(data);
@@ -662,7 +662,7 @@ $('#sendReport').click(function() {
             mm='0'+mm;
         } 
         today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
-        $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
+        $.post( "http://gct-test.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
         .done(function( data ) {
         navigator.notification.alert("You report has been send", null, "Send report", "OK");
         //var data = $.parseJSON(data);
@@ -738,7 +738,7 @@ function showAlertWithoutSound(alertar) {
 function dismissBadge(){
     // cordova.plugins.notification.badge.set(0);
     numale=0;
-    // $.post("http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
+    // $.post("http://gct-test.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
     //     .done(function( data ) {
     //         //var json_obj = $.parseJSON(data);
     //         //console.log(json_obj);
