@@ -227,7 +227,8 @@ width:100%;
 .statsText{
 	
 	font-size:12px;
-	
+	height: 40px;
+  line-height: 40px;
 }
 
 .logininput::-webkit-input-placeholder { /* Chrome/Opera/Safari */
