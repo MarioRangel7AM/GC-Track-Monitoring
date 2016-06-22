@@ -56,7 +56,6 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
    
 window.plugins.pushNotification.register(
     function(token){
-        alert("TOKENazo"+token);
         window.localStorage.setItem("token",token);
     },
     function(){alert('Error al registrarse en el servidor APNS');},
@@ -68,7 +67,7 @@ window.plugins.pushNotification.register(
     });
 }
 function onNotificationAPN (event) {
-    alert("entrando al apn");
+   // alert("entrando al apn");
     if (event.alert) {
        alert(event.alert);
     }
@@ -96,7 +95,6 @@ var token=window.localStorage.getItem("token");
  window.localStorage.setItem("iduser", data.iduser);  
 window.localStorage.setItem("sucess","true"); 
   
-alert("TOKEN VALOR"+token);
 
 
 				   location.href='dashboard.html';
