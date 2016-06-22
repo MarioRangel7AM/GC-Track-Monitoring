@@ -129,7 +129,7 @@
     <div id="loadingdiag" style="display:none;">
         <h2>Loading...</h2>
     </div>
-    <!-- <script type="text/javascript" src="cordova.js"></script> -->
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- Owl Carousel Assets -->
@@ -162,13 +162,13 @@ var myMedia=null;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
-    // cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
-    // cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
-    // cordova.plugins.backgroundMode.configure({
-    //     title: 'GCTrack',
-    //     text: 'Currently monitoring',
-    //     ticker: 'reading'
-    // });
+    cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
+    cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
+    cordova.plugins.backgroundMode.configure({
+        title: 'GCTrack',
+        text: 'Currently monitoring',
+        ticker: 'reading'
+    });
     //Cargamos el archivo mp3 para la alarma en android.
     myMedia = new Media("/android_asset/www/alarm.mp3", onSuccess,onError,onStatus);
 }
@@ -275,13 +275,13 @@ $( document ).ready(function() {
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
     function onConfirm(buttonIndex) {
         if(buttonIndex==1){ //El botón OK ha sido presionado
-            $.getJSON( "http://gct-test.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
+            $.getJSON( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
                 if(data.mensaje=='goodbye'){
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
-                    // cordova.plugins.backgroundMode.disable();
+                    cordova.plugins.backgroundMode.disable();
                     window.localStorage.removeItem("sucess");
-                    // cordova.plugins.notification.badge.set(0);
+                    cordova.plugins.notification.badge.set(0);
                     numale=0;
                     location.href='index.html';
                 }
@@ -303,7 +303,7 @@ $( document ).ready(function() {
         var relleno = $(botonTrackerActivo).height();
         $('#datalogged').css("padding-top",relleno);
         //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
-        $.post( "http://gct-test.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
         .done(function( data ) {
             registros = [];
             var json_obj = $.parseJSON(data);
@@ -347,8 +347,9 @@ $( document ).ready(function() {
         window.localStorage.setItem("idTrackerToContactSupport", ontracker);
         location.href='contacto.html';
     });
-    $("#list_trackers").click(function(){
+    $("#list_trackers").click(function(event){
         var div = $("#track0");
+        console.log(this.id+event.target.id);
         div.animate({color: '#E04359', opacity: '0.4'}, "slow");
         div.animate({color: '#FFF', opacity: '1.0'}, "normal");
         $('#loadingdiag').fadeIn();
@@ -389,7 +390,7 @@ function getPumps() {
     $('#infoTracker').fadeIn();
     currentIdUser=userid;
     //Preguntamos a Bluemix cuales son los trackers a los que tiene acceso este usuario dependiendo de su compañia y si se encuentra activo.
-    $.post( "http://gct-test.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gct-dev.mybluemix.net/getpumps.php", {id_user: userid})
     .done(function( data ) {
         //Reservamos una variable para ver las ubicaciones de Trackers
         locaciones = [];
@@ -413,7 +414,7 @@ function showPumps(){
     output = "";
     //Recuperamos la información de la variable locaciones llenada en getPumps()
     for (var i in locaciones) {
-        output+='<div id="track'+i+'" class="row"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
+        output+='<div class="tracker"><div id="'+"track"+i+'" onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
         currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
     }
     output+="";
@@ -439,7 +440,7 @@ function viewTrackers (idlocation) {
     trackers_location = [];
     bombas_location  = [];
     //Preguntamos a Bluemix información de las bombas del Tracker
-    $.post( "http://gct-test.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+    $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
     .done(function( data ) {
     
         var json_obj = $.parseJSON(data);
@@ -460,12 +461,13 @@ function viewTrackers (idlocation) {
         }else{//Si no existen datos de bombas del Tracker
         //Mostramos una aerta donde indicamos que no existe información de las bombas de ese Tracker
         navigator.notification.alert("No logs available", null, "Empty log", "OK");
+        $('#loadingdiag').fadeOut();
         }
     });
 }
 
 function isAlarmActive(idTracker,currentIdUser){
-    $.post( "http://gct-test.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: idTracker, id_user : currentIdUser})
+    $.post( "http://gct-dev.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: idTracker, id_user : currentIdUser})
     .done(function( data ) {
         data=$.parseJSON(data);
         if(data.answer=="YES"){
@@ -490,7 +492,7 @@ function getTracker(idTracker) {
     //Seteamos el Tracker actual a la variable de la memoria del dispositivo
     window.localStorage.setItem("trackerId",ontracker);
     //Preguntamos a Bluemix la información del Tracker
-    $.post( "http://gct-test.mybluemix.net/gettracker.php", {id_tracker: idTracker})
+    $.post( "http://gct-dev.mybluemix.net/gettracker.php", {id_tracker: idTracker})
     .done(function( data ) {
         var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){ //Si obtenemos respuesta de Bluemix con la info
@@ -562,7 +564,7 @@ function getTracker(idTracker) {
 function checkPump() {
     // console.log("Checking Pump---");
     var data="";
-    $.post( "http://gct-test.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
+    $.post( "http://gct-dev.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
     .done(function( data ) {
         listDevices = []; //Reutilizamos la variable listDevices cada que se manda a llamar
         var json_obj = $.parseJSON(data);
@@ -629,9 +631,9 @@ function checkPump() {
 
         // Agregamos la burbuja al icono de la app dependiendo del número de alertas
         if(numale>0){
-            // cordova.plugins.notification.badge.set(numale);
+            cordova.plugins.notification.badge.set(numale);
         }else{
-            // cordova.plugins.notification.badge.set(0);
+            cordova.plugins.notification.badge.set(0);
         }
         //aqui vemos si le avisamos que ya esta todo correcto despues de tener registrado que hay problemas
         if(resultpump != generalres){
@@ -673,7 +675,7 @@ $('#sendReport').click(function() {
             mm='0'+mm;
         } 
         today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
-        $.post( "http://gct-test.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
+        $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
         .done(function( data ) {
         navigator.notification.alert("You report has been send", null, "Send report", "OK");
         //var data = $.parseJSON(data);
@@ -705,14 +707,14 @@ function showAlert(alertar) {
     //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
-    // cordova.plugins.notification.local.schedule({
-    //     id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
-    //     text: "EMERGENCY "+alertar,
-    //     at: now,
-    //     badge: 1,
-    //     every:"minute"
-    //     //sound:'file://alarm.mp3'      
-    // });
+    cordova.plugins.notification.local.schedule({
+        id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
+        text: "EMERGENCY "+alertar,
+        at: now,
+        badge: 1,
+        every:"minute"
+        //sound:'file://alarm.mp3'      
+    });
 }      
 // onSuccess Callback
 function onSuccess() {
@@ -730,34 +732,34 @@ function onStatus(status) {
 //Función para emitir una notificación sin sonido
 function showAlertWithoutSound(alertar) { 
     //Este método se llama cuando el sistema vuelve a la normalidad
-    // cordova.plugins.notification.badge.set(0);
+    cordova.plugins.notification.badge.set(0);
     numale=0;
     var now  = new Date().getTime();
-    // cordova.plugins.notification.local.schedule({
-    //     id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
-    //     text: alertar,
-    //     at: now,
-    // });
-    // cordova.plugins.notification.local.cancelAll(function() {
-    // //     //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-    // }, this);
+    cordova.plugins.notification.local.schedule({
+        id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
+        text: alertar,
+        at: now,
+    });
+    cordova.plugins.notification.local.cancelAll(function() {
+    //     //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+    }, this);
     //Para iOs
     //media.stop();
     stopAudio();
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
-    // cordova.plugins.notification.badge.set(0);
+    cordova.plugins.notification.badge.set(0);
     numale=0;
-    // $.post("http://gct-test.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
-    //     .done(function( data ) {
-    //         //var json_obj = $.parseJSON(data);
-    //         //console.log(json_obj);
-    // });
-    // cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-    // }, this);
-    // navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-    //media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+    $.post("http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
+        .done(function( data ) {
+            //var json_obj = $.parseJSON(data);
+            //console.log(json_obj);
+    });
+    cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
+    }, this);
+    navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+    // media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     stopAudio();
     window.localStorage.setItem("alarmactive","NO");
 }
