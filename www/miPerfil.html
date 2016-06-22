@@ -79,12 +79,6 @@
             <div class="col-md-2 col-xs-2">
                 <img class="img-user-profile" src="images/login_user.png">
             </div>
-            <div class="col-md-10 col-xs-10">
-<div class="formtext">Contact email</div>
-			<input id="email" name="asunto" type="text" class="myprofileinput" placeholder="correo" value="" style="font-size:14px;">
-
-            </div>
-        </div>
         <div class="row" style="height:25px;" style="margin-top:20px;">
             <div class="col-md-2 col-xs-2">
                 <img class="img-user-profile" src="images/login_user.png">
@@ -327,7 +321,7 @@ $('#goback').click(function(){
 	function putUserName(){
 	var userid=window.localStorage.getItem("iduser");
 	console.log("id usuario: "+userid);
-	 $.post( "http://gct-production.mybluemix.net/getuserbyid.php", {user_id:userid})
+	 $.post( "http://gct-dev.mybluemix.net/getuserbyid.php", {user_id:userid})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -344,7 +338,7 @@ $('#goback').click(function(){
 	var userid=window.localStorage.getItem("iduser");
 	var username="";
 	console.log("id usuario: "+userid);
-	 $.post( "http://gct-production.mybluemix.net/getuserbyid.php", {user_id:userid})
+	 $.post( "http://gct-dev.mybluemix.net/getuserbyid.php", {user_id:userid})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -356,7 +350,7 @@ window.localStorage.setItem("name",data.email_user);
 	username=window.localStorage.getItem("name");
 	
 	console.log("user name  "+ username);
-	 $.post( "http://gct-production.mybluemix.net/getContactData.php", {user_name: username})
+	 $.post( "http://gct-dev.mybluemix.net/getContactData.php", {user_name: username})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -364,7 +358,6 @@ window.localStorage.setItem("name",data.email_user);
 	   console.log("phone"+data);
 document.getElementById("telefono").value=data.telefono;
 document.getElementById("rol").value=data.rol;
-document.getElementById("email").value=data.contact_email;
 document.getElementById("empresa").value=data.empresa;
 
 
@@ -391,7 +384,7 @@ document.getElementById("empresa").value=data.empresa;
 	
 	if(validateUserData(userName,correoContacto,telefono,rol,empresa)){
 
-	$.post( "http://gct-production.mybluemix.net/updateUserData.php", {user_name: userName,correoContacto:correoContacto,telefonoContacto:telefono,rolContacto:rol,empresaContacto:empresa})
+	$.post( "http://gct-dev.mybluemix.net/updateUserData.php", {user_name: userName,correoContacto:correoContacto,telefonoContacto:telefono,rolContacto:rol,empresaContacto:empresa})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);

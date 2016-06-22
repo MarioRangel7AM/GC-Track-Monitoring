@@ -286,16 +286,15 @@ $( document ).ready(function() {
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
     function onConfirm(buttonIndex) {
         if(buttonIndex==1){ //El botón OK ha sido presionado
-            $.getJSON( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
+            $.post( "http://gct-dev.mybluemix.net/session_close.php",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
-                if(data.mensaje=='goodbye'){
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
                     window.localStorage.removeItem("sucess");
                     cordova.plugins.notification.badge.set(0);
                     clearInterval(interval);
                     numale=0;
                     location.href='index.html';
-                }
+                
             });
         }// Si no fue el botón OK (es decir CANCEL) ignoramos cualquier acción.
     }
