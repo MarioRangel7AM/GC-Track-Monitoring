@@ -163,6 +163,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
 
 
+function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
 window.plugins.pushNotification.register(
     function(token){
         window.localStorage.setItem("token",token);
@@ -175,6 +176,12 @@ window.plugins.pushNotification.register(
         "ecb": "onNotificationAPN"
     });
 }
+
+
+   
+
+
+
 function onNotificationAPN (event) {
    // alert("entrando al apn");
     if (event.alert) {
@@ -188,6 +195,11 @@ function onNotificationAPN (event) {
         window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
     }
 }
+
+
+
+
+//Función JQuery de carga del documento
 
 
 
