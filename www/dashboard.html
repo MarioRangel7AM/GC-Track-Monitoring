@@ -159,6 +159,7 @@ var bombas_location  = [];
 var interval;
 var pushNotification;
 var deviceToken;
+var snd;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
 
@@ -188,7 +189,7 @@ function onNotificationAPN (event) {
        alert(event.alert);
     }
     if (event.sound) {
-        var snd = new Media(event.sound);
+         snd= new Media(event.sound);
         snd.play();
     }
     if (event.badge) {
@@ -749,12 +750,9 @@ function dismissBadge(){
     $.post( "http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
         .done(function( data ) {///con este post la alarma se cambia a 0 en la tabla
     });
-    cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-    }, this);
     navigator.notification.alert("Alarm dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     window.localStorage.setItem("alarmactive","NO");
-    clearInterval(interval);
-    
+    snd.stop();
 
     }
 //Función para reproducir un audio
