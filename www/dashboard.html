@@ -737,10 +737,8 @@ function showAlertWithoutSound(alertar) {
         text: alertar,
         at: now,
     });
-    cordova.plugins.notification.local.cancelAll(function() {
-        //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-    }, this);
-    clearInterval(interval);//detiene el intervalo de notificaciones y alarma
+    
+    snd.stop();
    
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
