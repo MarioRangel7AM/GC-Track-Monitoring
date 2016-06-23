@@ -186,7 +186,7 @@ window.plugins.pushNotification.register(
 function onNotificationAPN (event) {
    // alert("entrando al apn");
     if (event.alert) {
-        navigator.notification.alert(text, null, "Tracker Info", event.alert);
+       alert("Problem: "+event.alert);
     }
     if (event.sound) {
          snd= new Media(event.sound);
