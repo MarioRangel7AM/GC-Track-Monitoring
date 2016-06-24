@@ -195,10 +195,14 @@ $( document ).ready(function() {
 				   
 var idTracker= localStorage.getItem("idTrackerToContactSupport"); 
 
-if(validateUserData(subject,message,email)){
+var contactEmail=window.localStorage.getItem("contact_email");
+console.log("CORRREOooooooooooo"+contactEmail);
+
+
+if(validateUserData(subject,message)){
 
 	console.log('ID trackeerr '+idTracker);	  
-		  $.post( "http://gct-production.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker,contact_email:email})
+		  $.post( "http://gct-production.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker,contact_email:contactEmail})
              
 			 
 			 .done(function( data ) {
@@ -218,9 +222,9 @@ else{
         });
 		
 		
-function validateUserData(asunto, texto,email){
+function validateUserData(asunto, texto){
 	
-			if(asunto.length>0 && texto.length>0&&validateEmail(email)){
+			if(asunto.length>0 && texto.length){
 				return true;
 			}
 			
@@ -257,6 +261,8 @@ var user=window.localStorage.getItem("email_user");
        console.log(data);
                 var data = $.parseJSON(data);
 
+window.localStorage.setItem("contact_email",data.contact_email);
+console.log("CORRREO"+data.contact_email);
 
 
 	   
