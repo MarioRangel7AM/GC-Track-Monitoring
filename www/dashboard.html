@@ -279,7 +279,6 @@ $( document ).ready(function() {
             .done(function( data ) {
                 if(data.mensaje=='goodbye'){
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
-                    stopAudio();            
                     window.localStorage.setItem("alarmactive","NO");
                     cordova.plugins.backgroundMode.disable();
                     window.localStorage.removeItem("sucess");
