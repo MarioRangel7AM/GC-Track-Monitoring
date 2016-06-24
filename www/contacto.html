@@ -86,6 +86,9 @@
     <div id="offlinediag" style="display:none;">
         <h2>No connection...</h2>
     </div>
+    <div id="sendingdiag" style="display:none;">
+        <h2>Sending...</h2>
+    </div>
    
 
 <script type="text/javascript" src="cordova.js"></script>
@@ -198,9 +201,13 @@ $( document ).ready(function() {
  
  
   $('#contact').click(function(){
-           	       var subject=document.getElementById('asunto').value;
-           	       var message=document.getElementById('description').value;
-				   var email=document.getElementById('emailcontacto').value;
+    var subject=document.getElementById('asunto').value;
+    var message=document.getElementById('description').value;
+    var email=document.getElementById('emailcontacto').value;
+    var div = $("#contact");
+    div.animate({color: '#E04359', opacity: '0.4'}, "slow");
+    div.animate({color: '#FFF', opacity: '1.0'}, "normal");
+    $('#sendingdiag').fadeIn();
 				   
 var idTracker= localStorage.getItem("idTrackerToContactSupport"); 
 
@@ -213,6 +220,8 @@ if(validateUserData(subject,message,email)){
 			 .done(function( data ) {
        console.log(data);
 	navigator.notification.alert("You request has been sent", null, "Contact Support", "OK");//metodo para crear alertas personalizadas
+    $('#sendingdiag').fadeOut();
+
 
 	   //var data = $.parseJSON(data);
               
@@ -220,8 +229,8 @@ if(validateUserData(subject,message,email)){
           
 		  }
 else{
-	navigator.notification.alert("Please check all the fields", null, "Error", "OK");//metodo para crear alertas personalizadas
-
+	navigator.notification.alert("Please check your email address", null, "Error", "OK");//metodo para crear alertas personalizadas
+    $('#sendingdiag').fadeOut();
 }		  
 		   
         });
