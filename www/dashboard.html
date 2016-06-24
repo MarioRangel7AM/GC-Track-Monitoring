@@ -189,6 +189,7 @@ function onNotificationAPN (event) {
        alert("Problem: "+event.alert);
     }
     if (event.sound) {
+        
          snd= new Media(event.sound);
         snd.play();
     }
@@ -410,7 +411,7 @@ $( document ).ready(function() {
     $('#fixedcontainer').css('padding-top',setpadd );
     //Método para
     $('#infoTracker').click(function(){
-        var text="IDtracker:  "+ontracker+"";
+var text="Info: Model 4X3X85EM  \n  SerialNumber: 477222  Of Global Mechanical ";
         navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
     });
 });//Fin de la función JQuery de carga del documento
