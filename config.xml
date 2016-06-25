@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.tecsolutionsmx.gctrack" version="1.4.6">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.tecsolutionsmx.gctrack" version="1.4.7">
   <name>GC Track</name>
   <description>Software para el control de equipo industriales, Ver. iOS</description>
   <author href="http://www.tecsolutionsmx.com" email="rodrigo01@gmail.com">TecsolutionsMX</author>
