@@ -353,7 +353,7 @@ window.localStorage.setItem("name",data.email_user);
        console.log(data);
                 var data = $.parseJSON(data);
 
-	   console.log("phone"+data);
+window.localStorage.setItem("contactEmail",data.contact_email);
 document.getElementById("telefono").value=data.telefono;
 document.getElementById("rol").value=data.rol;
 document.getElementById("empresa").value=data.empresa;
@@ -378,10 +378,12 @@ document.getElementById("empresa").value=data.empresa;
 	var telefono=document.getElementById("telefono").value;
 	var rol=document.getElementById("rol").value;
 	var empresa=document.getElementById("empresa").value;
+    var contactEmail=window.localStorage.getItem("contactEmail");
+    console.log("CONTACT EMAIL"+contactEmail);
 	
 	if(validateUserData(userName,telefono,rol,empresa)){
 
-	$.post( "http://gct-production.mybluemix.net/updateUserData.php", {user_name: userName,telefonoContacto:telefono,rolContacto:rol,empresaContacto:empresa})
+	$.post( "http://gct-production.mybluemix.net/updateUserData.php", {user_name: userName,telefonoContacto:telefono,rolContacto:rol,empresaContacto:empresa,correoContacto:contactEmail})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
