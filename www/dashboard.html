@@ -359,13 +359,19 @@ $( document ).ready(function() {
                 }
 				$('#owl-demo').css('margin-left','0%');
 				//Ocultamos el botón del menú principal que permite ver la página web
-				//Mostramos los botones sendReport y goBack del menú principal             
+				
+        $('#loadingdiag').fadeOut();
+
+                //Mostramos los botones sendReport y goBack del menú principal             
 				$('#pumpstatuscont').fadeOut();
 				$('#logout').fadeOut();
 				$('#goback').fadeIn();
 				$('#sendReport').fadeIn();
 				$('#datalogged').fadeIn();
+
             }else{
+                        $('#loadingdiag').fadeOut();
+
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
                 alert('No incident logs found!');
             }
@@ -394,7 +400,19 @@ $( document ).ready(function() {
 		div.animate({color: '#FFF', opacity: '1.0'}, "normal");
 		$('#loadingdiag').fadeIn();
 	});
+    
+$("#showlog").click(function(event){
+        var div = $("#showlog");
+        div.animate({color: '#E04359', opacity: '0.4'}, "slow");
+        div.animate({color: '#FFF', opacity: '1.0'}, "normal");
+        $('#loadingdiag').fadeIn();
+
+    });
+    
+
     //Función de la acción del desplazamiento de la tabla #showlog
+    
+
     $(window).bind("scroll", function() {
         var tableOffset = $("#tblog").offset().top;
         var offset = $(this).scrollTop();
