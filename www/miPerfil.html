@@ -319,7 +319,7 @@ $('#goback').click(function(){
 	function putUserName(){
 	var userid=window.localStorage.getItem("iduser");
 	console.log("id usuario: "+userid);
-	 $.post( "http://gct-test.mybluemix.net/getuserbyid.php", {user_id:userid})
+	 $.post( "http://gct-dev.mybluemix.net/getuserbyid.php", {user_id:userid})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -336,7 +336,7 @@ $('#goback').click(function(){
 	var userid=window.localStorage.getItem("iduser");
 	var username="";
 	console.log("id usuario: "+userid);
-	 $.post( "http://gct-test.mybluemix.net/getuserbyid.php", {user_id:userid})
+	 $.post( "http://gct-dev.mybluemix.net/getuserbyid.php", {user_id:userid})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -348,7 +348,7 @@ window.localStorage.setItem("name",data.email_user);
 	username=window.localStorage.getItem("name");
 	
 	console.log("user name  "+ username);
-	 $.post( "http://gct-test.mybluemix.net/getContactData.php", {user_name: username})
+	 $.post( "http://gct-dev.mybluemix.net/getContactData.php", {user_name: username})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -383,7 +383,7 @@ document.getElementById("empresa").value=data.empresa;
 	
 	if(validateUserData(userName,telefono,rol,empresa)){
 
-	$.post( "http://gct-test.mybluemix.net/updateUserData.php", {user_name: userName,telefonoContacto:telefono,rolContacto:rol,empresaContacto:empresa,correoContacto:contactEmail})
+	$.post( "http://gct-dev.mybluemix.net/updateUserData.php", {user_name: userName,telefonoContacto:telefono,rolContacto:rol,empresaContacto:empresa,correoContacto:contactEmail})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
