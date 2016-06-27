@@ -86,7 +86,7 @@
     <div id="offlinediag" style="display:none;">
         <h2>No connection...</h2>
     </div>
-    <div id="sendingdiag" style="display:none;">
+    <div id="loadingdiag" style="display:none;">
         <h2>Sending...</h2>
     </div>
    
@@ -207,7 +207,7 @@ $( document ).ready(function() {
     var div = $("#contact");
     div.animate({color: '#E04359', opacity: '0.4'}, "slow");
     div.animate({color: '#FFF', opacity: '1.0'}, "normal");
-    $('#sendingdiag').fadeIn();
+    $('#loadingdiag').fadeIn();
 				   
 var idTracker= localStorage.getItem("idTrackerToContactSupport"); 
 
