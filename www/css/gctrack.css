@@ -44,9 +44,10 @@ section.positioned {
   height: 400px; 
 }
 
-.iconlist{
-	
-	width:100%;
+
+.iconlist:not(#pumptypeicon){
+	width:70%;
+	margin-left:18%;
 }
 
 .img-cintillo{
@@ -91,6 +92,9 @@ section.positioned {
     position: fixed;
     z-index: 12;
 	height:80px;
+}
+#pumptypeicon{
+	width:100%;
 }
 
 .locationmark p{
@@ -223,7 +227,8 @@ width:100%;
 .statsText{
 	
 	font-size:12px;
-	
+	height: 100%;
+  line-height: 200%;
 }
 
 .logininput::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -374,6 +379,16 @@ tbody td:last-child, thead th:last-child {
 
 
 #offlinediag{
+	padding: 1px;
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    width: 100%;
+    background-color: #FFF;
+    color: rgb(255, 124, 8);
+}
+
+#loadingdiag{
 	padding: 1px;
     position: absolute;
     bottom: 0px;
