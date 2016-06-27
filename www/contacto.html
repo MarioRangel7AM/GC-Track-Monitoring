@@ -219,8 +219,10 @@ if(validateUserData(subject,message,email)){
 			 
 			 .done(function( data ) {
        console.log(data);
-	navigator.notification.alert("You request has been sent", null, "Contact Support", "OK");//metodo para crear alertas personalizadas
-    $('#sendingdiag').fadeOut();
+	$('#loadingdiag').fadeOut();
+    navigator.notification.alert("You request has been sent", null, "Contact Support", "OK");//metodo para crear alertas personalizadas
+    
+
 
 
 	   //var data = $.parseJSON(data);
