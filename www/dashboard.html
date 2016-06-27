@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div id="list_trackers">
-                <div class="row" ><div class="locationmark"><h2>Cargando...</h2></div></div>
+                <div class="row" ><div class="locationmark"><h2>Loading...</h2></div></div>
             </div> 
             <div id="pumpstatuscont">
                 <div id="listmoretracks" style="display:none;">
@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-md-9 col-xs-9">
                             <div class="row statsbg statsText">
-                                Pump Pressure<br>
+                                Pressure: 
                                 <span id="presiondata">0</span> PSI
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="col-md-9 col-xs-9">
                             <div id="pumpstatus" class="row statsbg statsText">
-                                Pump Status<br>
+                                Status:
                                 <span id="pump_status">Normal</span>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-md-9 col-xs-9">
                             <div id="" class="row statserror statsText" onClick="dismissBadge()">
-                                Pump Status<br>
+                                Status: 
                                 <span id="pump_status_res">Error</span><!--LOS IDS SON UNICOS NO PONGAS OTRAS COSAS O HABRA ERRORES-->
                             </div>
                         </div>
@@ -127,6 +127,9 @@
     <div id="offlinediag" style="display:none;">
         <h2>No connection...</h2>
     </div>
+	<div id="loadingdiag" style="display:none;">
+		<h2>Loading...</h2>
+	</div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -217,6 +220,7 @@ $( document ).ready(function() {
 
     userid = window.localStorage.getItem("iduser");
     var output="";
+	$('#gotoweb').fadeOut();
     //Creamos el valor para verificar si se ha notificado un cambio súbito en la presión
     if(window.localStorage.getItem("isPressureNotified")===null){
         window.localStorage.setItem("isPressureNotified","0");
@@ -316,6 +320,7 @@ $( document ).ready(function() {
             $.post( "http://gct-production.mybluemix.net/session_close.php",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
+					window.localStorage.setItem("alarmactive","NO");
                     window.localStorage.removeItem("sucess");
                     cordova.plugins.notification.badge.set(0);
                     clearInterval(interval);
@@ -339,12 +344,6 @@ $( document ).ready(function() {
         var botonTrackerActivo = botonesTrackers[0];
         var relleno = $(botonTrackerActivo).height();
         $('#datalogged').css("padding-top",relleno);
-        $('#owl-demo').css('margin-left','0%');
-        //Ocultamos el botón del menú principal que permite ver la página web
-        //Mostramos los botones sendReport y goBack del menú principal 
-        $('#goback').fadeIn();
-        $('#sendReport').fadeIn();
-        $('#gotoweb').fadeOut();
         //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
         $.post( "http://gct-production.mybluemix.net/getlog.php", {id_tracker: ontracker})
         .done(function( data ) {
@@ -352,21 +351,26 @@ $( document ).ready(function() {
             var json_obj = $.parseJSON(data);
             //Refrescamos la estructura de la tabla actual
             $('#tblog > tbody').html('');
-            if(json_obj.numresult>0){
+            if(json_obj.logs.length>0){
                 //Si existen valores dentro de la bitácora que hayan dado alerta los mostramos uno a uno.
                 for (var i in json_obj.logs) {
                     registro = {ID : json_obj.logs[i].ID, hora : json_obj.logs[i].hora ,Estado : json_obj.logs[i].ID, message:json_obj.logs[i].message, error_id:json_obj.logs[i].error_id, Presion: json_obj.logs[i].presion};
                     registros.push(registro);
                     $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
                 }
+				$('#owl-demo').css('margin-left','0%');
+				//Ocultamos el botón del menú principal que permite ver la página web
+				//Mostramos los botones sendReport y goBack del menú principal             
+				$('#pumpstatuscont').fadeOut();
+				$('#logout').fadeOut();
+				$('#goback').fadeIn();
+				$('#sendReport').fadeIn();
+				$('#datalogged').fadeIn();
             }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
-                alert('No incident logs');
+                alert('No incident logs found!');
             }
-            $('#pumpstatuscont').fadeOut();
-            $('#datalogged').fadeIn();
-            $('#logout').fadeOut();
-            $('#goback').fadeIn();
+
         });//Fin de la consulta a Bluemix para obtener la bitácora de incidentes.
     });//Fin del método para la acción de presionar #showlog
     //Método para la acción del botón #goBack
@@ -385,6 +389,12 @@ $( document ).ready(function() {
         window.localStorage.setItem("idTrackerToContactSupport", ontracker);
         location.href='contacto.html';
     });
+	$("#list_trackers").click(function(event){
+		var div = $("#track0");
+		div.animate({color: '#E04359', opacity: '0.4'}, "slow");
+		div.animate({color: '#FFF', opacity: '1.0'}, "normal");
+		$('#loadingdiag').fadeIn();
+	});
     //Función de la acción del desplazamiento de la tabla #showlog
     $(window).bind("scroll", function() {
         var tableOffset = $("#tblog").offset().top;
@@ -445,7 +455,7 @@ function showPumps(){
     output = "";
     //Recuperamos la información de la variable locaciones llenada en getPumps()
     for (var i in locaciones) {
-        output+='<div class="row"><div onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
+		output+='<div class="tracker"><div id="'+"track"+i+'" onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
         currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
     }
     output+="";
@@ -467,10 +477,6 @@ function viewLocations() {
 }
 //Función para mostrar los datos del estado del Tracker
 function viewTrackers (idlocation) {
-    //Ajustamos el margen izquierdo para centrar los objetos del menú principal
-    $('#owl-demo').css('margin-left','8%'); 
-    //Mostramos el código html llenada en showPumps()
-    $("#infoTracker").fadeIn();
     //Reservamos variables para el estado del tracker y sus bombas
     trackers_location = [];
     bombas_location  = [];
@@ -496,17 +502,16 @@ function viewTrackers (idlocation) {
         }else{//Si no existen datos de bombas del Tracker
         //Mostramos una aerta donde indicamos que no existe información de las bombas de ese Tracker
         navigator.notification.alert("No logs available", null, "Empty log", "OK");
+		$('#loadingdiag').fadeOut();
         }
     });
 }
 //Función para mostrar la información de un Tracker
 function getTracker(idTracker) {
     //Mostramos los campos de estado
-    $('#pumpstatuscont').fadeIn();
     $('#datalogged').fadeOut();
     $('#logout').fadeIn();
     $('#goback').fadeOut();
-    $('.dashmarg').fadeIn();
     $('#listmoretracks').fadeOut();
     onscreen = 'viewtracker';
     ontracker = idTracker;
@@ -517,21 +522,24 @@ function getTracker(idTracker) {
     .done(function( data ) {
         var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){ //Si obtenemos respuesta de Bluemix con la info
+			$('.dashmarg').fadeIn();
+			$('#statuserror').css({display:"none"});
+			$('#statusnormal').css({display:"none"});
             $('#presiondata').html(json_obj.tracker.Presion);
             $('#trackdata_id').html(json_obj.tracker.ID);
             // intentaremos mostrar la primera bomba/ por lo general siempre existe
             if(trackers_location[0].Bombas.b1!==0){
                 if(trackers_location[0].Bombas.b1==2){
                     $('#pumptypeicon').attr('src','images/bombaelectrica.png');
-                    $('#pumptypename').html('Electric<br>Pump');
+                    $('#pumptypename').html('Electric Pump');
                 }
                 if(trackers_location[0].Bombas.b1==1){
                     $('#pumptypeicon').attr('src','img/iconobombadiesel55x55.png');
-                    $('#pumptypename').html('Diesel<br>Pump');
+                    $('#pumptypename').html('Diesel Pump');
                 }
                 if(trackers_location[0].Bombas.b1==3){
                     $('#pumptypeicon').attr('src','images/bombajockey.png');
-                    $('#pumptypename').html('Jokey<br>Pump');
+                    $('#pumptypename').html('Jokey Pump');
                 }
             }
             if(json_obj.tracker.Estado==1){
@@ -539,7 +547,7 @@ function getTracker(idTracker) {
                 $('#statusnormal').fadeOut("normal", function () {
                     $('#statusnormal').css({display:"none"});
                 });
-                $('#statuserror').fadeOut("normal", function () {
+                $('#statuserror').fadeIn("normal", function () {
                     $('#statuserror').css({display:"block"});
                 });
                 currentPumpstatus = json_obj.tracker.message;
@@ -547,9 +555,9 @@ function getTracker(idTracker) {
             }else{
                 $('#pump_status_res').html(json_obj.tracker.message);
                 $('#statuserror').fadeOut("normal", function () {
-                    $('#statuserro').css({display:"none"});
+                    $('#statuserror').css({display:"none"});
                 });
-                $('#statusnormal').fadeOut("normal", function () {
+                $('#statusnormal').fadeIn("normal", function () {
                     $('#statusnormal').css({display:"block"});
                 });
             }
@@ -560,12 +568,16 @@ function getTracker(idTracker) {
             $('#list_trackers').fadeOut();
             $('#view_tracker_status').fadeIn();
             $('#tracker_location').fadeIn();
-            $('#list_trackers').fadeOut();
+            $('#pumpstatuscont').fadeIn();
+            $('#loadingdiag').fadeOut();
             //Calculamos el tamaño del banner del tracker para darle el espacio a la información.
             var botonesTrackers = document.getElementsByClassName('locationmark');
             var botonTrackerActivo = botonesTrackers[0];
             var relleno = $(botonTrackerActivo).height();
             $('#pumpstatuscont').css("padding-top",relleno);
+			//Ajustamos el margen izquierdo para centrar los objetos del menú principal
+            $('#owl-demo').css('margin-left','8%'); 
+            $("#infoTracker").fadeIn();
         }else{
             //No obtuvimos información de Bluemix
             navigator.notification.alert("No logs available. Check your internet connection and use refresh.", null, "Info", "OK");//metodo para crear alertas personalizadas
@@ -771,15 +783,15 @@ function changeBomba(viewBomba){
     $('#listmoretracks').fadeOut();
     if(viewBomba==2){
         $('#pumptypeicon').attr('src','images/bombaelectrica.png');
-        $('#pumptypename').html('Electric<br>Pump');
+        $('#pumptypename').html('Electric Pump');
     }
     if(viewBomba==1){
         $('#pumptypeicon').attr('src','img/iconobombadiesel55x55.png');
-        $('#pumptypename').html('Diesel<br>Pump');
+        $('#pumptypename').html('Diesel Pump');
     }
     if(viewBomba==3){
         $('#pumptypeicon').attr('src','images/bombajockey.png');
-        $('#pumptypename').html('Jokey<br>Pump');
+        $('#pumptypename').html('Jokey Pump');
     }
 } 
 </script>
