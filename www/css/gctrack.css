@@ -47,7 +47,7 @@ section.positioned {
 
 .iconlist:not(#pumptypeicon){
 	width:70%;
-	margin-left:30%;
+	margin-left:18%;
 }
 
 .img-cintillo{
@@ -227,8 +227,8 @@ width:100%;
 .statsText{
 	
 	font-size:12px;
-	height: 40px;
-  line-height: 40px;
+	height: 100%;
+  line-height: 200%;
 }
 
 .logininput::-webkit-input-placeholder { /* Chrome/Opera/Safari */
