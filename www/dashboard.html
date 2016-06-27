@@ -319,6 +319,7 @@ $( document ).ready(function() {
                 $('#owl-demo').css('margin-left','0%');
                 //Ocultamos el botón del menú principal que permite ver la página web
                 //Mostramos los botones sendReport y goBack del menú principal             
+                $('#loadingdiag').fadeOut();
                 $('#pumpstatuscont').fadeOut();
                 $('#logout').fadeOut();
                 $('#goback').fadeIn();
@@ -326,6 +327,7 @@ $( document ).ready(function() {
                 $('#datalogged').fadeIn();
             }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
+                $('#loadingdiag').fadeOut();
                 alert('No incident logs found!');
             }
         });//Fin de la consulta a Bluemix para obtener la bitácora de incidentes.
@@ -349,6 +351,12 @@ $( document ).ready(function() {
     });
     $("#list_trackers").click(function(event){
         var div = $("#track0");
+        div.animate({color: '#E04359', opacity: '0.4'}, "slow");
+        div.animate({color: '#FFF', opacity: '1.0'}, "normal");
+        $('#loadingdiag').fadeIn();
+    });
+    $("#showlog").click(function(event){
+        var div = $("#showlog");
         div.animate({color: '#E04359', opacity: '0.4'}, "slow");
         div.animate({color: '#FFF', opacity: '1.0'}, "normal");
         $('#loadingdiag').fadeIn();
