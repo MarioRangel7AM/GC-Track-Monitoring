@@ -51,6 +51,9 @@
   
   
     $('#dologin').click(function(){
+        var div = $("#dologin");
+        div.animate({color: '#E04359', opacity: '0.4'}, "normal");
+        div.animate({color: '#FFF', opacity: '1.0'}, "normal");
             inemail = $('#inemail').val();
             inpass = $('#inpass').val();
             $.post( "http://gct-dev.mybluemix.net/auth.php", { email: inemail, pass: inpass })
@@ -73,6 +76,9 @@ window.localStorage.setItem("sucess","true");
 		
 		$('#dohelp').click(function(){
  		location.href='help.html';
+        var div = $("#dohelp");
+        div.animate({color: '#E04359', opacity: '0.4'}, "slow");
+        div.animate({color: '#FFF', opacity: '1.0'}, "normal");
 		
 		});
 		$( document ).ready(function() {
