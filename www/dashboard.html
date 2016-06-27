@@ -320,7 +320,6 @@ $( document ).ready(function() {
             $.post( "http://gct-test.mybluemix.net/session_close.php",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
-					window.localStorage.setItem("alarmactive","NO");
                     window.localStorage.removeItem("sucess");
                     cordova.plugins.notification.badge.set(0);
                     clearInterval(interval);
