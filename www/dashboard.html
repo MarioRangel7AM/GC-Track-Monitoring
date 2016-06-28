@@ -282,14 +282,15 @@ $( document ).ready(function() {
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
                     cordova.plugins.backgroundMode.disable();
                     window.localStorage.removeItem("sucess");
+                    stopAudio();
                     cordova.plugins.notification.badge.set(0);
                     numale=0;
                     cordova.plugins.notification.local.cancelAll(function() {
-                        alert("Alarmas apagadas");
+                        // alert("Alarmas apagadas");
                     }, this);
                     location.href='index.html';
                 }else{
-                    alert("Mensaje recibido: "+data.mensaje);
+                    // alert("Mensaje recibido: "+data.mensaje);
                 }
             });
         }// Si no fue el botón OK (es decir CANCEL) ignoramos cualquier acción.
