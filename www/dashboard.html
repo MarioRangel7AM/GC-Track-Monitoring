@@ -275,7 +275,7 @@ $( document ).ready(function() {
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
     function onConfirm(buttonIndex) {
         if(buttonIndex==1){ //El botón OK ha sido presionado
-            alert("El currentIdUser es: "+currentIdUser);   
+            // alert("El currentIdUser es: "+currentIdUser);   
             $.post( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
                 if(data.mensaje=='goodbye'){
