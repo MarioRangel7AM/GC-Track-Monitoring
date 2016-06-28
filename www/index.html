@@ -87,7 +87,7 @@ function onNotificationAPN (event) {
             inpass = $('#inpass').val();
 var token=window.localStorage.getItem("token");
 
-            $.post( "http://gct-production.mybluemix.net/auth.php", { email: inemail, pass: inpass,tokenDevice:token })
+            $.post( "http://gct-dev.mybluemix.net/auth.php", { email: inemail, pass: inpass,tokenDevice:token })
              .done(function( data ) {
                 var data=$.parseJSON(data);
 				console.log(data);
@@ -117,7 +117,7 @@ window.localStorage.setItem("sucess","true");
 		});
 		$( document ).ready(function() {
             
-            $.post( "http://gct-production.mybluemix.net/auth.php", { loging: "Show" })
+            $.post( "http://gct-dev.mybluemix.net/auth.php", { loging: "Show" })
              .done(function( data ) {
                var data=$.parseJSON(data);
 			   if(window.localStorage.getItem("sucess")=="true"){
