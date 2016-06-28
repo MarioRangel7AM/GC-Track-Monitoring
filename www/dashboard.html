@@ -160,7 +160,7 @@ var currentIdUser=0;
 var bombas_location  = [];
 var myMedia=null;
 document.addEventListener("deviceready", onDeviceReady, false);
-//Función Javascript de carga del documento
+//Función Javascript de carga del documento al inicio
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
     cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
     cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
@@ -276,9 +276,10 @@ $( document ).ready(function() {
     function onConfirm(buttonIndex) {
         if(buttonIndex==1){ //El botón OK ha sido presionado
             // alert("El currentIdUser es: "+currentIdUser);   
-            $.post( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
+            $.post( "http://gct-dev.mybluemix.net/session_close.php",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
-                if(data.mensaje=='goodbye'){
+                var json_obj = $.parseJSON(data);
+                if(json_obj.mensaje=='goodbye'){
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
                     cordova.plugins.backgroundMode.disable();
                     window.localStorage.removeItem("sucess");
@@ -288,9 +289,10 @@ $( document ).ready(function() {
                     cordova.plugins.notification.local.cancelAll(function() {
                         // alert("Alarmas apagadas");
                     }, this);
+                    alert("Recibido [1]: "+json_obj.mensaje);
                     location.href='index.html';
                 }else{
-                    // alert("Mensaje recibido: "+data.mensaje);
+                    alert("Recibido [2]: "+json_obj.mensaje);
                 }
             });
         }// Si no fue el botón OK (es decir CANCEL) ignoramos cualquier acción.
@@ -763,7 +765,7 @@ function showAlertWithoutSound(alertar) {
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
-    cordova.plugins.notification.badge.set(0);
+    // cordova.plugins.notification.badge.set(0);
     numale=0;
     $.post("http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
         .done(function( data ) {
