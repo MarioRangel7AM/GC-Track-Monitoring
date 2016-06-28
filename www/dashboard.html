@@ -275,6 +275,7 @@ $( document ).ready(function() {
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
     function onConfirm(buttonIndex) {
         if(buttonIndex==1){ //El botón OK ha sido presionado
+            alert("El currentIdUser es: "+currentIdUser);   
             $.getJSON( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
                 if(data.mensaje=='goodbye'){
@@ -284,7 +285,7 @@ $( document ).ready(function() {
                     cordova.plugins.notification.badge.set(0);
                     numale=0;
                     cordova.plugins.notification.local.cancelAll(function() {
-                        //alert(done);
+                        alert("Alarmas apagadas");
                     }, this);
                     location.href='index.html';
                 }
