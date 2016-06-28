@@ -276,7 +276,7 @@ $( document ).ready(function() {
     function onConfirm(buttonIndex) {
         if(buttonIndex==1){ //El botón OK ha sido presionado
             alert("El currentIdUser es: "+currentIdUser);   
-            $.getJSON( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
+            $.post( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
                 if(data.mensaje=='goodbye'){
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
@@ -288,6 +288,8 @@ $( document ).ready(function() {
                         alert("Alarmas apagadas");
                     }, this);
                     location.href='index.html';
+                }else{
+                    alert("Mensaje recibido: "+data.mensaje);
                 }
             });
         }// Si no fue el botón OK (es decir CANCEL) ignoramos cualquier acción.
