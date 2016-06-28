@@ -283,6 +283,9 @@ $( document ).ready(function() {
                     window.localStorage.removeItem("sucess");
                     cordova.plugins.notification.badge.set(0);
                     numale=0;
+                    cordova.plugins.notification.local.cancelAll(function() {
+                        //alert(done);
+                    }, this);
                     location.href='index.html';
                 }
             });
