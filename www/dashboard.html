@@ -162,7 +162,7 @@ var bombas_location  = [];
 var interval;
 var pushNotification;
 var deviceToken;
-var snd;
+//var snd;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
 
@@ -193,8 +193,7 @@ function onNotificationAPN (event) {
     }
     if (event.sound) {
         
-         snd= new Media(event.sound);
-        snd.play();
+       
     }
     if (event.badge) {
         window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
@@ -768,7 +767,6 @@ function showAlertWithoutSound(alertar) {
         at: now,
     });
     
-    snd.stop();
    
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
@@ -780,7 +778,7 @@ function dismissBadge(){
     });
     navigator.notification.alert("Alarm dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     window.localStorage.setItem("alarmactive","NO");
-    snd.stop();
+    //snd.stop();
 
     }
 //Función para reproducir un audio
