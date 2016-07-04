@@ -485,10 +485,10 @@ function isAlarmActive(idTracker,currentIdUser){
     .done(function( data ) {
         data=$.parseJSON(data);
         if(data.answer=="YES"){
-        // console.log("isAlarmActive?--- YES\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
+        console.log("isAlarmActive?--- YES\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
             window.localStorage.setItem("alarmactive","YES");
         }else{
-        // console.log("isAlarmActive?--- NO\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
+        console.log("isAlarmActive?--- NO\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
 
         }
     });
@@ -576,7 +576,7 @@ function getTracker(idTracker) {
 }
 //Función para solicitar a Bluemix el estado de cada bomba del Tracker
 function checkPump() {
-    // console.log("Checking Pump---");
+    console.log("Checking Pump---");
     var data="";
     $.post( "http://gct-production.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
     .done(function( data ) {
@@ -596,7 +596,7 @@ function checkPump() {
                 error_id : json_obj.tracker[i].error_id
             };
             listDevices.push(device);
-            // console.log(device);
+            console.log(device);
         }
         //Revisamos cuantas bombas tenemos
         var tam = listDevices.length;
@@ -621,7 +621,7 @@ function checkPump() {
                         isNotified=1;
                         numale=1; 
                         showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
-                        //navigator.vibrate(1600);
+                        navigator.vibrate(1600);
                         window.localStorage.setItem("alarmactive","NO");
                     }
                 }
@@ -661,7 +661,7 @@ function checkPump() {
                     //signfica que ya no se encontro problemas y volvemos a la normalidad
                     generalres = 0;
                     isNotified = 0;
-                    // navigator.vibrate(500);
+                    navigator.vibrate(500);
                     showAlertWithoutSound("Systems ready");//callas las alarmas
                     window.localStorage.setItem("isPressureNotified","0");
                 } 
@@ -757,7 +757,7 @@ function showAlertWithoutSound(alertar) {
         at: now,
     });
     cordova.plugins.notification.local.cancelAll(function() {
-    //     //navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+        navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     }, this);
     //Para iOs
     //media.stop();
@@ -781,7 +781,6 @@ function dismissBadge(){
 }
 //Función para reproducir un audio
 function playAudio() {
-    // alert("Meow");
     if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")===null){
         timerId2 = setInterval(function() { 
             if(myMedia!==null){
