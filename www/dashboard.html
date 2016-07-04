@@ -412,7 +412,7 @@ function getPumps() {
         //Si existen ubicaciones de Trackers los mostramos
         if(json_obj.numresult>0){
             for (var i in json_obj.locations) {
-                locacion = {ID : json_obj.locations[i].ID,business : json_obj.name_business ,loc_name : json_obj.locations[i].Nombre};
+                locacion = {ID : json_obj.locations[i].ID,business : json_obj.locations[i].NameBusiness ,loc_name : json_obj.locations[i].Nombre};
                 locaciones.push(locacion);
             }
         }else{
