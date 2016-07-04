@@ -583,6 +583,7 @@ function checkPump() {
         listDevices = []; //Reutilizamos la variable listDevices cada que se manda a llamar
         var json_obj = $.parseJSON(data);
         //Un for in debe tenenr un if antes para que no entre en condiciones no requeridas
+        
         for (var i in json_obj.tracker) {
             //Guardamos la información de cada bomba y su estado
             device = {
@@ -595,6 +596,7 @@ function checkPump() {
                 error_id : json_obj.tracker[i].error_id
             };
             listDevices.push(device);
+            // console.log(device);
         }
         //Revisamos cuantas bombas tenemos
         var tam = listDevices.length;
@@ -763,7 +765,7 @@ function showAlertWithoutSound(alertar) {
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
-    // cordova.plugins.notification.badge.set(0);
+    cordova.plugins.notification.badge.set(0);
     numale=0;
     $.post("http://gct-production.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
         .done(function( data ) {
