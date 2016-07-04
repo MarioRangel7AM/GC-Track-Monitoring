@@ -781,6 +781,7 @@ function dismissBadge(){
 }
 //Función para reproducir un audio
 function playAudio() {
+    // alert("Meow");
     if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")===null){
         timerId2 = setInterval(function() { 
             if(myMedia!==null){
