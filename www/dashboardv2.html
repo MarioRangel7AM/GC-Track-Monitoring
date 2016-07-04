@@ -213,7 +213,7 @@ $( document ).ready(function() {
 
  
     $('#logout').click(function(){
-        $.getJSON( "http://gct-dev.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show"})
+        $.getJSON( "http://gct-production.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show"})
         .done(function( data ) {
             console.log(data);
 
@@ -258,7 +258,7 @@ $( document ).ready(function() {
 	
     // para mostrar el log
     $('#showlog').click(function(){
-        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        $.post( "http://gct-production.mybluemix.net/getlog.php", {id_tracker: ontracker})
              .done(function( data ) {
                 registros = [];
                 console.log(data);
@@ -330,7 +330,7 @@ $('#sendReport').click(function(){
         } 
         var today = dd+'/'+mm+'/'+yyyy+'Hours '+hours;
         console.log(tableElement);
-        $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today})
+        $.post( "http://gct-production.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today})
             .done(function( data ) {
             console.log(data);
 
@@ -389,7 +389,7 @@ function validateEmail(email) {
 function getLocaciones(){
      //descargamos todas las locaciones
     locaciones = [];
-    $.post( "http://gct-dev.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gct-production.mybluemix.net/getpumps.php", {id_user: userid})
      .done(function( data ) {
         console.log(data);
         var json_obj = $.parseJSON(data);
@@ -430,7 +430,7 @@ function getTrackersLoc(){
         //guardamos
         locset = locaciones[y].ID;
         console.log('ciclo:'+ y);
-        $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: locaciones[y].ID})
+        $.post( "http://gct-production.mybluemix.net/gettrackerlocation.php", {id_location: locaciones[y].ID})
          .done(function( data ) {
             console.log('Nos dio:'+ data);
             var json_obj = $.parseJSON(data);
@@ -463,7 +463,7 @@ function viewLocTrack(idlocacion){
 /*
 function getPumps(){
     console.log('ID DE USUARIO '+userid);
-    $.post( "http://gct-dev.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gct-production.mybluemix.net/getpumps.php", {id_user: userid})
      .done(function( data ) {
         locaciones = [];
         console.log('deget'+data);
@@ -518,7 +518,7 @@ function viewTrackers (idlocation) {
     //console.log(idtracker);
     // obtenemos los tracker de esa locacion
     trackers_location = [];
-     $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+     $.post( "http://gct-production.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
      .done(function( data ) {
         console.log('ViewTrackers:'+data);
         var json_obj = $.parseJSON(data);
@@ -554,7 +554,7 @@ function getTracker(idTracker){
     ontracker = idTracker;
 	console.log('ID TRACKER  '+ontracker);
   // window.localStorage.setItem("lasttrack", ontracker); //esta puede ser la linea de codigo que este causando que se quede la informacion de la sesion anterior
-    $.post( "http://gct-dev.mybluemix.net/gettracker.php", {id_tracker: idTracker})
+    $.post( "http://gct-production.mybluemix.net/gettracker.php", {id_tracker: idTracker})
      .done(function( data ) {
         console.log('gettracker:'+data);
         var json_obj = $.parseJSON(data);
@@ -621,7 +621,7 @@ function getTracker(idTracker){
 // metodo de chekeo de status de todas las bombas y almacenamos en arreglo
 function checkPump(){
 
-    $.post( "http://gct-dev.mybluemix.net/checkpump.php", {id_user: userid})
+    $.post( "http://gct-production.mybluemix.net/checkpump.php", {id_user: userid})
      .done(function( data ) {
         //console.log(data);
         listDevices = []; //limpiamos
