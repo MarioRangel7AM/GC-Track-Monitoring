@@ -485,10 +485,10 @@ function isAlarmActive(idTracker,currentIdUser){
     .done(function( data ) {
         data=$.parseJSON(data);
         if(data.answer=="YES"){
-        console.log("isAlarmActive?--- YES\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
+        // console.log("isAlarmActive?--- YES\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
             window.localStorage.setItem("alarmactive","YES");
         }else{
-        console.log("isAlarmActive?--- NO\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
+        // console.log("isAlarmActive?--- NO\nTracker: "+idTracker+" User: "+currentIdUser+" Data: "+data);    
 
         }
     });
@@ -576,7 +576,7 @@ function getTracker(idTracker) {
 }
 //Función para solicitar a Bluemix el estado de cada bomba del Tracker
 function checkPump() {
-    console.log("Checking Pump---");
+    // console.log("Checking Pump---");
     var data="";
     $.post( "http://gct-test.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
     .done(function( data ) {
@@ -596,7 +596,7 @@ function checkPump() {
                 error_id : json_obj.tracker[i].error_id
             };
             listDevices.push(device);
-            console.log(device);
+            // console.log(device);
         }
         //Revisamos cuantas bombas tenemos
         var tam = listDevices.length;
