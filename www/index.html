@@ -59,7 +59,7 @@
         div.animate({color: '#FFF', opacity: '1.0'}, "normal");
             inemail = $('#inemail').val();
             inpass = $('#inpass').val();
-            $.post( "http://gct-production.mybluemix.net/auth.php", { email: inemail, pass: inpass })
+            $.post( "http://gct-test.mybluemix.net/auth.php", { email: inemail, pass: inpass })
              .done(function( data ) {
                 var data=$.parseJSON(data);
 				console.log(data);
@@ -86,7 +86,7 @@ window.localStorage.setItem("sucess","true");
 		});
 		$( document ).ready(function() {
             
-            $.post( "http://gct-production.mybluemix.net/auth.php", { loging: "Show" })
+            $.post( "http://gct-test.mybluemix.net/auth.php", { loging: "Show" })
              .done(function( data ) {
                var data=$.parseJSON(data);
 			   if(window.localStorage.getItem("sucess")=="true"){
