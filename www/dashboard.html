@@ -602,7 +602,7 @@ function checkPump() {
                     //Verificamos si la alarma continua encenddida
                     isAlarmActive(json_obj.tracker[i].ID,currentIdUser);
                     if(window.localStorage.getItem("alarmactive")=="YES"){
-                        navigator.vibrate(1900);
+                        navigator.vibrate(1600);
                         
                         isNotified=1;
                         
