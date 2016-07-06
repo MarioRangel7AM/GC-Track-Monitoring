@@ -73,11 +73,11 @@ window.plugins.pushNotification.register(
 function onNotificationAPN (event) {
    // alert("entrando al apn");
     if (event.alert) {
-       alert(event.alert);
+       //alert(event.alert);
     }
     if (event.sound) {
-        var snd = new Media(event.sound);
-        snd.play();
+        //var snd = new Media(event.sound);
+        //snd.play();
     }
     if (event.badge) {
         window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
