@@ -606,7 +606,7 @@ function checkPump() {
                         
 
                         numale=1; 
-                        showAlert("Pump #"+listDevices[i].ID+" Problem: "+listDevices[i].message);//muestra la notificacion
+                        showAlert(listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDevices[i].message);//muestra la notificacion
                         window.localStorage.setItem("alarmactive","NO");
                     }
                 }
