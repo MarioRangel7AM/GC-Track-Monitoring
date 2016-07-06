@@ -270,9 +270,9 @@ $( document ).ready(function() {
             .done(function( data ) {
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
                     window.localStorage.removeItem("sucess");
-                    cordova.plugins.notification.badge.set(0);
-                    clearInterval(interval);
-                    numale=0;
+                    //cordova.plugins.notification.badge.set(0);
+                    //clearInterval(interval);
+                    //numale=0;
                     location.href='index.html';
                 
             });
