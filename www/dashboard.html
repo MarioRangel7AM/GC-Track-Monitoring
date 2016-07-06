@@ -129,7 +129,7 @@
     <div id="loadingdiag" style="display:none;">
         <h2>Loading...</h2>
     </div>
-    <!-- <script type="text/javascript" src="cordova.js"></script> -->
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- Owl Carousel Assets -->
@@ -162,13 +162,13 @@ var myMedia=null;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento al inicio
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
-    // cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
-    // cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
-    // cordova.plugins.backgroundMode.configure({
-    //     title: 'GCTrack',
-    //     text: 'Currently monitoring',
-    //     ticker: 'reading'
-    // });
+    cordova.plugins.notification.badge.set(0); //burbuja de notificaion para ios
+    cordova.plugins.backgroundMode.enable(); //activa el modo de segundo plano
+    cordova.plugins.backgroundMode.configure({
+        title: 'GCTrack',
+        text: 'Currently monitoring',
+        ticker: 'reading'
+    });
     // //Cargamos el archivo mp3 para la alarma en android.
     myMedia = new Media("/android_asset/www/alarm.mp3", onSuccess,onError,onStatus);
 }
@@ -264,13 +264,12 @@ $( document ).ready(function() {
     //Función de acción del botón logout
     $('#logout').click(function() {
         //cuadro de dialogo para confirmar alguna acción
-        // navigator.notification.confirm(
-        //     "If you logout, you won't receive any further alarms and notifications", // message
-        //     onConfirm,            // callback to invoke with index of button pressed
-        //     "WARNING",           // title
-        //     ["OK","Cancel"]     // buttonLabels
-        // );
-        onConfirm(1);
+        navigator.notification.confirm(
+            "If you logout, you won't receive any further alarms and notifications", // message
+            onConfirm,            // callback to invoke with index of button pressed
+            "WARNING",           // title
+            ["OK","Cancel"]     // buttonLabels
+        );
 
     });//Fin de la función del botón logout
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
@@ -282,14 +281,14 @@ $( document ).ready(function() {
                 var json_obj = $.parseJSON(data);
                 if(json_obj.mensaje=='goodbye'){
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
-                    // cordova.plugins.backgroundMode.disable();
+                    cordova.plugins.backgroundMode.disable();
                     window.localStorage.removeItem("sucess");
                     stopAudio();
-                    // cordova.plugins.notification.badge.set(0);
+                    cordova.plugins.notification.badge.set(0);
                     numale=0;
-                    // cordova.plugins.notification.local.cancelAll(function() {
-                    //     // alert("Alarmas apagadas");
-                    // }, this);
+                    cordova.plugins.notification.local.cancelAll(function() {
+                        // alert("Alarmas apagadas");
+                    }, this);
                     location.href='index.html';
                 }else{
                 }
@@ -336,7 +335,8 @@ $( document ).ready(function() {
             }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
                 $('#loadingdiag').fadeOut();
-                alert('No incident logs found!');
+                navigator.notification.alert("No incident logs found!", null, "Warning", "OK");
+
             }
         });//Fin de la consulta a Bluemix para obtener la bitácora de incidentes.
     });//Fin del método para la acción de presionar #showlog
@@ -396,7 +396,7 @@ $( document ).ready(function() {
     //Método para
     $('#infoTracker').click(function(){
         var text="FM Armstrong By GlobalMechanical"+"\n"+"Model: 4X3X85F\nSerial:477222";
-        // navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
+        navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
     });
 });//Fin de la función JQuery de carga del documento
 //Función para obtener la cantidad de Trackers disponibles
@@ -418,8 +418,7 @@ function getPumps() {
             }
         }else{
         //Si no encontramos Trackers emitimos una alerta de que no se han encontrado locaciones para este usuario
-            // navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
-            alert("No pumps and places for this account.");
+            navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
         }
     //Usamos la función para llenar los Trackers en el área de estado
     showPumps();
@@ -476,8 +475,7 @@ function viewTrackers (idlocation) {
             }
         }else{//Si no existen datos de bombas del Tracker
         //Mostramos una aerta donde indicamos que no existe información de las bombas de ese Tracker
-        alert("No logs available.");
-        // navigator.notification.alert("No logs available", null, "Empty log", "OK");
+        navigator.notification.alert("No logs available", null, "Empty log", "OK");
         $('#loadingdiag').fadeOut();
         }
     });
@@ -650,9 +648,9 @@ function checkPump() {
 
         // Agregamos la burbuja al icono de la app dependiendo del número de alertas
         if(numale>0){
-            // cordova.plugins.notification.badge.set(numale);
+            cordova.plugins.notification.badge.set(numale);
         }else{
-            // cordova.plugins.notification.badge.set(0);
+            cordova.plugins.notification.badge.set(0);
         }
         //aqui vemos si le avisamos que ya esta todo correcto despues de tener registrado que hay problemas
         if(resultpump != generalres){
@@ -664,7 +662,7 @@ function checkPump() {
                     //signfica que ya no se encontro problemas y volvemos a la normalidad
                     generalres = 0;
                     isNotified = 0;
-                    // navigator.vibrate(500);
+                    navigator.vibrate(500);
                     showAlertWithoutSound("Systems ready");//callas las alarmas
                     window.localStorage.setItem("isPressureNotified","0");
                 } 
@@ -696,11 +694,11 @@ $('#sendReport').click(function() {
         today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
         $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
         .done(function( data ) {
-        // navigator.notification.alert("You report has been send", null, "Send report", "OK");
+        navigator.notification.alert("You report has been send", null, "Send report", "OK");
         //var data = $.parseJSON(data);
         });
     }else{
-        // navigator.notification.alert("You report cannot be send, please check you email address", null, "Error", "OK");
+        navigator.notification.alert("You report cannot be send, please check you email address", null, "Error", "OK");
     }
 });
 //Método para validación de la dirección de correo electrónico.
@@ -726,14 +724,14 @@ function showAlert(alertar) {
     //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
     var now = new Date().getTime();
     //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
-    // cordova.plugins.notification.local.schedule({
-    //     id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
-    //     text: "EMERGENCY "+alertar,
-    //     at: now,
-    //     badge: 1,
-    //     every:"minute"
-    //     //sound:'file://alarm.mp3'      
-    // });
+    cordova.plugins.notification.local.schedule({
+        id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
+        text: "EMERGENCY "+alertar,
+        at: now,
+        badge: 1,
+        every:"minute"
+        //sound:'file://alarm.mp3'      
+    });
 }      
 // onSuccess Callback
 function onSuccess() {
@@ -751,34 +749,33 @@ function onStatus(status) {
 //Función para emitir una notificación sin sonido
 function showAlertWithoutSound(alertar) { 
     //Este método se llama cuando el sistema vuelve a la normalidad
-    // cordova.plugins.notification.badge.set(0);
+    cordova.plugins.notification.badge.set(0);
     numale=0;
     var now  = new Date().getTime();
-    // cordova.plugins.notification.local.schedule({
-    //     id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
-    //     text: alertar,
-    //     at: now,
-    // });
-    // cordova.plugins.notification.local.cancelAll(function() {
-    //     navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
-    // }, this);
+    cordova.plugins.notification.local.schedule({
+        id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
+        text: alertar,
+        at: now,
+    });
+    cordova.plugins.notification.local.cancelAll(function() {
+        navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+    }, this);
     //Para iOs
     //media.stop();
     stopAudio();
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
-    // cordova.plugins.notification.badge.set(0);
+    cordova.plugins.notification.badge.set(0);
     numale=0;
     $.post("http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
         .done(function( data ) {
             //var json_obj = $.parseJSON(data);
             //console.log(json_obj);
     });
-    // cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-    // }, this);
-    alerts("Alertas apagadas");
-    // navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+    cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
+    }, this);
+    navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     // media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     stopAudio();
     window.localStorage.setItem("alarmactive","NO");
@@ -787,7 +784,6 @@ function dismissBadge(){
 function playAudio() {
     if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")===null){
         timerId2 = setInterval(function() {
-        alert("Beep!"); 
             if(myMedia!==null){
                 if(myMedia.status === Media.MEDIA_STOPPED){
                     myMedia.seekTo(0);
