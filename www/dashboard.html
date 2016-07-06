@@ -158,6 +158,7 @@ var currentPumpstatus='';
 var numale = 0;//Número de burbujas en el icono
 var currentIdUser=0;
 var bombas_location  = [];
+var interval;
 //var myMedia=null;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento al inicio
@@ -272,7 +273,7 @@ $( document ).ready(function() {
 
                     window.localStorage.removeItem("sucess");
                     //cordova.plugins.notification.badge.set(0);
-                    //clearInterval(interval);
+                    clearInterval(interval);
                     numale=0;
                     location.href='index.html';
                 
@@ -602,7 +603,7 @@ function checkPump() {
                     //Verificamos si la alarma continua encenddida
                     isAlarmActive(json_obj.tracker[i].ID,currentIdUser);
                     if(window.localStorage.getItem("alarmactive")=="YES"){
-                        navigator.vibrate(1600);
+                        
                         
                         isNotified=1;
                         
@@ -709,6 +710,11 @@ function showAlert(alertar) {
     //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
    
    navigator.notification.alert("Alert in: "+alertar ,null, "Alarm", "OK");//metodo para crear alertas
+
+
+interval=setInterval(function() {navigator.vibrate(1600);});
+
+
 }      
 // onSuccess Callback
 function onSuccess() {
@@ -754,6 +760,7 @@ function dismissBadge(){
     }, this);
     navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     // media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+    clearInterval(interval);
     stopAudio();
     window.localStorage.setItem("alarmactive","NO");
 }
