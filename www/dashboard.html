@@ -268,11 +268,10 @@ $( document ).ready(function() {
         if(buttonIndex==1){ //El botón OK ha sido presionado
             $.post( "http://gct-production.mybluemix.net/session_close.php",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
-                    //Si recibimos el mensaje de confirmación cerramos el modo de background
                     window.localStorage.removeItem("sucess");
                     //cordova.plugins.notification.badge.set(0);
                     //clearInterval(interval);
-                    //numale=0;
+                    numale=0;
                     location.href='index.html';
                 
             });
@@ -601,10 +600,13 @@ function checkPump() {
                     //Verificamos si la alarma continua encenddida
                     isAlarmActive(json_obj.tracker[i].ID,currentIdUser);
                     if(window.localStorage.getItem("alarmactive")=="YES"){
-                        isNotified=1;
-                        numale=1; 
-                        showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                         navigator.vibrate(1900);
+                        
+                        isNotified=1;
+                        
+
+                        numale=1; 
+                        showAlert("Pump #"+listDevices[i].ID+" Problem: "+listDevices[i].message);//muestra la notificacion
                         window.localStorage.setItem("alarmactive","NO");
                     }
                 }
@@ -701,19 +703,10 @@ function validateCCEmail(email) {
 //Método para emitir una alerta sonora
 function showAlert(alertar) {
     //Llamamos al método para reproducir 
-    playAudio();
     //media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
     //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
-    var now = new Date().getTime();
-    //var sound = device.platform == 'Android' ? 'file://sounds/alarm.mp3' : 'file://sounds/alarm.caf';
-    cordova.plugins.notification.local.schedule({
-        id:1,//NO PONGAS PUNTO Y COMA YA QUE CAUSA ERROR
-        text: "EMERGENCY "+alertar,
-        at: now,
-        badge: 1,
-        every:"minute"
-        //sound:'file://alarm.mp3'      
-    });
+   
+   navigator.notification.alert("Problem in pump "+alertar ,null, "Alarm", "OK");//metodo para crear alertas
 }      
 // onSuccess Callback
 function onSuccess() {
@@ -740,11 +733,11 @@ function showAlertWithoutSound(alertar) {
         at: now,
     });
     cordova.plugins.notification.local.cancelAll(function() {
-        navigator.notification.alert("Systems ready and working" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+        navigator.notification.alert("Systems ready and working" ,null, "System", "OK");//metodo para crear alertas personalizadas
     }, this);
     //Para iOs
     //media.stop();
-    stopAudio();
+   // stopAudio();
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
