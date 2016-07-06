@@ -706,7 +706,7 @@ function showAlert(alertar) {
     //media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
     //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
    
-   navigator.notification.alert("Problem in pump "+alertar ,null, "Alarm", "OK");//metodo para crear alertas
+   navigator.notification.alert("Alert in: "+alertar ,null, "Alarm", "OK");//metodo para crear alertas
 }      
 // onSuccess Callback
 function onSuccess() {
