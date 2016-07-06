@@ -168,37 +168,13 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
-window.plugins.pushNotification.register(
-    function(token){
-        window.localStorage.setItem("token",token);
-    },
-    function(){alert('Error al registrarse en el servidor APNS');},
-    {
-        "badge":"true",
-        "sound": "true",
-        "alert": "true",
-        "ecb": "onNotificationAPN"
-    });
+
 }
 
 
    
 
 
-
-function onNotificationAPN (event) {
-   // alert("entrando al apn");
-    if (event.alert) {
-      alert("Problem: "+event.alert);
-    }
-    if (event.sound) {
-        
-       
-    }
-    if (event.badge) {
-        window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
-    }
-}
 
 
 
@@ -652,6 +628,7 @@ function checkPump() {
                     });
                     if(window.localStorage.getItem("alarmactive")=="YES"){
                         
+                        navigator.vibrate(1000);
                         showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
                         numale=1; 
                         isNotified=1;
