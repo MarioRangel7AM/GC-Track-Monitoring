@@ -270,13 +270,14 @@ $( document ).ready(function() {
             "WARNING",           // title
             ["OK","Cancel"]     // buttonLabels
         );
+        // onConfirm(1);
 
     });//Fin de la función del botón logout
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
     function onConfirm(buttonIndex) {
         if(buttonIndex==1){ //El botón OK ha sido presionado
             // alert("El currentIdUser es: "+currentIdUser);   
-            $.post( "http://gct-test.mybluemix.net/session_close.php",{loging: "Show", id_user:currentIdUser})
+            $.post( "http://gct-production.mybluemix.net/session_close.php",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
                 var json_obj = $.parseJSON(data);
                 if(json_obj.mensaje=='goodbye'){
@@ -310,7 +311,7 @@ $( document ).ready(function() {
         var relleno = $(botonTrackerActivo).height();
         $('#datalogged').css("padding-top",relleno);
         //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
-        $.post( "http://gct-test.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        $.post( "http://gct-production.mybluemix.net/getlog.php", {id_tracker: ontracker})
         .done(function( data ) {
             registros = [];
             var json_obj = $.parseJSON(data);
@@ -335,7 +336,8 @@ $( document ).ready(function() {
             }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
                 $('#loadingdiag').fadeOut();
-                alert('No incident logs found!');
+                navigator.notification.alert("No incident logs found!", null, "Warning", "OK");
+                // alert("No incident logs found!");
             }
         });//Fin de la consulta a Bluemix para obtener la bitácora de incidentes.
     });//Fin del método para la acción de presionar #showlog
@@ -404,7 +406,7 @@ function getPumps() {
     $('#infoTracker').fadeIn();
     currentIdUser=userid;
     //Preguntamos a Bluemix cuales son los trackers a los que tiene acceso este usuario dependiendo de su compañia y si se encuentra activo.
-    $.post( "http://gct-test.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gct-production.mybluemix.net/getpumps.php", {id_user: userid})
     .done(function( data ) {
         //Reservamos una variable para ver las ubicaciones de Trackers
         locaciones = [];
@@ -428,7 +430,7 @@ function showPumps(){
     output = "";
     //Recuperamos la información de la variable locaciones llenada en getPumps()
     for (var i in locaciones) {
-        output+='<div class="tracker"><div id="'+"track"+i+'" onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
+        output+='<div class="tracker"><div id="'+"track"+i+'" onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1 id="locationTitle'+i+'">'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
         currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
     }
     output+="";
@@ -454,7 +456,7 @@ function viewTrackers (idlocation) {
     trackers_location = [];
     bombas_location  = [];
     //Preguntamos a Bluemix información de las bombas del Tracker
-    $.post( "http://gct-test.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+    $.post( "http://gct-production.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
     .done(function( data ) {
     
         var json_obj = $.parseJSON(data);
@@ -475,13 +477,14 @@ function viewTrackers (idlocation) {
         }else{//Si no existen datos de bombas del Tracker
         //Mostramos una aerta donde indicamos que no existe información de las bombas de ese Tracker
         navigator.notification.alert("No logs available", null, "Empty log", "OK");
+        // alert("No logs avaible");
         $('#loadingdiag').fadeOut();
         }
     });
 }
 
 function isAlarmActive(idTracker,currentIdUser){
-    $.post( "http://gct-test.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: idTracker, id_user : currentIdUser})
+    $.post( "http://gct-production.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: idTracker, id_user : currentIdUser})
     .done(function( data ) {
         data=$.parseJSON(data);
         if(data.answer=="YES"){
@@ -506,7 +509,7 @@ function getTracker(idTracker) {
     //Seteamos el Tracker actual a la variable de la memoria del dispositivo
     window.localStorage.setItem("trackerId",ontracker);
     //Preguntamos a Bluemix la información del Tracker
-    $.post( "http://gct-test.mybluemix.net/gettracker.php", {id_tracker: idTracker})
+    $.post( "http://gct-production.mybluemix.net/gettracker.php", {id_tracker: idTracker})
     .done(function( data ) {
         var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){ //Si obtenemos respuesta de Bluemix con la info
@@ -570,6 +573,7 @@ function getTracker(idTracker) {
             $("#infoTracker").fadeIn();
         }else{
             //No obtuvimos información de Bluemix
+            // alert("No logs avaible");
             navigator.notification.alert("No logs available. Check your internet connection and use refresh.", null, "Info", "OK");//metodo para crear alertas personalizadas
         }
     });
@@ -578,7 +582,7 @@ function getTracker(idTracker) {
 function checkPump() {
     // console.log("Checking Pump---");
     var data="";
-    $.post( "http://gct-test.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
+    $.post( "http://gct-production.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
     .done(function( data ) {
         listDevices = []; //Reutilizamos la variable listDevices cada que se manda a llamar
         var json_obj = $.parseJSON(data);
@@ -604,12 +608,15 @@ function checkPump() {
         resultpump = 0;
         for (i=0; i<tam; i++) {
             //Verifica que el estado no sea un error 5-5 que corresponde al cambio súbito de presión
+            $('#locationTitle'+i).css('color','black');
             if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="0") {
                 navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
+                // alert("Sudden Change in pressure");
                 window.localStorage.setItem("isPressureNotified","1");
             }
-
+            
             if(listDevices[i].status!='0') {//Si la variable status de la bomba es diferente de cero Tenemos un problema Houston.
+                $('#locationTitle'+i).css('color','red');
                 resultpump = 1;//esto se pone en 1 en el momento del error
                 //revisamos si esta notificado de esto
                 if(isNotified != 1){
@@ -619,8 +626,9 @@ function checkPump() {
                     isAlarmActive(json_obj.tracker[i].ID,currentIdUser);
                     if(window.localStorage.getItem("alarmactive")=="YES"){
                         isNotified=1;
-                        numale=1; 
-                        showAlert("Bomba #"+listDevices[i].ID+" Problema: "+listDevices[i].message);//muestra la notificacion
+                        numale=1;
+
+                        showAlert(listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDevices[i].message);//muestra la notificacion
                         navigator.vibrate(1600);
                         window.localStorage.setItem("alarmactive","NO");
                     }
@@ -691,7 +699,7 @@ $('#sendReport').click(function() {
             mm='0'+mm;
         } 
         today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
-        $.post( "http://gct-test.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
+        $.post( "http://gct-production.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
         .done(function( data ) {
         navigator.notification.alert("You report has been send", null, "Send report", "OK");
         //var data = $.parseJSON(data);
@@ -716,6 +724,7 @@ function validateCCEmail(email) {
     }
 }
 //Método para emitir una alerta sonora
+
 function showAlert(alertar) {
     //Llamamos al método para reproducir 
     playAudio();
@@ -731,6 +740,8 @@ function showAlert(alertar) {
         every:"minute"
         //sound:'file://alarm.mp3'      
     });
+        // alert("Alert in: "+alertar);
+    navigator.notification.alert("Alert in: "+alertar ,null, "Alarm", "OK");
 }      
 // onSuccess Callback
 function onSuccess() {
@@ -766,14 +777,15 @@ function showAlertWithoutSound(alertar) {
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
     cordova.plugins.notification.badge.set(0);
-    numale=0;
-    $.post("http://gct-test.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
+    // numale=0;
+    $.post("http://gct-production.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
         .done(function( data ) {
             //var json_obj = $.parseJSON(data);
             //console.log(json_obj);
     });
     cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
     }, this);
+    // alert("Alerts dismissed");
     navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     // media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
     stopAudio();
@@ -782,7 +794,8 @@ function dismissBadge(){
 //Función para reproducir un audio
 function playAudio() {
     if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")===null){
-        timerId2 = setInterval(function() { 
+        timerId2 = setInterval(function() {
+               console.log("Beep!!");
             if(myMedia!==null){
                 if(myMedia.status === Media.MEDIA_STOPPED){
                     myMedia.seekTo(0);

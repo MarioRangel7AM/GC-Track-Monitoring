@@ -167,7 +167,7 @@ $( document ).ready(function() {
    
 
 
-   $.post( "http://gct-test.mybluemix.net/getlog.php", {id_tracker: 2})
+   $.post( "http://gct-production.mybluemix.net/getlog.php", {id_tracker: 2})
              .done(function( data ) {
                 registros = [];
                 console.log(data);
@@ -229,7 +229,7 @@ $( document ).ready(function() {
  
 $('#logout').click(function(){
 
-	        $.getJSON( "http://gct-test.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show"})
+	        $.getJSON( "http://gct-production.mybluemix.net/session_close.php?jsoncallback=?",{loging: "Show"})
              
 			 
 			 .done(function( data ) {

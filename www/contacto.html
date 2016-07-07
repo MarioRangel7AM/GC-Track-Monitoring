@@ -214,7 +214,7 @@ var idTracker= localStorage.getItem("idTrackerToContactSupport");
 if(validateUserData(subject,message,email)){
 
 	console.log('ID trackeerr '+idTracker);	  
-		  $.post( "http://gct-test.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker,contact_email:email})
+		  $.post( "http://gct-production.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker,contact_email:email})
              
 			 
 			 .done(function( data ) {
@@ -263,7 +263,7 @@ function validateEmail(email) {
 	
 	var userid=window.localStorage.getItem("iduser");
 	console.log("id usuario: "+userid);
-	 $.post( "http://gct-test.mybluemix.net/getuserbyid.php", {user_id:userid})
+	 $.post( "http://gct-production.mybluemix.net/getuserbyid.php", {user_id:userid})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -272,7 +272,7 @@ var user=window.localStorage.getItem("email_user");
        console.log("dfcsdfsdf"+user);
 
 	
-	 $.post( "http://gct-test.mybluemix.net/getContactData.php", {user_name: user})
+	 $.post( "http://gct-production.mybluemix.net/getContactData.php", {user_name: user})
      .done(function( data ) {
        console.log(data);
                 var data = $.parseJSON(data);
@@ -318,7 +318,7 @@ $('#goback').click(function(){
 
     // para mostrar el log
     $('#showlog').click(function(){
-        $.post( "http://gct-test.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        $.post( "http://gct-production.mybluemix.net/getlog.php", {id_tracker: ontracker})
              .done(function( data ) {
                 registros = [];
                 console.log(data);
@@ -398,7 +398,7 @@ $('#goback').click(function(){
 // obtiene todas las bombas por usuario
 function getPumps(){
     console.log('Con'+userid);
-    $.post( "http://gct-test.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gct-production.mybluemix.net/getpumps.php", {id_user: userid})
      .done(function( data ) {
         locaciones = [];
         console.log('deget'+data);
@@ -450,7 +450,7 @@ $('.row').click(function(){
 function viewTrackers (idlocation) {
     //console.log(idtracker);
     // obtenemos los tracker de esa locacion
-     $.post( "http://gct-test.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+     $.post( "http://gct-production.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
      .done(function( data ) {
         console.log(data);
         var json_obj = $.parseJSON(data);
