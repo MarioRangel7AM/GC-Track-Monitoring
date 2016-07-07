@@ -794,6 +794,7 @@ function dismissBadge(){
 function playAudio() {
     if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")===null){
         timerId2 = setInterval(function() {
+               alert("Beep!!");
             if(myMedia!==null){
                 if(myMedia.status === Media.MEDIA_STOPPED){
                     myMedia.seekTo(0);
