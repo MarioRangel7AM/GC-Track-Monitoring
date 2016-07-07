@@ -753,6 +753,9 @@ function showAlertWithoutSound(alertar) {
         navigator.notification.alert("Systems ready and working" ,null, "System", "OK");//metodo para crear alertas personalizads
     }, this);
 
+        clearInterval(interval);
+
+
     //Para iOs
     //media.stop();
    // stopAudio();
