@@ -692,11 +692,11 @@ $('#sendReport').click(function() {
         today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
         $.post( "http://gct-production.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
         .done(function( data ) {
-        navigator.notification.alert("You report has been send", null, "Send report", "OK");
+        navigator.notification.alert("Your report has been sent", null, "Send report", "OK");
         //var data = $.parseJSON(data);
         });
     }else{
-        navigator.notification.alert("You report cannot be send, please check you email address", null, "Error", "OK");
+        navigator.notification.alert("Your report cannot be sent, please check you email address", null, "Error", "OK");
     }
 });
 //Método para validación de la dirección de correo electrónico.
