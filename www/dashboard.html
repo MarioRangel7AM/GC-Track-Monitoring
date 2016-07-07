@@ -615,7 +615,6 @@ function checkPump() {
 
                         numale=1; 
                                 
-                 document.getElementById('pumpstatusicon').src='images/icono-enginrunning.png';
 
                         showAlert(listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDevices[i].message);//muestra la notificacion
                         window.localStorage.setItem("alarmactive","NO");
@@ -630,6 +629,8 @@ function checkPump() {
                     if(parseInt(listDevices[i].status)!==0){
                         $('#pump_status_res').html(listDevices[i].message);
                     //icono
+                                     document.getElementById('pumpstatusicon').src='images/icono-enginrunning.png';
+
                         $('#statusnormal').fadeOut();
                         $('#statuserror').fadeIn();
                     }else{
