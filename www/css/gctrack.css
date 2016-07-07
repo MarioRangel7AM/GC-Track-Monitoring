@@ -7,6 +7,10 @@
 user-select: none;
 }
 
+#pumpicons{
+	color:red;
+}
+
 input
 {
 -webkit-user-select: auto !important;

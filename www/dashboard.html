@@ -57,7 +57,7 @@
                 <div class="container dashmarg">
                     <div class="row">
                         <div class="col-md-3 col-xs-3">
-                            <img class="iconlist"  src="images/icono-pumpressure.png">
+                            <img class="iconlist"   src="images/icono-pumpressure.png">
                         </div>
                         <div class="col-md-9 col-xs-9">
                             <div class="row statsbg statsText">
@@ -599,6 +599,7 @@ function checkPump() {
             if(listDevices[i].status!='0') {//Si la variable status de la bomba es diferente de cero Tenemos un problema Houston.
 
                  $('#locationTitle'+i).css('color','red');
+                 document.getElementById('pumpstatusicon').src='icono-enginrunning.png';
 
                 resultpump = 1;//esto se pone en 1 en el momento del error
                 //revisamos si esta notificado de esto
