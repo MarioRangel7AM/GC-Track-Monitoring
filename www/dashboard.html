@@ -430,7 +430,7 @@ function showPumps(){
     output = "";
     //Recuperamos la información de la variable locaciones llenada en getPumps()
     for (var i in locaciones) {
-        output+='<div class="tracker"><div id="'+"track"+i+'" onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1>'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
+        output+='<div class="tracker"><div id="'+"track"+i+'" onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1 id="locationTitle'+i+'">'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
         currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
     }
     output+="";
@@ -608,13 +608,15 @@ function checkPump() {
         resultpump = 0;
         for (i=0; i<tam; i++) {
             //Verifica que el estado no sea un error 5-5 que corresponde al cambio súbito de presión
+            $('#locationTitle'+i).css('color','black');
             if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="0") {
                 // navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
                 alert("Sudden Change in pressure");
                 window.localStorage.setItem("isPressureNotified","1");
             }
-
+            
             if(listDevices[i].status!='0') {//Si la variable status de la bomba es diferente de cero Tenemos un problema Houston.
+                $('#locationTitle'+i).css('color','red');
                 resultpump = 1;//esto se pone en 1 en el momento del error
                 //revisamos si esta notificado de esto
                 if(isNotified != 1){
@@ -626,8 +628,7 @@ function checkPump() {
                         isNotified=1;
                         numale=1;
 
-                        showAlert(listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDevices[i].message);//muestra la notificacion
-                        $('#track'+i).css('color','blue');
+                        // showAlert(listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDevices[i].message);//muestra la notificacion
                         // navigator.vibrate(1600);
                         window.localStorage.setItem("alarmactive","NO");
                     }
@@ -794,7 +795,7 @@ function dismissBadge(){
 function playAudio() {
     if(window.localStorage.getItem("alarmactive")=="YES"||window.localStorage.getItem("alarmactive")===null){
         timerId2 = setInterval(function() {
-               alert("Beep!!");
+               console.log("Beep!!");
             if(myMedia!==null){
                 if(myMedia.status === Media.MEDIA_STOPPED){
                     myMedia.seekTo(0);
