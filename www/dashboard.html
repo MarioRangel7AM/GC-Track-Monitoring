@@ -355,10 +355,10 @@ $( document ).ready(function() {
     });
  
 $('#infoTracker').click(function(){
-    $.post( "http://gct-dev.mybluemix.net/getrackerdata.php", {id_tracker:ontracker})
+    $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:ontracker})
     .done(function( data ) {
             var json_obj = $.parseJSON(data);
-
+console.log("FFFFFFFF"+json_obj.description_tracker);
         var text="Tracker Description: "+json_obj.description_tracker;
         navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
    
