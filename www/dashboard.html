@@ -562,10 +562,11 @@ function getTracker(idTracker) {
 
 
  $('#infoTracker').click(function(){
-    $.post( "http://gct-dev.mybluemix.net/getTrackerInfo.php", {id_tracker:idtracker})
+    $.post( "http://gct-dev.mybluemix.net/getrackerdata.php", {id_tracker:idtracker})
     .done(function( data ) {
-    
-        var text="FM Armstrong By GlobalMechanical"+"\n"+"Model: 4X3X85F\nSerial:477222";
+            var json_obj = $.parseJSON(data);
+
+        var text="Tracker Description: "+json_obj.description_tracker;
         navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
    
 
