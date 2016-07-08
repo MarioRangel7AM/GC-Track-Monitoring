@@ -358,10 +358,11 @@ $('#infoTracker').click(function(){
     $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:ontracker})
     .done(function( data ) {
             var json_obj = $.parseJSON(data);
-console.log("FFFFFFFF"+json_obj.description_tracker);
-        var text="Tracker Description: "+json_obj.description_tracker;
+var arr = json_obj.description_tracker.split(',');
+        var text="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
+
         navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
-   
+   //alert("texto"+text);
 
     });
 
