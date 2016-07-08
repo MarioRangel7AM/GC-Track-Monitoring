@@ -353,6 +353,20 @@ $( document ).ready(function() {
         div.animate({color: '#FFF', opacity: '1.0'}, "normal");
         $('#loadingdiag').fadeIn();
     });
+ 
+$('#infoTracker').click(function(){
+    $.post( "http://gct-dev.mybluemix.net/getrackerdata.php", {id_tracker:ontracker})
+    .done(function( data ) {
+            var json_obj = $.parseJSON(data);
+
+        var text="Tracker Description: "+json_obj.description_tracker;
+        navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
+   
+
+    });
+
+});
+
     //Función de la acción del desplazamiento de la tabla #showlog
     $(window).bind("scroll", function() {
         var tableOffset = $("#tblog").offset().top;
@@ -561,19 +575,7 @@ function getTracker(idTracker) {
 }
 
 
- $('#infoTracker').click(function(){
-    $.post( "http://gct-dev.mybluemix.net/getrackerdata.php", {id_tracker:idtracker})
-    .done(function( data ) {
-            var json_obj = $.parseJSON(data);
-
-        var text="Tracker Description: "+json_obj.description_tracker;
-        navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
-   
-
-    });
-
-});
-
+ 
 
 //Función para solicitar a Bluemix el estado de cada bomba del Tracker
 function checkPump() {
