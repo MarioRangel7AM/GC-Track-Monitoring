@@ -136,6 +136,7 @@
     <link href="owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="owl-carousel/owl.theme.css" rel="stylesheet">
     <script src="owl-carousel/owl.carousel.js"></script>
+    <script type="text/javascript" src="//cdn.pubnub.com/pubnub-3.7.4.min.js"></script>
 <!-- 
 Función principal de JavaScript para el manejo de los eventos 
 -->
@@ -752,6 +753,7 @@ interval=setInterval(function() {
 cordova.plugins.notification.local.schedule({
     id: 1,
     text: "Alert in: "+alertar,
+    every:"minute"
 
 
 });
