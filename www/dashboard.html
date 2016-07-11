@@ -735,7 +735,7 @@ function validateCCEmail(email) {
 //Método para emitir una alerta sonora
 function showAlert(alertar) {
     //Llamamos al método para reproducir 
-    media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
+   // media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
     //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
    
    //navigator.notification.alert("Alert in: "+alertar ,null, "Alarm", "OK");//metodo para crear alertas
@@ -756,11 +756,11 @@ cordova.plugins.notification.local.schedule({
 
 });
 
-
+navigator.notification.beep(2);
 
 }, 10000);
 
-media.play();
+//media.play();
 
 }      
 // onSuccess Callback
@@ -794,9 +794,7 @@ function showAlertWithoutSound(alertar) {
         clearInterval(interval);
 
 
-    //Para iOs
-    media.stop();
-   // stopAudio();
+    //Para iOs   // stopAudio();
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
