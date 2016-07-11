@@ -587,6 +587,8 @@ function checkPump() {
         
         for (var i in json_obj.tracker) {
             //Guardamos la información de cada bomba y su estado
+
+            //aqui puede estar la clave para que cuando se active la alarma se ponga en la primer posicion
             device = {
                 ID : json_obj.tracker[i].ID, 
                 pressure : json_obj.tracker[i].pressure ,
@@ -596,7 +598,7 @@ function checkPump() {
                 message: json_obj.tracker[i].message, 
                 error_id : json_obj.tracker[i].error_id
             };
-            listDevices.push(device);
+            listDevices.push(device);//lo mete a una pila
             // console.log(device);
         }
         //Revisamos cuantas bombas tenemos
@@ -604,14 +606,13 @@ function checkPump() {
         //Reservamos una variable de bandera para saber el estado de la bomba
         resultpump = 0;
         for (i=0; i<tam; i++) {
-            //Verifica que el estado no sea un error 5-5 que corresponde al cambio súbito de presión
 
                  $('#locationTitle'+i).css('color','black');
-            if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="0") {
+          /*  if(listDevices[i].error_id=="5-5"&&window.localStorage.getItem("isPressureNotified")=="0") {
                 navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
                 window.localStorage.setItem("isPressureNotified","1");
             }
-
+*/
             if(listDevices[i].status!='0') {//Si la variable status de la bomba es diferente de cero Tenemos un problema Houston.
 
                  $('#locationTitle'+i).css('color','red');
@@ -645,7 +646,6 @@ function checkPump() {
                     if(parseInt(listDevices[i].status)!==0){
                         $('#pump_status_res').html(listDevices[i].message);
                     //icono
-                                     document.getElementById('pumpstatusicon').src='images/icono-enginrunning.png';
 
                         $('#statusnormal').fadeOut();
                         $('#statuserror').fadeIn();
@@ -669,6 +669,8 @@ function checkPump() {
             if(resultpump==1 && generalres===0){
                 //signfica que se encontro problemas y registramos el marcador global
                 generalres = 1;
+                                                     document.getElementById('pumpstatusicon').src='images/icono-enginrunning.png';
+
             }else{
                 if(resultpump===0 && generalres===1){
                     //signfica que ya no se encontro problemas y volvemos a la normalidad
@@ -736,10 +738,29 @@ function showAlert(alertar) {
     //media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
     //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
    
-   navigator.notification.alert("Alert in: "+alertar ,null, "Alarm", "OK");//metodo para crear alertas
+   //navigator.notification.alert("Alert in: "+alertar ,null, "Alarm", "OK");//metodo para crear alertas
 
 
-interval=setInterval(function() {navigator.vibrate(3600);}, 10000);
+
+interval=setInterval(function() {
+
+
+
+
+    navigator.vibrate(3600);
+
+cordova.plugins.notification.local.schedule({
+    id: 1,
+    text: "Alert in: "+alertar,
+    every:"minute"
+
+
+});
+
+
+
+
+}, 10000);
 
 
 }      
