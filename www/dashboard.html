@@ -785,7 +785,7 @@ function showAlertWithoutSound(alertar) {
     numale=0;
     var now  = new Date().getTime();
     cordova.plugins.notification.local.schedule({
-        id:1,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
+        id:2,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
         text: alertar,
         at: now,
     });
