@@ -274,6 +274,9 @@ $( document ).ready(function() {
 
                     window.localStorage.removeItem("sucess");
                     //cordova.plugins.notification.badge.set(0);
+                    cordova.plugins.notification.local.cancelAll(function() {
+    }, this);
+
                     clearInterval(interval);
                     numale=0;
                     location.href='index.html';
