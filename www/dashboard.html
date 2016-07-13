@@ -430,6 +430,7 @@ function showPumps(){
     //Recuperamos la información de la variable locaciones llenada en getPumps()
     for (var i in locaciones) {
         output+='<div class="tracker"><div id="'+"track"+i+'" onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1 id="'+"locationTitle"+i+'">'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
+        
         currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
     }
     output+="";
@@ -701,8 +702,8 @@ console.log(currentTracker);
 
     .done(function( data ) {
             var json_obj = $.parseJSON(data);
-var arr = json_obj.description_tracker.split(',');
-        var TrackerData="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
+var arr = json_obj.description_tracker;
+        var TrackerData="Tracker Data"+arr+json_obj.locations.Nombre+json.locations.NameBusiness;
         console.log("DFSDFDSF"+TrackerData);
     window.localStorage.setItem("TrackerDescription",TrackerData);
    //alert("texto"+text);
