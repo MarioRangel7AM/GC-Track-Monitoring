@@ -316,7 +316,6 @@ $( document ).ready(function() {
                 //Mostramos los botones sendReport y goBack del menú principal             
                 $('#loadingdiag').fadeOut();
                 $('#pumpstatuscont').fadeOut();
-                $('#logout').fadeOut();
                 $('#goback').fadeIn();
                 $('#sendReport').fadeIn();
                 $('#datalogged').fadeIn();
@@ -443,6 +442,8 @@ function viewLocations() {
     // Centramos los iconos aumentando el margen izquierdo 
     $('#owl-demo').css('margin-left','16%');
     $('#infoTracker').fadeOut();
+                    $('#goback').fadeOut();
+
     $('#tracker_location').fadeOut();
     $('#list_trackers').fadeIn();
     $("#showlog").css("display", "none");
@@ -459,7 +460,7 @@ function viewTrackers (idlocation) {
 
 
     bombas_location  = [];
-$("#logout").fadeIn();    
+$("#goback").fadeOut();   
 
     //Preguntamos a Bluemix información de las bombas del Tracker
     $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
