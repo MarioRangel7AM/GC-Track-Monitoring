@@ -320,6 +320,8 @@ $( document ).ready(function() {
                 $('#goback').fadeIn();
                 $('#sendReport').fadeIn();
                 $('#datalogged').fadeIn();
+                                $("#logout").fadeIn();
+
             }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
                 $('#loadingdiag').fadeOut();
@@ -454,7 +456,11 @@ function viewLocations() {
 function viewTrackers (idlocation) {
     //Reservamos variables para el estado del tracker y sus bombas
     trackers_location = [];
+
+
     bombas_location  = [];
+$("#logout").fadeIn();    
+
     //Preguntamos a Bluemix información de las bombas del Tracker
     $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
     .done(function( data ) {
