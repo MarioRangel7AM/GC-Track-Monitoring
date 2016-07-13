@@ -703,7 +703,7 @@ console.log(currentTracker);
     .done(function( data ) {
             var json_obj = $.parseJSON(data);
 var arr = json_obj.description_tracker;
-        var TrackerData="Tracker Data"+arr+json_obj.locations.Nombre+json.locations.NameBusiness;
+        var TrackerData=json_obj.name_location_business+" "+json_obj.name_business;
         console.log("DFSDFDSF"+TrackerData);
     window.localStorage.setItem("TrackerDescription",TrackerData);
    //alert("texto"+text);
@@ -718,7 +718,7 @@ var arr = json_obj.description_tracker;
     var isValidCCEmail=validateCCEmail(CCemail); 
     if(isValidEmail&&isValidCCEmail){ 
         var TrackerDescription=window.localStorage.getItem("TrackerDescription")
-        var pump="Tracker location="+currentlocation+" "+TrackerDescription+" "+currentPumpstatus;
+        var pump=TrackerDescription+" "+currentPumpstatus;
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!
