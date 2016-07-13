@@ -692,13 +692,29 @@ function checkPump() {
 } 
 //Función para la acción de presionar el botón #sendReport
 $('#sendReport').click(function() {
+   
+ var TrackerData;
+
+ $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:ontracker})
+   
+
+    .done(function( data ) {
+            var json_obj = $.parseJSON(data);
+var arr = json_obj.description_tracker.split(',');
+        var TrackerData="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
+
+   //alert("texto"+text);
+
+    });
+
+
     var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
     var email = prompt("Please introduce the recipent email for the report", "");//correo al que se enviara la tabla
     var isValidEmail=validateEmail(email);
     var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla
     var isValidCCEmail=validateCCEmail(CCemail); 
-    if(isValidEmail&&isValidCCEmail){
-        var pump="Tracker location="+currentlocation+" Brand: Firetrol, Model:XFFD322, Status"+currentPumpstatus;
+    if(isValidEmail&&isValidCCEmail){ 
+        var pump="Tracker location="+currentlocation+" "+TrackerData+" "+currentPumpstatus;
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!
