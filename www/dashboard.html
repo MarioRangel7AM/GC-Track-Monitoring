@@ -693,16 +693,18 @@ function checkPump() {
 //Función para la acción de presionar el botón #sendReport
 $('#sendReport').click(function() {
    
- var TrackerData;
+var currentTracker=window.localStorage.getItem("trackerId");
+console.log(currentTracker);
 
- $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:ontracker})
+ $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
    
 
     .done(function( data ) {
             var json_obj = $.parseJSON(data);
 var arr = json_obj.description_tracker.split(',');
         var TrackerData="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
-
+        console.log("DFSDFDSF"+TrackerData);
+    window.localStorage.setItem("TrackerDescription",TrackerData);
    //alert("texto"+text);
 
     });
@@ -714,7 +716,8 @@ var arr = json_obj.description_tracker.split(',');
     var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla
     var isValidCCEmail=validateCCEmail(CCemail); 
     if(isValidEmail&&isValidCCEmail){ 
-        var pump="Tracker location="+currentlocation+" "+TrackerData+" "+currentPumpstatus;
+        var TrackerDescription=window.localStorage.getItem("TrackerDescription")
+        var pump="Tracker location="+currentlocation+" "+TrackerDescription+" "+currentPumpstatus;
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!
