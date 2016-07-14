@@ -160,6 +160,7 @@ var numale = 0;//Número de burbujas en el icono
 var currentIdUser=0;
 var bombas_location  = [];
 var interval;
+var alert;
 //var myMedia=null;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento al inicio
@@ -644,8 +645,8 @@ function checkPump() {
 
                         numale=1; 
                                 
-
-                        showAlert(listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDevices[i].message);//muestra la notificacion
+alert=listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDevices[i].message;
+                        showAlert(alert);//muestra la notificacion
                         window.localStorage.setItem("alarmactive","NO");
                     }
                 }
