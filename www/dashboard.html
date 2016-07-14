@@ -771,6 +771,13 @@ function showAlert(alertar) {
    
    //navigator.notification.alert("Alert in: "+alertar ,null, "Alarm", "OK");//metodo para crear alertas
 
+cordova.plugins.notification.local.schedule({
+    id:1,
+    text: "Alert in: "+alertar,
+    every:"minute"
+
+
+});
 
 
 interval=setInterval(function() {
@@ -780,13 +787,6 @@ interval=setInterval(function() {
 
     navigator.vibrate(3600);
 
-cordova.plugins.notification.local.schedule({
-    id:1,
-    text: "Alert in: "+alertar,
-    every:"minute"
-
-
-});
 
 navigator.notification.beep(2);
 
