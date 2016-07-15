@@ -146,15 +146,26 @@
             <fieldset style="border:0;">
                 <ul style="list-style:none">
                     <li>
-                        <label for="input">Filtrar por fecha</label>
+                        <label for="input">Filter by date</label>
                         <input type="date" required name="name" id="input">
+                                            <input type="date" required name="name" id="input">
+
+
                     </li>
                     <li>
-
-                                            <input type="date" required name="name" id="input">
+<label for="input">Status</label>
+<select>
+  <option value="volvo">Engine Running</option>
+  <option value="saab">Non Auto Mode</option>
+  <option value="mercedes">Pump Trouble on site</option>
+  <option value="audi">Pump Operating</option>
+</select>
 
                         </li>
                     <li>
+ <label for="input">Type</label>
+                    <input type="checkbox" name="vehicle" value="Bike">Diesel<br>
+  <input type="checkbox" name="vehicle" value="Car" checked> Electric<br>
                         <input type="submit">
                     </li>
                 </ul>
