@@ -141,19 +141,23 @@
 
 
 
-<div id="inline" style="overflow:auto;background:#FDFDF6;padding:20px;width:600px;max-width:100%;border-radius:6px" class="lity-hide">
+<div id="inline" style="overflow:auto;background:#FDFDF6;padding:30px;width:600px;max-width:100%;border-radius:6px" class="lity-hide">
         <form>
             <fieldset style="border:0;">
                 <ul style="list-style:none">
                     <li>
-                        <label for="input">Filter by date</label>
-                        <input type="date" required name="name" id="input">
+                        <label for="input"><h1>Filter by date</h1></label><br>
+                        
+                        <label for="input">Begining Date</label><br>
+                        <input type="date" required name="name" id="input"><br>
+                                                <label for="input">Ending Date</label><br>
+
                                             <input type="date" required name="name" id="input">
 
 
                     </li>
                     <li>
-<label for="input">Status</label>
+<label for="input">Status</label><br>
 <select>
   <option value="volvo">Engine Running</option>
   <option value="saab">Non Auto Mode</option>
@@ -163,10 +167,12 @@
 
                         </li>
                     <li>
- <label for="input">Type</label>
-                    <input type="checkbox" name="vehicle" value="Bike">Diesel<br>
-  <input type="checkbox" name="vehicle" value="Car" checked> Electric<br>
-                        <input type="submit">
+ <label for="input">Pump Type</label><br>
+                    <input type="checkbox" name="diesel" value="Diesel">Diesel<br>
+  <input type="checkbox" name="electric" value="Electric"> Electric<br>
+    <input type="checkbox" name="electric" value="Electric">Jockey<br>
+
+                        <input type="submit" value="Send">
                     </li>
                 </ul>
             </fieldset>
