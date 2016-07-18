@@ -251,6 +251,14 @@ $( document ).ready(function() {
         $('#view_tracker_status').fadeOut();
         $('#list_trackers').fadeIn();
     });
+
+$('#logologin').click(function(){
+        
+                navigator.notification.alert("Version 1.5.3  ", null, "About GC-Track", "OK");
+
+           });
+
+
     //boton para ir a ver perfil de usuario
     $('#myprofile').click(function(){
         window.localStorage.setItem("iduser",currentIdUser);
