@@ -101,7 +101,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="showlog" class="container dashmarg">
+                <div  class="container dashmarg">
                     <div class="row">
                         <div class="col-md-3 col-xs-3">
                             <img class="iconlist" id="statimage" src="images/dash_stadistics.png">
@@ -142,11 +142,10 @@
 
 
 <div id="inline" style="overflow:auto;background:#FDFDF6;padding:30px;width:600px;max-width:100%;border-radius:6px" class="lity-hide">
-        <form>
-            <fieldset style="border:0;">
+        
                 <ul style="list-style:none">
                     <li>
-                        <label for="input"><h1>Filter by date</h1></label><br>
+                        <label for="input" ><h1>Filter by date</h1></label><br>
                         
                         <label for="input">Begining Date</label><br>
                         <input type="date" required name="name" id="input"><br>
@@ -172,11 +171,15 @@
   <input type="checkbox" name="electric" value="Electric"> Electric<br>
     <input type="checkbox" name="electric" value="Electric">Jockey<br>
 
-                        <input type="submit" value="Send">
                     </li>
+               
+
+<button name ="showlog">Send</button>
                 </ul>
-            </fieldset>
-        </form>
+
+
+
+
     </div>
 </div>
 
@@ -350,7 +353,7 @@ $( document ).ready(function() {
     viewLocations();// Ejecutamos el método para ver la ubicación de los Trackers disponibles
     $('.dashmarg').fadeOut();
     //Método para la acción de presionar el botón #showlog
-    $('#showlog').click(function() {
+    $("button[name = 'showlog']").click(function() {
         //Calculamos la altura actual de la barra del Tracker para mostrar apartir de ahí mostrar la tabla 
         var botonesTrackers = document.getElementsByClassName('locationmark');
         var botonTrackerActivo = botonesTrackers[0];
