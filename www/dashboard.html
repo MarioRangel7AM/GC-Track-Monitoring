@@ -157,11 +157,11 @@
                     </li>
                     <li>
 <label for="input">Status</label><br>
-<select>
-  <option value="volvo">Engine Running</option>
-  <option value="saab">Non Auto Mode</option>
-  <option value="mercedes">Pump Trouble on site</option>
-  <option value="audi">Pump Operating</option>
+<select id="SelectStatus">
+  <option value="EngRun">Engine Running</option>
+  <option value="Nam">Non Auto Mode</option>
+  <option value="PumpTrbl">Pump trouble, Please verify on site</option>
+  <option value="PumpOp">Pump Operating</option>
 </select>
 
                         </li>
@@ -365,8 +365,8 @@ $('#logologin').click(function(){
 
           //  $('#inline').fadeOut();
                // $('.lity').fadeOut();
-
-
+var opcionStatus= $( "#SelectStatus option:selected" ).text();
+console.log(opcionStatus+"adfcafa");
         //Calculamos la altura actual de la barra del Tracker para mostrar apartir de ahí mostrar la tabla 
         var botonesTrackers = document.getElementsByClassName('locationmark');
         var botonTrackerActivo = botonesTrackers[0];
@@ -374,7 +374,7 @@ $('#logologin').click(function(){
         var fecha=$("#dateinput").val();
         $('#datalogged').css("padding-top",relleno);
         //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
-        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker,date:fecha})
+        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker,date:fecha,status:opcionStatus})
         .done(function( data ) {
             registros = [];
             var json_obj = $.parseJSON(data);
