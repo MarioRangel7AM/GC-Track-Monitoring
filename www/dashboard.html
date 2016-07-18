@@ -354,6 +354,11 @@ $( document ).ready(function() {
     $('.dashmarg').fadeOut();
     //Método para la acción de presionar el botón #showlog
     $("button[name = 'showlog']").click(function() {
+
+            $('#inline').fadeOut();
+                $('.lity').fadeOut();
+
+
         //Calculamos la altura actual de la barra del Tracker para mostrar apartir de ahí mostrar la tabla 
         var botonesTrackers = document.getElementsByClassName('locationmark');
         var botonTrackerActivo = botonesTrackers[0];
