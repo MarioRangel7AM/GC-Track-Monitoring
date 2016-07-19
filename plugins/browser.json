@@ -16,7 +16,7 @@
         "cordova-plugin-badge": {
             "PACKAGE_NAME": "com.tecsolutionsmx.gctrack"
         },
-        "com.phonegap.plugins.pushplugin": {
+        "de.appplant.cordova.plugin.background-mode": {
             "PACKAGE_NAME": "com.tecsolutionsmx.gctrack"
         },
         "cordova-plugin-app-event": {
