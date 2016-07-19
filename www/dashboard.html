@@ -390,7 +390,12 @@ console.log(opcionStatus+"adfcafa");
                     registros.push(registro);
                     console.log("pizza de"+json_obj.logs[i].message);
 
-                    if(opcionStatus==json_obj.logs[i].message){
+
+                    var n=json_obj.logs[i].hora.substr(0,10);//OBTIENE LA FECHA DEL TIMESTAMP
+                    console.log("FECHA "+n);
+
+
+                    if(opcionStatus==json_obj.logs[i].message&&fecha==json_obj.logs[i].hora.substr(0,10)){//aqui compara el estado de la bomba del formulario con el del json
                     $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
                 
 }
