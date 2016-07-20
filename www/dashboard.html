@@ -428,7 +428,7 @@ var fecha3=Date.parse(fechaRegistro);
 
 
 
-                    if(opcionStatus==json_obj.logs[i].message&&(fecha3>=fecha1&&fecha3<=fecha2)){//aqui compara los estados y las fechas
+                    if((opcionStatus==json_obj.logs[i].message||opcionStatus=="All")&&(fecha3>=fecha1&&fecha3<=fecha2)){//aqui compara los estados y las fechas
 
                     $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
                 
