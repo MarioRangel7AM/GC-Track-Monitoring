@@ -158,10 +158,19 @@
                     <li>
 <label for="input">Status</label><br>
 <select id="SelectStatus">
+  <option value="All">All</option>
+
   <option value="EngRun">Engine Running</option>
   <option value="Nam">Non Auto Mode</option>
   <option value="PumpTrbl">Pump trouble, Please verify on site</option>
   <option value="PumpOp">Pump Operating</option>
+    <option value="FieldRvw">Field Review, phase failure or possible loss of principal power in the controller</option>
+  <option value="ReversedPhase">Field Review, reversed phase</option>
+<option value="GeneralAlarm">Field Review, General Alarm on</option>
+  <option value="auto">Automatic mode on</option>
+  <option value="jckpumpop">Pump Operating</option>
+
+
 </select>
 
                         </li>
@@ -404,7 +413,7 @@ var fecha3=Date.parse(fechaRegistro);
 
 
 
-                    if(opcionStatus==json_obj.logs[i].message&&(fecha3>=fecha1&&fecha3<=fecha2)){//aqui compara el estado de la bomba del formulario con el 
+                    if(opcionStatus==json_obj.logs[i].message&&(fecha3>=fecha1&&fecha3<=fecha2)){//aqui compara los estados y las fechas
 
                     $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
                 
