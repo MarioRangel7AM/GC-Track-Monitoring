@@ -157,7 +157,7 @@
                     </li>
                     <li>
 <label for="input">Status</label><br>
-<select id="SelectStatus">
+<select id="SelectStatus" style="width:50%">
   <option value="All">All</option>
 
   <option value="EngRun">Engine Running</option>
@@ -168,7 +168,7 @@
   <option value="ReversedPhase">Field Review, reversed phase</option>
 <option value="GeneralAlarm">Field Review, General Alarm on</option>
   <option value="auto">Automatic mode on</option>
-  <option value="jckpumpop"> Jockey Pump Operating</option>
+  <option value="jckpumpop">Jockey Pump Operating</option>
 
 
 </select>
@@ -176,9 +176,9 @@
                         </li>
                     <li>
  <label for="input">Pump Type</label><br>
-                    <input type="checkbox" name="diesel" value="Diesel">Diesel<br>
-  <input type="checkbox" name="electric" value="Electric"> Electric<br>
-    <input type="checkbox" name="electric" value="Electric">Jockey<br>
+                    <input type="checkbox" name="diesel" value="Diesel" id="Diesel">Diesel<br>
+  <input type="checkbox" name="electric" value="Electric" id="Electric"> Electric<br>
+    <input type="checkbox" name="electric" value="Jockey" id="Jockey">Jockey<br>
 
                     </li>
                
@@ -374,6 +374,21 @@ $('#logologin').click(function(){
 
           //  $('#inline').fadeOut();
                // $('.lity').fadeOut();
+               if ($('#Diesel').is(":checked"))
+{
+  console.log("Diesel checked")
+}
+
+               if ($('#Electric').is(":checked"))
+{
+  console.log("Electric checked")
+}
+
+               if ($('#Jockey').is(":checked"))
+{
+  console.log("Jockey checked")
+}
+
 var opcionStatus= $( "#SelectStatus option:selected" ).text();
 console.log(opcionStatus+"adfcafa");
         //Calculamos la altura actual de la barra del Tracker para mostrar apartir de ahí mostrar la tabla 
