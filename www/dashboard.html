@@ -151,7 +151,7 @@
                         <input type="date" required name="name" id="dateinput"><br>
                                                 <label for="input">Ending Date</label><br>
 
-                                            <input type="date" required name="name" id="input2">
+                                            <input type="date" required name="name" id="dateinput2">
 
 
                     </li>
@@ -371,11 +371,13 @@ console.log(opcionStatus+"adfcafa");
         var botonesTrackers = document.getElementsByClassName('locationmark');
         var botonTrackerActivo = botonesTrackers[0];
         var relleno = $(botonTrackerActivo).height();
-        var fecha=$("#dateinput").val();
-        console.log(fecha);
+        var fechainicio=$("#dateinput").val();
+                var fechafin=$("#dateinput2").val();
+
+       // console.log(fecha);
         $('#datalogged').css("padding-top",relleno);
         //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
-        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker,date:fecha,status:opcionStatus})
+        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
         .done(function( data ) {
             registros = [];
             var json_obj = $.parseJSON(data);
@@ -391,11 +393,19 @@ console.log(opcionStatus+"adfcafa");
                     console.log("pizza de"+json_obj.logs[i].message);
 
 
-                    var n=json_obj.logs[i].hora.substr(0,10);//OBTIENE LA FECHA DEL TIMESTAMP
-                    console.log("FECHA "+n);
+                    var fechaRegistro=json_obj.logs[i].hora.substr(0,10);//OBTIENE LA FECHA DEL TIMESTAMP
+                    console.log("FECHA "+fechaRegistro);
+
+//parseo de fechas
+
+var fecha1=Date.parse(fechainicio);
+var fecha2=Date.parse(fechafin);
+var fecha3=Date.parse(fechaRegistro);
 
 
-                    if(opcionStatus==json_obj.logs[i].message&&fecha==json_obj.logs[i].hora.substr(0,10)){//aqui compara el estado de la bomba del formulario con el del json
+
+                    if(opcionStatus==json_obj.logs[i].message&&(fecha3>=fecha1&&fecha3<=fecha2)){//aqui compara el estado de la bomba del formulario con el 
+
                     $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
                 
 }
