@@ -64,6 +64,7 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
 window.plugins.pushNotification.register(
     function(token){
         window.localStorage.setItem("token",token);
+        alert("token"+token);
     },
     function(){alert('Error al registrarse en el servidor APNS');},
     {
@@ -74,8 +75,9 @@ window.plugins.pushNotification.register(
     });
 }
 function onNotificationAPN (event) {
-   // alert("entrando al apn");
+    alert("entrando al apn");
     if (event.alert) {
+
        //alert(event.alert);
     }
     if (event.sound) {
