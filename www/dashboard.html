@@ -193,7 +193,7 @@
 </div>
 
 
-    <!-- <script type="text/javascript" src="cordova.js"></script> -->
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="dist/lity.js"></script>
 
@@ -337,25 +337,24 @@ $('#logologin').click(function(){
     //Función de acción del botón logout
      $('#logout').click(function() {
         //cuadro de dialogo para confirmar alguna accion
-        // navigator.notification.confirm(
-        //     "If you logout, you won't receive any further alarms and notifications", // message
-        //     onConfirm,            // callback to invoke with index of button pressed
-        //     "WARNING",           // title
-        //     ["OK","Cancel"]     // buttonLabels
-        // );
-        onConfirm(1);
+        navigator.notification.confirm(
+            "If you logout, you won't receive any further alarms and notifications", // message
+            onConfirm,            // callback to invoke with index of button pressed
+            "WARNING",           // title
+            ["OK","Cancel"]     // buttonLabels
+        );
     });//Fin de la función del botón logout
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
     function onConfirm(buttonIndex) {
         if(buttonIndex==1){ //El botón OK ha sido presionado
             $.post( "http://gct-dev.mybluemix.net/session_close.php",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
-                       // cordova.plugins.notification.badge.set(0);
+                       cordova.plugins.notification.badge.set(0);
 
                     window.localStorage.removeItem("sucess");
                     //cordova.plugins.notification.badge.set(0);
-    //                 cordova.plugins.notification.local.cancelAll(function() {
-    // }, this);
+                    cordova.plugins.notification.local.cancelAll(function() {
+    }, this);
 
                     clearInterval(interval);
                     numale=0;
@@ -818,9 +817,9 @@ alert=listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDe
 
         // Agregamos la burbuja al icono de la app dependiendo del número de alertas
         if(numale>0){
-            // cordova.plugins.notification.badge.set(numale);
+            cordova.plugins.notification.badge.set(numale);
         }else{
-            // cordova.plugins.notification.badge.set(0);
+            cordova.plugins.notification.badge.set(0);
         }
         //aqui vemos si le avisamos que ya esta todo correcto despues de tener registrado que hay problemas
         if(resultpump != generalres){
@@ -932,13 +931,13 @@ function showAlert(alertar) {
    
    navigator.notification.alert("Alert in: "+alertar ,null, "Alarm", "OK");//metodo para crear alertas
 
-// cordova.plugins.notification.local.schedule({
-//     id:1,
-//     text: "Alert in: "+alertar,
-//     every:"minute"
+cordova.plugins.notification.local.schedule({
+    id:1,
+    text: "Alert in: "+alertar,
+    every:"minute"
 
 
-// });
+});
 
 
 interval=setInterval(function() {
@@ -972,17 +971,17 @@ function onStatus(status) {
 //Función para emitir una notificación sin sonido
 function showAlertWithoutSound(alertar) { 
     //Este método se llama cuando el sistema vuelve a la normalidad
-    // cordova.plugins.notification.badge.set(0);
+    cordova.plugins.notification.badge.set(0);
     numale=0;
     var now  = new Date().getTime();
-    // cordova.plugins.notification.local.schedule({
-    //     id:2,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
-    //     text: alertar,
-    //     at: now,
-    // });
-    // cordova.plugins.notification.local.cancelAll(function() {
-    //     navigator.notification.alert("Systems ready and working" ,null, "System", "OK");//metodo para crear alertas personalizads
-    // }, this);
+    cordova.plugins.notification.local.schedule({
+        id:2,//NO PONGA S PUNTO Y COMA YA QUE CAUSA ERROR
+        text: alertar,
+        at: now,
+    });
+    cordova.plugins.notification.local.cancelAll(function() {
+        navigator.notification.alert("Systems ready and working" ,null, "System", "OK");//metodo para crear alertas personalizads
+    }, this);
 
         clearInterval(interval);
 
@@ -991,7 +990,7 @@ function showAlertWithoutSound(alertar) {
 }  
 //Función que borra las notificaciones de burbuja del icono y el sonido
 function dismissBadge(){
-    // cordova.plugins.notification.badge.set(0);
+    cordova.plugins.notification.badge.set(0);
     numale=0;
     $.post("http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
         .done(function( data ) {
@@ -999,8 +998,8 @@ function dismissBadge(){
             //console.log(json_obj);
     });
    
-    // cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
-    // }, this);
+    cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
+    }, this);
    
 
     navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
