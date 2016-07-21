@@ -934,7 +934,8 @@ function showAlert(alertar) {
 cordova.plugins.notification.local.schedule({
     id:1,
     text: "Alert in: "+alertar,
-    every:"minute"
+    every:"minute",
+    badge:numale++
 
 
 });
