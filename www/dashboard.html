@@ -459,7 +459,15 @@ var fecha3=Date.parse(fechaRegistro);
     //Método para la acción del botón #goBack
     $('#goback').click(function(){
         //Si se presiona goBack devuelve a la pantalla principal
-        location.href="dashboard.html";
+        
+         $('#list_trackers').fadeOut();
+            $('#tracker_location').fadeIn();
+            $('#view_tracker_status').fadeIn();
+            $('#pumpstatuscont').fadeIn();
+            $('#loadingdiag').fadeOut();
+                $("#datalogged").fadeOut();
+
+           
     });
 
     //Método para la acción del botón #refreshPage
