@@ -6,7 +6,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
-<link href="responsivelightbox/style.css" media="all" rel="stylesheet" type="text/css">
+		<link href="responsivelightbox/style.css" media="all" rel="stylesheet" type="text/css">
     <link href="responsivelightbox/prism.css" media="all" rel="stylesheet" type="text/css">
     <link href="dist/lity.css" rel="stylesheet"/>
 
@@ -138,68 +138,64 @@
         <h2>Loading...</h2>
     </div>
 
+    <div id="inline" style="overflow:auto;background:#FFF;padding:30px;width:600px;max-width:100%;border-radius:6px" class="lity-hide">
+    	<ul style="list-style:none">
+    		<li>
+    			<label for="input"><h2>Choose a filter</h2></label><br>
+    			<label for="input"><h3>Date</h3></label><br>
+    			<label for="input">From: </label><br>
+    			<input type="date" style="text-align: center;" required name="name" id="dateinput"><br> 
+    			<label for="input">To: </label><br>
+    			<input type="date" style="text-align: center;" required name="name" id="dateinput2"><br>
+    		</li>
+    		<li>
+    			<label for="input"><h3>Status</h3></label><br>
+    			<select id="SelectStatus" style="width:50%">
+    				<option value="All">All</option>
 
+    				<option value="EngRun">Engine Running</option>
+    				<option value="Nam">Non Auto Mode</option>
+    				<option value="PumpTrbl">Pump trouble, Please verify on site</option>
+    				<option value="PumpOp">Pump Operating</option>
+    				<option value="FieldRvw">Field Review, phase failure or possible loss of principal power in the controller</option>
+    				<option value="ReversedPhase">Field Review, reversed phase</option>
+    				<option value="GeneralAlarm">Field Review, General Alarm on</option>
+    				<option value="auto">Automatic mode on</option>
+    				<option value="jckpumpop">Jockey Pump Operating</option>
+    			</select>
 
-
-<div id="inline" style="overflow:auto;background:#FDFDF6;padding:30px;width:600px;max-width:100%;border-radius:6px" class="lity-hide">
-        
-                <ul style="list-style:none">
-                    <li>
-                        <label for="input" ><h1>Filter by date</h1></label><br>
-                        
-                        <label for="input">Begining Date</label><br>
-                        <input type="date" required name="name" id="dateinput"><br>
-                                                <label for="input">Ending Date</label><br>
-
-                                            <input type="date" required name="name" id="dateinput2">
-
-
-                    </li>
-                    <li>
-<label for="input">Status</label><br>
-<select id="SelectStatus" style="width:50%">
-  <option value="All">All</option>
-
-  <option value="EngRun">Engine Running</option>
-  <option value="Nam">Non Auto Mode</option>
-  <option value="PumpTrbl">Pump trouble, Please verify on site</option>
-  <option value="PumpOp">Pump Operating</option>
-    <option value="FieldRvw">Field Review, phase failure or possible loss of principal power in the controller</option>
-  <option value="ReversedPhase">Field Review, reversed phase</option>
-<option value="GeneralAlarm">Field Review, General Alarm on</option>
-  <option value="auto">Automatic mode on</option>
-  <option value="jckpumpop">Jockey Pump Operating</option>
-
-
-</select>
-
-                        </li>
-                    <li>
- <label for="input">Pump Type</label><br>
-                    <input type="checkbox" name="diesel" value="Diesel" id="Diesel">Diesel<br>
-  <input type="checkbox" name="electric" value="Electric" id="Electric"> Electric<br>
-    <input type="checkbox" name="electric" value="Jockey" id="Jockey">Jockey<br>
-
-                    </li>
-               
-
-<button name ="showlog" data-lity-close>Send</button>
-                </ul>
-
-
-
-
+    		</li>
+    		<li>
+    			<label for="input"><h3>Pump Type</h3></label><br>
+    			<div style="float:left; min-width:30%">
+    			<input type="checkbox" name="diesel" value="Diesel" id="Diesel"> Diesel
+    			</div>
+    			<div style="float:left; min-width:30%">
+    			<input type="checkbox" name="electric" value="Electric" id="Electric"> Electric 
+    			</div>
+    			<div style="float:left;min-width:30%">
+    			<input type="checkbox" name="electric" value="Jockey" id="Jockey"> Jockey
+    			</div>
+    		</li>
+    		<br><br>
+    		<button style="float:right;
+    		background-color: #D20222;
+		    border: none;
+		    color: white;
+		    padding: 10px 15px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;" name ="showlog" data-lity-close>Send</button>
+    	</ul>
     </div>
-</div>
+  </div>
 
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
-<script src="dist/lity.js"></script>
-
-<script src="responsivelightbox/prism.js"></script>
-
-
+		<script src="dist/lity.js"></script>
+		<script src="responsivelightbox/prism.js"></script>
 
     <script src="js/bootstrap.min.js"></script>
     <!-- Owl Carousel Assets -->
