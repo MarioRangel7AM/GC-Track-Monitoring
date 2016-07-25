@@ -573,10 +573,6 @@ function showPumps(){
 
 
 
-function sortByName(obj1, obj2) {
-
-return obj1.business - obj2.business;
-}
 
 function viewLocations() {
     // Centramos los iconos aumentando el margen izquierdo 
@@ -769,6 +765,7 @@ function checkPump() {
 
 
                  $('#locationTitle'+i).css('color','red');
+$('#locationTitle'+i).css('text-decoration','underline');
 
                 resultpump = 1;//esto se pone en 1 en el momento del error
                 //revisamos si esta notificado de esto
@@ -1011,6 +1008,11 @@ function dismissBadge(){
 
     navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     // media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+   
+                 $('#locationTitle'+i).css('color','red');
+                                  $('#locationTitle'+i).css('text-decoration','none');
+
+
     clearInterval(interval);
     stopAudio();
     window.localStorage.setItem("alarmactive","NO");
