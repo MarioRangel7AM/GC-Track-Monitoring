@@ -979,6 +979,17 @@ function showAlertWithoutSound(alertar) {
         navigator.notification.alert("Systems ready and working" ,null, "System", "OK");//metodo para crear alertas personalizads
     }, this);
 
+
+
+    $.post( "http://gct-dev.mybluemix.net/restorebadge.php", {id_user:currentIdUser})
+   
+
+    .done(function( data ) {
+
+    });
+
+
+
         clearInterval(interval);
 
 
