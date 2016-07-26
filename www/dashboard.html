@@ -15,7 +15,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 
 
-	
+
 	<title>GC Track</title>
 </head>
 <body>
@@ -231,7 +231,7 @@ var alert;
 document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento al inicio
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
-	
+
 }
 //Función JQuery de carga del documento
 $( document ).ready(function() {
@@ -258,7 +258,7 @@ $( document ).ready(function() {
     });
 
     $('#logologin').click(function(){
-    	
+
     	navigator.notification.alert("Version 1.5.3  ", null, "About GC-Track", "OK");
 
     });
@@ -355,7 +355,7 @@ $( document ).ready(function() {
                     clearInterval(interval);
                     numale=0;
                     location.href='index.html';
-                    
+
                   });
         }// Si no fue el botón OK (es decir CANCEL) ignoramos cualquier acción.
     } //Mostramos la información del Tracker
@@ -427,9 +427,11 @@ var fecha3=Date.parse(fechaRegistro);
                     if((opcionStatus==json_obj.logs[i].message||opcionStatus=="All")&&(fecha3>=fecha1&&fecha3<=fecha2)){//aqui compara los estados y las fechas
 
                     	$('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
-                    	
+
+                    }else{
+                    	navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
                     }
-                    
+
 
 
                   }
@@ -464,7 +466,7 @@ var fecha3=Date.parse(fechaRegistro);
         $("#datalogged").fadeOut();
         $("#goback").fadeOut();
 
-        
+
       });
 
     //Método para la acción del botón #refreshPage
@@ -490,7 +492,7 @@ var fecha3=Date.parse(fechaRegistro);
     	div.animate({color: '#FFF', opacity: '1.0'}, "normal");
     	$('#loadingdiag').fadeIn();
     });
-    
+
     $('#infoTracker').click(function(){
     	$.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:ontracker})
     	.done(function( data ) {
@@ -530,7 +532,7 @@ var fecha3=Date.parse(fechaRegistro);
     var setpadd = $('#floattopheader').height();
     $('#fixedcontainer').css('padding-top',setpadd );
     //Método para
-    
+
 });//Fin de la función JQuery de carga del documento
 //Función para obtener la cantidad de Trackers disponibles
 function getPumps() {
@@ -564,7 +566,7 @@ function showPumps(){
         //Recuperamos la información de la variable locaciones llenada en getPumps()
         for (var i in locaciones) {
         	output+='<div class="tracker"><div id="'+"track"+i+'" onClick="viewTrackers('+locaciones[i].ID+')" class="locationmark" rel="'+locaciones[i].ID+'"><h1 id="'+"locationTitle"+i+'">'+locaciones[i].business+'</h1><p>'+locaciones[i].loc_name+'</p><div id="toggleTrackers_'+locaciones[i].ID+'"></div></div></div></div>';
-        	
+
         	currentlocation= locaciones[i].business+" Address " +locaciones[i].loc_name;
         }
         output+="";
@@ -606,7 +608,7 @@ function viewTrackers (idlocation) {
     //Preguntamos a Bluemix información de las bombas del Tracker
     $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
     .done(function( data ) {
-    	
+
     	var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){//Si y solo si existe información del Tracker para este usuario
             if(json_obj.numresult==1){//Si solo existe información de una bomba
@@ -726,7 +728,7 @@ function getTracker(idTracker) {
   }
 
 
-  
+
 
 //Función para solicitar a Bluemix el estado de cada bomba del Tracker
 function checkPump() {
@@ -779,13 +781,13 @@ function checkPump() {
                     //Verificamos si la alarma continua encenddida
                     isAlarmActive(json_obj.tracker[i].ID,currentIdUser);
                     if(window.localStorage.getItem("alarmactive")=="YES"){
-                    	
-                    	
+
+
                     	isNotified=1;
-                    	
+
 
                     	numale++; 
-                    	
+
                     	alert=listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDevices[i].message;
                         showAlert(alert);//muestra la notificacion
                         window.localStorage.setItem("alarmactive","NO");
@@ -857,12 +859,12 @@ function checkPump() {
 
 //Función para la acción de presionar el botón #sendReport
 $('#sendReport').click(function() {
-	
+
 	var currentTracker=window.localStorage.getItem("trackerId");
 	console.log(currentTracker);
 
 	$.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
-	
+
 
 	.done(function( data ) {
 		var json_obj = $.parseJSON(data);
@@ -930,7 +932,7 @@ function showAlert(alertar) {
     //Llamamos al método para reproducir 
    // media = new Media("alarm.mp3" ,onSuccess, onError, onStatus);//esto se reproducira en ios se agregaron 3 callbacks
     //media.play({ playAudioWhenScreenIsLocked : true });//ESTE ES EL QUE SUENA EN EL IPHONE
-    
+
    navigator.notification.alert("Alert in: "+alertar ,null, "Alarm", "OK");//metodo para crear alertas
 
    cordova.plugins.notification.local.schedule({
@@ -988,7 +990,7 @@ function showAlertWithoutSound(alertar) {
 
 
     $.post( "http://gct-dev.mybluemix.net/restorebadge.php", {id_user:currentIdUser})
-    
+
 
     .done(function( data ) {
 
@@ -1010,10 +1012,10 @@ function dismissBadge(){
             //var json_obj = $.parseJSON(data);
             //console.log(json_obj);
           });
-	
+
     cordova.plugins.notification.local.cancelAll(function() {//cancela todas las notificaciones de alarma
     }, this);
-    
+
 
     navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     // media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
