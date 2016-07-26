@@ -475,7 +475,7 @@ var fecha3=Date.parse(fechaRegistro);
     //Método para la acción del botón #contact
     $('#contact').click(function(){
         //Insertamos la variable idTracker en memoria del dispositivo para que esta pueda ser consultada en la página de contacto.
-        window.localStorage.setItem("idTrackerToContactSupport", ontracker);
+        window.localStorage.setItem("idUserToContactSupport",currentIdUser);
         location.href='contacto.html';
     });
     $("#list_trackers").click(function(event){
@@ -770,6 +770,9 @@ function checkPump() {
 
 
                  $('#locationTitle'+i).css('color','red');
+ $('#locationTitle'+i).css('text-decoration','underline');
+window.localStorage.setItem("currentPosition",i);
+
 
                 resultpump = 1;//esto se pone en 1 en el momento del error
                 //revisamos si esta notificado de esto
@@ -813,11 +816,11 @@ alert=listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDe
         }// fin del for
 
         // Agregamos la burbuja al icono de la app dependiendo del número de alertas
-        if(numale>0){
+       /* if(numale>0){
             cordova.plugins.notification.badge.set(numale);
         }else{
             cordova.plugins.notification.badge.set(0);
-        }
+        }*/
         //aqui vemos si le avisamos que ya esta todo correcto despues de tener registrado que hay problemas
         if(resultpump != generalres){
             if(resultpump==1 && generalres===0){
@@ -831,9 +834,17 @@ alert=listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDe
                     generalres = 0;
                     isNotified = 0;
                     navigator.vibrate(500);
-                                                         $('#locationTitle').css('color','black');
+                                                        
+var lastPosition=window.localStorage.getItem("currentPosition");
 
-                    showAlertWithoutSound("Systems ready");//callas las alarmas
+
+    console.log("HAY WEY"+lastPosition);
+                                                       
+
+  $('#locationTitle'+lastPosition).css('color','black');
+ $('#locationTitle'+lastPosition).css('text-decoration','none');
+
+                    //dismissAlarms("Systems ready");//callas las alarmas
                     window.localStorage.setItem("isPressureNotified","0");
                 } 
             }
@@ -971,7 +982,7 @@ function onStatus(status) {
 // }
 }
 //Función para emitir una notificación sin sonido
-function showAlertWithoutSound(alertar) { 
+function dismissAlarms(alertar) { 
     //Este método se llama cuando el sistema vuelve a la normalidad
     cordova.plugins.notification.badge.set(0);
     numale=0;
@@ -1017,6 +1028,14 @@ function dismissBadge(){
 
     navigator.notification.alert("Alarms dismissed" ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
     // media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
+   
+
+   var lastPosition=window.localStorage.getItem("currentPosition");
+
+$('#locationTitle'+lastPosition).css('color','red');
+ $('#locationTitle'+lastPosition).css('text-decoration','none');
+
+
     clearInterval(interval);
     stopAudio();
     window.localStorage.setItem("alarmactive","NO");

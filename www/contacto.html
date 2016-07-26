@@ -203,7 +203,7 @@ $('#contact').click(function(){
            	       var subject=document.getElementById('asunto').value;
            	       var message=document.getElementById('description').value;
 				   
-var idTracker= localStorage.getItem("idTrackerToContactSupport"); 
+var idUser= localStorage.getItem("idUserToContactSupport"); 
 
 var contactEmail=window.localStorage.getItem("contact_email");
 console.log("CORRREOooooooooooo"+contactEmail);
@@ -214,8 +214,7 @@ var div = $("#contact");
 
 if(validateUserData(subject,message)){
 
-	console.log('ID trackeerr '+idTracker);	  
-		  $.post( "http://gct-dev.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker,contact_email:contactEmail})
+		  $.post( "http://gct-dev.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, id_user:idUser,contact_email:contactEmail})
              
 			 
 			 .done(function( data ) {
