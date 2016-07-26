@@ -462,6 +462,7 @@ var fecha3=Date.parse(fechaRegistro);
             $('#pumpstatuscont').fadeIn();
             $('#loadingdiag').fadeOut();
                 $("#datalogged").fadeOut();
+         $("#goback").fadeOut();
 
            
     });
@@ -783,7 +784,7 @@ function checkPump() {
                         isNotified=1;
                         
 
-                        numale=1; 
+                        numale++; 
                                 
 alert=listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDevices[i].message;
                         showAlert(alert);//muestra la notificacion
@@ -874,7 +875,12 @@ var arr = json_obj.description_tracker;
     });
 
 
-    var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
+    var tableHead=document.getElementById('tbheader').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
+var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
+       
+       var tableString=tableHead+tableElement 
+
+    console.log(tableHead+tableElement)
     var email = prompt("Please introduce the recipent email for the report", "");//correo al que se enviara la tabla
     var isValidEmail=validateEmail(email);
     var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla
@@ -895,7 +901,7 @@ var arr = json_obj.description_tracker;
             mm='0'+mm;
         } 
         today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
-        $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableElement,correo:email,pumpData:pump,fecha:today,cc:CCemail})
+        $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableString,correo:email,pumpData:pump,fecha:today,cc:CCemail})
         .done(function( data ) {
         navigator.notification.alert("Your report has been sent", null, "Send report", "OK");
         //var data = $.parseJSON(data);
@@ -930,7 +936,7 @@ function showAlert(alertar) {
 cordova.plugins.notification.local.schedule({
     id:1,
     text: "Alert in: "+alertar,
-    every:"minute"
+    every:"minute",
 
 
 });
@@ -978,6 +984,17 @@ function showAlertWithoutSound(alertar) {
     cordova.plugins.notification.local.cancelAll(function() {
         navigator.notification.alert("Systems ready and working" ,null, "System", "OK");//metodo para crear alertas personalizads
     }, this);
+
+
+
+    $.post( "http://gct-dev.mybluemix.net/restorebadge.php", {id_user:currentIdUser})
+   
+
+    .done(function( data ) {
+
+    });
+
+
 
         clearInterval(interval);
 
