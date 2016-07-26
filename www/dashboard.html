@@ -816,11 +816,11 @@ alert=listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDe
         }// fin del for
 
         // Agregamos la burbuja al icono de la app dependiendo del número de alertas
-       /* if(numale>0){
+        if(numale>0){
             cordova.plugins.notification.badge.set(numale);
         }else{
             cordova.plugins.notification.badge.set(0);
-        }*/
+        }
         //aqui vemos si le avisamos que ya esta todo correcto despues de tener registrado que hay problemas
         if(resultpump != generalres){
             if(resultpump==1 && generalres===0){
@@ -844,7 +844,7 @@ var lastPosition=window.localStorage.getItem("currentPosition");
   $('#locationTitle'+lastPosition).css('color','black');
  $('#locationTitle'+lastPosition).css('text-decoration','none');
 
-                    //dismissAlarms("Systems ready");//callas las alarmas
+                    dismissAlarms("Systems ready");//callas las alarmas
                     window.localStorage.setItem("isPressureNotified","0");
                 } 
             }
@@ -1030,8 +1030,10 @@ function dismissBadge(){
     // media.stop();//se debe usar pause en vez de stop ya que cuando se detecte que se paro el audio, este se volvera a iniciar
    
 
-   var lastPosition=window.localStorage.getItem("currentPosition");
+var lastPosition=window.localStorage.getItem("currentPosition");
 
+navigator.notification.alert("Alarms dismissed"+lastPosition ,null, "Alarm", "OK");//metodo para crear alertas personalizadas
+    
 $('#locationTitle'+lastPosition).css('color','red');
  $('#locationTitle'+lastPosition).css('text-decoration','none');
 
