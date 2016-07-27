@@ -179,7 +179,6 @@
 	</div>
 </div>
 
-
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="dist/lity.js"></script>
@@ -228,7 +227,8 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
     // });
     // //Cargamos el archivo mp3 para la alarma en android.
     myMedia = new Media("/android_asset/www/alarm.mp3", onSuccess,onError,onStatus);
-  }
+}
+
 //Función JQuery de carga del documento
 $( document ).ready(function() {
 	userid = window.localStorage.getItem("iduser");
@@ -369,25 +369,25 @@ $( document ).ready(function() {
     viewLocations();// Ejecutamos el método para ver la ubicación de los Trackers disponibles
     $('.dashmarg').fadeOut();
     //Método para la acción de presionar el botón #showlog
-   $("button[name = 'showlog']").click(function() {
- 
+    $("button[name = 'showlog']").click(function() {
+
           //  $('#inline').fadeOut();
                // $('.lity').fadeOut();
                if ($('#Diesel').is(":checked"))
                {
-                console.log("Diesel checked")
+               	console.log("Diesel checked")
                }
- 
+
                if ($('#Electric').is(":checked"))
                {
-                console.log("Electric checked")
+               	console.log("Electric checked")
                }
- 
+
                if ($('#Jockey').is(":checked"))
                {
-                console.log("Jockey checked")
+               	console.log("Jockey checked")
                }
- 
+
                var opcionStatus= $( "#SelectStatus option:selected" ).text();
         //Calculamos la altura actual de la barra del Tracker para mostrar apartir de ahí mostrar la tabla
         var botonesTrackers = document.getElementsByClassName('locationmark');
@@ -395,43 +395,43 @@ $( document ).ready(function() {
         var relleno = $(botonTrackerActivo).height();
         var fechainicio=$("#dateinput").val();
         var fechafin=$("#dateinput2").val();
- 
+
        // console.log(fecha);
        $('#datalogged').css("padding-top",relleno);
         //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
         $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
         .done(function( data ) {
-            registros = [];
-            var json_obj = $.parseJSON(data);
+        	registros = [];
+        	var json_obj = $.parseJSON(data);
             //Refrescamos la estructura de la tabla actual
             $('#tblog > tbody').html('');
             if(json_obj.logs.length>0){
                 //Si existen valores dentro de la bitácora que hayan dado alerta los mostramos uno a uno.
                 var filtered_data_found = false;
                 for (var i in json_obj.logs) {
-                    registro = {ID : json_obj.logs[i].ID, hora : json_obj.logs[i].hora ,Estado : json_obj.logs[i].ID, message:json_obj.logs[i].message, error_id:json_obj.logs[i].error_id, Presion: json_obj.logs[i].presion};
- 
- 
-                    registros.push(registro);
- 
+                	registro = {ID : json_obj.logs[i].ID, hora : json_obj.logs[i].hora ,Estado : json_obj.logs[i].ID, message:json_obj.logs[i].message, error_id:json_obj.logs[i].error_id, Presion: json_obj.logs[i].presion};
+
+
+                	registros.push(registro);
+
                     var fechaRegistro=json_obj.logs[i].hora.substr(0,10);//OBTIENE LA FECHA DEL TIMESTAMP
- 
+
                                         //parseo de fechas
- 
+
                                         var fecha1=Date.parse(fechainicio);
                                         var fecha2=Date.parse(fechafin);
                                         var fecha3=Date.parse(fechaRegistro);
- 
- 
- 
+
+
+
                     if((opcionStatus==json_obj.logs[i].message||opcionStatus=="All")&&(fecha3>=fecha1&&fecha3<=fecha2)){//aqui compara los estados y las fechas
- 
-                        $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
-                        filtered_data_found = true;
+
+                    	$('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
+                    	filtered_data_found = true;
                     }
                   }
                   if(filtered_data_found===true){
-                    $('#owl-demo').css('margin-left','0%');
+                  	$('#owl-demo').css('margin-left','0%');
                         //Ocultamos el botón del menú principal que permite ver la página web
                         //Mostramos los botones sendReport y goBack del menú principal            
                         $('#loadingdiag').fadeOut();
@@ -443,10 +443,10 @@ $( document ).ready(function() {
                         $('#sendReport').fadeIn();
                         $('#datalogged').fadeIn();
                       } else{
-                    navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
+                      	navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
                     //alert("No incident filtered logs found!");
-                }
-              }else{
+                  }
+                }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
                 $('#loadingdiag').fadeOut();
                 navigator.notification.alert("No incident logs found!", null, "Warning", "OK");
@@ -456,10 +456,10 @@ $( document ).ready(function() {
 
         });//Fin del método para la acción de presionar #showlog
 
-    $("button[name = 'showlog']").click(function() {
+$("button[name = 'showlog']").click(function() {
 
           //  $('#inline').fadeOut();            
-               var opcionStatus= $( "#SelectStatus option:selected" ).text();
+          var opcionStatus= $( "#SelectStatus option:selected" ).text();
         //Calculamos la altura actual de la barra del Tracker para mostrar apartir de ahí mostrar la tabla 
         var botonesTrackers = document.getElementsByClassName('locationmark');
         var botonTrackerActivo = botonesTrackers[0];
@@ -482,7 +482,7 @@ $( document ).ready(function() {
                 for (var i in json_obj.logs) {
                 	registro = {ID : json_obj.logs[i].ID, hora : json_obj.logs[i].hora ,Estado : json_obj.logs[i].ID, message:json_obj.logs[i].message, error_id:json_obj.logs[i].error_id, Presion: json_obj.logs[i].presion};
 
-                    registros.push(registro);
+                	registros.push(registro);
 
                     var fechaRegistro=json_obj.logs[i].hora.substr(0,10);//OBTIENE LA FECHA DEL TIMESTAMP
 
@@ -495,12 +495,12 @@ $( document ).ready(function() {
 
                     if((opcionStatus==json_obj.logs[i].message||opcionStatus=="All")&&(fecha3>=fecha1&&fecha3<=fecha2)){//aqui compara los estados y las fechas
 
-                        $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
-                        filtered_data_found = true;
+                    	$('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
+                    	filtered_data_found = true;
                     }
                   }
                   if(filtered_data_found===true){
-                    $('#owl-demo').css('margin-left','0%');
+                  	$('#owl-demo').css('margin-left','0%');
                         //Ocultamos el botón del menú principal que permite ver la página web
                         //Mostramos los botones sendReport y goBack del menú principal             
                         $('#loadingdiag').fadeOut();
@@ -508,14 +508,14 @@ $( document ).ready(function() {
                         $('#logout').fadeIn();
                         $('#goback').fadeIn();
                         $('#myprofile').fadeOut();
-                
+
                         $('#sendReport').fadeIn();
                         $('#datalogged').fadeIn();
                       } else{
-                    navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
+                      	navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
                     //alert("No incident filtered logs found!");
-                }
-              }else{
+                  }
+                }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
                 $('#loadingdiag').fadeOut();
                // navigator.notification.alert("No incident logs found!", null, "Warning", "OK");
@@ -560,46 +560,46 @@ $( document ).ready(function() {
         // div.animate({color: '#E04359', opacity: '0.4'}, "slow");
         // div.animate({color: '#FFF', opacity: '1.0'}, "normal");
         $('#loadingdiag').fadeIn();
-    });
+      });
     /*$("#showlog").click(function(event){
         var div = $("#showlog");
         div.animate({color: '#E04359', opacity: '0.4'}, "slow");
         div.animate({color: '#FFF', opacity: '1.0'}, "normal");
         $('#loadingdiag').fadeIn();
     });
- */
-$('#infoTracker').click(function(){
-    $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:ontracker})
-    .done(function( data ) {
-            var json_obj = $.parseJSON(data);
-var arr = json_obj.description_tracker.split(',');
-        var text="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
+    */
     $('#infoTracker').click(function(){
     	$.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:ontracker})
     	.done(function( data ) {
     		var json_obj = $.parseJSON(data);
     		var arr = json_obj.description_tracker.split(',');
     		var text="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
+    		$('#infoTracker').click(function(){
+    			$.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:ontracker})
+    			.done(function( data ) {
+    				var json_obj = $.parseJSON(data);
+    				var arr = json_obj.description_tracker.split(',');
+    				var text="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
 
-   window.localStorage.setItem("infoTracker",text);
+    				window.localStorage.setItem("infoTracker",text);
 
-    });
+    			});
 
-      });
+    		});
 
-    });
-    $("#list_trackers").click(function(event){
+    	});
+    	$("#list_trackers").click(function(event){
         // var div = $("#track0");
         // div.animate({color: '#E04359', opacity: '0.4'}, "slow");
         // div.animate({color: '#FFF', opacity: '1.0'}, "normal");
         $('#loadingdiag').fadeIn();
       });
-    $("#showlog").click(function(event){
-    	var div = $("#showlog");
-    	div.animate({color: '#E04359', opacity: '0.4'}, "slow");
-    	div.animate({color: '#FFF', opacity: '1.0'}, "normal");
-    	$('#loadingdiag').fadeIn();
-    });
+    	$("#showlog").click(function(event){
+    		var div = $("#showlog");
+    		div.animate({color: '#E04359', opacity: '0.4'}, "slow");
+    		div.animate({color: '#FFF', opacity: '1.0'}, "normal");
+    		$('#loadingdiag').fadeIn();
+    	});
     //Función de la acción del desplazamiento de la tabla #showlog
     $(window).bind("scroll", function() {
     	var tableOffset = $("#tblog").offset().top;
@@ -936,7 +936,7 @@ function checkPump() {
                 }
               }
             } 
-        });
+          });
 } 
 //Función para la acción de presionar el botón #sendReport
 $('#sendReport').click(function() {
@@ -948,20 +948,20 @@ $('#sendReport').click(function() {
 
 
 
- $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
-   
+    $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
+
     .done(function( data ) {
-            var json_obj = $.parseJSON(data);
-var arr = json_obj.description_tracker.split(',');
-        var text="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
+    	var json_obj = $.parseJSON(data);
+    	var arr = json_obj.description_tracker.split(',');
+    	var text="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
 
        // navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
    //alert("texto"+text);
 
-console.log("FSDFSDFSDFDS"+text);
+   console.log("FSDFSDFSDFDS"+text);
    window.localStorage.setItem("infoTracker",text);
 
-    });
+ });
 
 
 
@@ -976,11 +976,11 @@ console.log("FSDFSDFSDFDS"+text);
 
 //ESTO CONVIERTE EL HTML A UN STRING
 var tableElement=document.getElementById('tbody').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
-       
-       var tableString=tableHead+tableElement;
+
+var tableString=tableHead+tableElement;
 var  trackerInfo=window.localStorage.getItem("infoTracker");
 console.log("pokemon "+trackerInfo);
-    console.log(tableHead+tableElement)
+console.log(tableHead+tableElement)
     var email = prompt("Please introduce the recipent email for the report", "");//correo al que se enviara la tabla
     var isValidEmail=validateEmail(email);
     var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla

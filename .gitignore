@@ -52,3 +52,4 @@ gctrack2.css
 browser.json
 
 *.json
+plugins/browser.json
