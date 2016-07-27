@@ -451,7 +451,10 @@ var fecha3=Date.parse(fechaRegistro);
             $('#loadingdiag').fadeOut();
                 $("#datalogged").fadeOut();
          $("#goback").fadeOut();
+ $("#sendReport").fadeOut();
 
+$('#owl-demo').css('margin-left','10%');
+ 
            
     });
 
@@ -820,8 +823,7 @@ alert=listDevices[i].loc_business+" "+listDevices[i].loc_pos+" Problem: "+listDe
             if(resultpump==1 && generalres===0){
                 //signfica que se encontro problemas y registramos el marcador global
                 generalres = 1;
-                                                     document.getElementById('pumpstatusicon').src='images/icono-enginrunning.png';
-
+                                                  
             }else{
                 if(resultpump===0 && generalres===1){
                     //signfica que ya no se encontro problemas y volvemos a la normalidad
@@ -900,8 +902,8 @@ var tableElement=document.getElementById('tbody').outerHTML;//ESTO CONVIERTE EL 
     var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla
     var isValidCCEmail=validateCCEmail(CCemail); 
     if(isValidEmail&&isValidCCEmail){ 
-        var TrackerDescription=loc_business+" "+loc_pos;
-        var pump=TrackerDescription+" "+currentPumpstatus;
+        var TrackerDescription=loc_business+"\n "+loc_pos;
+        var pump=TrackerDescription+" \n"+currentPumpstatus;
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!
@@ -914,7 +916,7 @@ var tableElement=document.getElementById('tbody').outerHTML;//ESTO CONVIERTE EL 
         if(mm<10){
             mm='0'+mm;
         } 
-        today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
+        today = dd+'/'+mm+'/'+yyyy+' Hour '+hours+":"+minutes;
         $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableString,correo:email,pumpData:pump,fecha:today,cc:CCemail})
         .done(function( data ) {
         navigator.notification.alert("Your report has been sent", null, "Send report", "OK");
