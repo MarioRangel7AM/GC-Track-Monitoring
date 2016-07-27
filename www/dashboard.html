@@ -954,7 +954,7 @@ var arr = json_obj.description_tracker.split(',');
         var text="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
 
        // navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
-   //alert("texto"+text)
+   //alert("texto"+text);
 
 console.log("FSDFSDFSDFDS"+text);
    window.localStorage.setItem("infoTracker",text);
@@ -965,8 +965,7 @@ console.log("FSDFSDFSDFDS"+text);
 
 var loc_business=$('#loc_business').text();
 var loc_pos=$('#loc_pos').text();
-var currentUser=window.localStorage.getItem("username");
-console.log("ATRAPALOS YA"+currentUser);
+
 
 
 console.log(loc_business+loc_pos);
