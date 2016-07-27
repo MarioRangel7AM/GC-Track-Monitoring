@@ -192,7 +192,7 @@
 </div>
 
 
-<script type="text/javascript" src="cordova.js"></script>
+<!-- <script type="text/javascript" src="cordova.js"></script> -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="dist/lity.js"></script>
 <script src="responsivelightbox/prism.js"></script>
@@ -267,8 +267,8 @@ $( document ).ready(function() {
 
     $('#logologin').click(function(){
 
-    	navigator.notification.alert("Version 1.5.3  ", null, "About GC-Track", "OK");
-
+    	// navigator.notification.alert("Version 1.5.3  ", null, "About GC-Track", "OK");
+    	alert("Version 1.5.3");
     });
 
 
@@ -443,7 +443,8 @@ var fecha3=Date.parse(fechaRegistro);
                     	$('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
 
                     }else{
-                    	navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
+                    	// navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
+                    	alert("No incident filtered logs found!");
                     }
 
 
@@ -513,8 +514,8 @@ var fecha3=Date.parse(fechaRegistro);
     		var arr = json_obj.description_tracker.split(',');
     		var text="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
 
-        navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
-   //alert("texto"+text);
+        // navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
+        alert("Tracker info: "+text);
 
  });
 
@@ -580,7 +581,8 @@ function getPumps() {
         	}
         }else{
         //Si no encontramos Trackers emitimos una alerta de que no se han encontrado locaciones para este usuario
-        navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
+        // navigator.notification.alert("No pumps and places for this account", null, "Warning", "OK");
+        alert("No pumps or places for this account");
       }
     //Usamos la función para llenar los Trackers en el área de estado
     showPumps();
@@ -651,7 +653,8 @@ function viewTrackers (idlocation) {
               }
         }else{//Si no existen datos de bombas del Tracker
         //Mostramos una aerta donde indicamos que no existe información de las bombas de ese Tracker
-        navigator.notification.alert("No logs available", null, "Empty log", "OK");
+        // navigator.notification.alert("No logs available", null, "Empty log", "OK");
+        alert("No logs available");
         $('#loadingdiag').fadeOut();
       }
     });
@@ -878,11 +881,13 @@ $('#sendReport').click(function() {
         today = dd+'/'+mm+'/'+yyyy+'Hour '+hours+":"+minutes;
         $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableString,correo:email,pumpData:pump,fecha:today,cc:CCemail})
         .done(function( data ) {
-        	navigator.notification.alert("Your report has been sent", null, "Send report", "OK");
+        	// navigator.notification.alert("Your report has been sent", null, "Send report", "OK");
+        	alert("Your report has been send");
         //var data = $.parseJSON(data);
       });
       }else{
-      	navigator.notification.alert("Your report cannot be sent, please check you email address", null, "Error", "OK");
+      	// navigator.notification.alert("Your report cannot be sent, please check you email address", null, "Error", "OK");
+      	alert("Your report cannot be sent");
       }
     });
 //Método para validación de la dirección de correo electrónico.
