@@ -360,7 +360,8 @@ $( document ).ready(function() {
                     //Si recibimos el mensaje de confirmación cerramos el modo de background
                     // cordova.plugins.backgroundMode.disable();
                     window.localStorage.removeItem("sucess");
-                    stopAudio();
+                    //Uncomment this on production!
+                    //stopAudio();
                     // cordova.plugins.notification.badge.set(0);
                     numale=0;
                     // cordova.plugins.notification.local.cancelAll(function() {
