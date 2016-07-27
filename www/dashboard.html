@@ -354,36 +354,35 @@ $('#logologin').click(function(){
     viewLocations();// Ejecutamos el método para ver la ubicación de los Trackers disponibles
     $('.dashmarg').fadeOut();
     //Método para la acción de presionar el botón #showlog
-    $("button[name = 'showlog']").click(function() {
-
+   $("button[name = 'showlog']").click(function() {
+ 
           //  $('#inline').fadeOut();
                // $('.lity').fadeOut();
                if ($('#Diesel').is(":checked"))
-{
-  console.log("Diesel checked")
-}
-
+               {
+                console.log("Diesel checked")
+               }
+ 
                if ($('#Electric').is(":checked"))
-{
-  console.log("Electric checked")
-}
-
+               {
+                console.log("Electric checked")
+               }
+ 
                if ($('#Jockey').is(":checked"))
-{
-  console.log("Jockey checked")
-}
-
-var opcionStatus= $( "#SelectStatus option:selected" ).text();
-console.log(opcionStatus+"adfcafa");
-        //Calculamos la altura actual de la barra del Tracker para mostrar apartir de ahí mostrar la tabla 
+               {
+                console.log("Jockey checked")
+               }
+ 
+               var opcionStatus= $( "#SelectStatus option:selected" ).text();
+        //Calculamos la altura actual de la barra del Tracker para mostrar apartir de ahí mostrar la tabla
         var botonesTrackers = document.getElementsByClassName('locationmark');
         var botonTrackerActivo = botonesTrackers[0];
         var relleno = $(botonTrackerActivo).height();
         var fechainicio=$("#dateinput").val();
-                var fechafin=$("#dateinput2").val();
-
+        var fechafin=$("#dateinput2").val();
+ 
        // console.log(fecha);
-        $('#datalogged').css("padding-top",relleno);
+       $('#datalogged').css("padding-top",relleno);
         //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
         $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
         .done(function( data ) {
@@ -393,53 +392,123 @@ console.log(opcionStatus+"adfcafa");
             $('#tblog > tbody').html('');
             if(json_obj.logs.length>0){
                 //Si existen valores dentro de la bitácora que hayan dado alerta los mostramos uno a uno.
+                var filtered_data_found = false;
+                for (var i in json_obj.logs) {
+                    registro = {ID : json_obj.logs[i].ID, hora : json_obj.logs[i].hora ,Estado : json_obj.logs[i].ID, message:json_obj.logs[i].message, error_id:json_obj.logs[i].error_id, Presion: json_obj.logs[i].presion};
+ 
+ 
+                    registros.push(registro);
+ 
+                    var fechaRegistro=json_obj.logs[i].hora.substr(0,10);//OBTIENE LA FECHA DEL TIMESTAMP
+ 
+                                        //parseo de fechas
+ 
+                                        var fecha1=Date.parse(fechainicio);
+                                        var fecha2=Date.parse(fechafin);
+                                        var fecha3=Date.parse(fechaRegistro);
+ 
+ 
+ 
+                    if((opcionStatus==json_obj.logs[i].message||opcionStatus=="All")&&(fecha3>=fecha1&&fecha3<=fecha2)){//aqui compara los estados y las fechas
+ 
+                        $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
+                        filtered_data_found = true;
+                    }
+                  }
+                  if(filtered_data_found===true){
+                    $('#owl-demo').css('margin-left','0%');
+                        //Ocultamos el botón del menú principal que permite ver la página web
+                        //Mostramos los botones sendReport y goBack del menú principal            
+                        $('#loadingdiag').fadeOut();
+                        $('#pumpstatuscont').fadeOut();
+                        $('#logout').fadeOut();
+                        $('#goback').fadeIn();
+                        $('#sendReport').fadeIn();
+                        $('#datalogged').fadeIn();
+                      } else{
+                    navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
+                    //alert("No incident filtered logs found!");
+                }
+              }else{
+                //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
+                $('#loadingdiag').fadeOut();
+                navigator.notification.alert("No incident logs found!", null, "Warning", "OK");
+                //alert("No incident logs found!");
+              }
+        });//Fin de la consulta a Bluemix para obtener la bitácora de incidentes.
+
+        });//Fin del método para la acción de presionar #showlog
+
+    $("button[name = 'showlog']").click(function() {
+
+          //  $('#inline').fadeOut();
+            
+               var opcionStatus= $( "#SelectStatus option:selected" ).text();
+        //Calculamos la altura actual de la barra del Tracker para mostrar apartir de ahí mostrar la tabla 
+        var botonesTrackers = document.getElementsByClassName('locationmark');
+        var botonTrackerActivo = botonesTrackers[0];
+        var relleno = $(botonTrackerActivo).height();
+        var fechainicio=$("#dateinput").val();
+        var fechafin=$("#dateinput2").val();
+
+       // console.log(fecha);
+       $('#datalogged').css("padding-top",relleno);
+        //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
+        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        .done(function( data ) {
+            registros = [];
+            var json_obj = $.parseJSON(data);
+            //Refrescamos la estructura de la tabla actual
+            $('#tblog > tbody').html('');
+            if(json_obj.logs.length>0){
+                //Si existen valores dentro de la bitácora que hayan dado alerta los mostramos uno a uno.
+                var filtered_data_found = false;
                 for (var i in json_obj.logs) {
                     registro = {ID : json_obj.logs[i].ID, hora : json_obj.logs[i].hora ,Estado : json_obj.logs[i].ID, message:json_obj.logs[i].message, error_id:json_obj.logs[i].error_id, Presion: json_obj.logs[i].presion};
 
 
                     registros.push(registro);
-                    console.log("pizza de"+json_obj.logs[i].message);
-
 
                     var fechaRegistro=json_obj.logs[i].hora.substr(0,10);//OBTIENE LA FECHA DEL TIMESTAMP
-                    console.log("FECHA "+fechaRegistro);
 
-//parseo de fechas
+                                        //parseo de fechas
 
-var fecha1=Date.parse(fechainicio);
-var fecha2=Date.parse(fechafin);
-var fecha3=Date.parse(fechaRegistro);
+                                        var fecha1=Date.parse(fechainicio);
+                                        var fecha2=Date.parse(fechafin);
+                                        var fecha3=Date.parse(fechaRegistro);
 
 
 
                     if((opcionStatus==json_obj.logs[i].message||opcionStatus=="All")&&(fecha3>=fecha1&&fecha3<=fecha2)){//aqui compara los estados y las fechas
 
-                    $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
-                
-}
-               
-
-
+                        $('#tblog > tbody').append('<tr><td style="width:22%;">'+json_obj.logs[i].hora+'</td><td style="width:41%;">'+json_obj.logs[i].message+'</td><td style="width:8%;">'+json_obj.logs[i].Presion+'</td></tr>');
+                        filtered_data_found = true;
+                    }
+                  }
+                  if(filtered_data_found===true){
+                    $('#owl-demo').css('margin-left','0%');
+                        //Ocultamos el botón del menú principal que permite ver la página web
+                        //Mostramos los botones sendReport y goBack del menú principal             
+                        $('#loadingdiag').fadeOut();
+                        $('#pumpstatuscont').fadeOut();
+                        $('#logout').fadeOut();
+                        $('#goback').fadeIn();
+                        $('#sendReport').fadeIn();
+                        $('#datalogged').fadeIn();
+                      } else{
+                    navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
+                    //alert("No incident filtered logs found!");
                 }
-
-                $('#owl-demo').css('margin-left','0%');
-                //Ocultamos el botón del menú principal que permite ver la página web
-                //Mostramos los botones sendReport y goBack del menú principal             
-                $('#loadingdiag').fadeOut();
-                $('#pumpstatuscont').fadeOut();
-                $('#goback').fadeIn();
-                $('#sendReport').fadeIn();
-                $('#datalogged').fadeIn();
-                                $("#logout").fadeIn();
-
-            }else{
+              }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
                 $('#loadingdiag').fadeOut();
                 navigator.notification.alert("No incident logs found!", null, "Warning", "OK");
-
-            }
+                //alert("No incident logs found!");
+              }
         });//Fin de la consulta a Bluemix para obtener la bitácora de incidentes.
     });//Fin del método para la acción de presionar #showlog
+
+
     //Método para la acción del botón #goBack
     $('#goback').click(function(){
         //Si se presiona goBack devuelve a la pantalla principal
