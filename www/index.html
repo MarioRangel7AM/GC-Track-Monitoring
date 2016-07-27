@@ -43,6 +43,9 @@
     <div id="offlinediag" style="display:none;">
         <h2>No connection...</h2>
     </div>
+    <div id="version" style="position:relative;color:white;float:right;padding-right:10%;padding-top:2%;margin-bottom:10%">
+        <h5>Version 1.5.2</h5>
+    </div>
     
     <div id="version" style="position:relative;color:white;float:right;padding-right:10%;padding-top:2%;margin-bottom:10%">
         <h5>Version 1.5.3</h5>
@@ -91,6 +94,9 @@ function onNotificationAPN (event) {
 
 
     $('#dologin').click(function(){
+        var div = $("#dologin");
+        div.animate({color: '#E04359', opacity: '0.4'}, "normal");
+        div.animate({color: '#FFF', opacity: '1.0'}, "normal");
             inemail = $('#inemail').val();
             inpass = $('#inpass').val();
 var token=window.localStorage.getItem("token");
@@ -121,6 +127,9 @@ window.localStorage.setItem("sucess","true");
 		
 		$('#dohelp').click(function(){
  		location.href='help.html';
+        var div = $("#dohelp");
+        div.animate({color: '#E04359', opacity: '0.4'}, "slow");
+        div.animate({color: '#FFF', opacity: '1.0'}, "normal");
 		
 		});
 		$( document ).ready(function() {

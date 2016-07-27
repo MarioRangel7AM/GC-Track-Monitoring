@@ -271,7 +271,7 @@ $('#goback').click(function(){
 
     // para mostrar el log
     $('#showlog').click(function(){
-        $.post( "http://gctrack-alterno.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
              .done(function( data ) {
                 registros = [];
                 console.log(data);
@@ -470,7 +470,7 @@ return false;
 // obtiene todas las bombas por usuario
 function getPumps(){
     console.log('Con'+userid);
-    $.post( "http://gctrack-alterno.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gct-dev.mybluemix.net/getpumps.php", {id_user: userid})
      .done(function( data ) {
         locaciones = [];
         console.log('deget'+data);
@@ -522,7 +522,7 @@ $('.row').click(function(){
 function viewTrackers (idlocation) {
     //console.log(idtracker);
     // obtenemos los tracker de esa locacion
-     $.post( "http://gctrack-alterno.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+     $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
      .done(function( data ) {
         console.log(data);
         var json_obj = $.parseJSON(data);
