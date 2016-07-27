@@ -561,6 +561,8 @@ var arr = json_obj.description_tracker.split(',');
         navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
    //alert("texto"+text);
 
+   window.localStorage.setItem("infoTracker",text);
+
     });
 
 });
@@ -937,19 +939,25 @@ $('#sendReport').click(function() {
 var currentTracker=window.localStorage.getItem("trackerId");
 console.log(currentTracker);
 
-/* $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
-   
 
+
+
+ $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
+   
     .done(function( data ) {
             var json_obj = $.parseJSON(data);
-var arr = json_obj.description_tracker;
-        var TrackerData=json_obj.name_location_business+" "+json_obj.name_business;
-        console.log("DFSDFDSF"+TrackerData);
-    window.localStorage.setItem("TrackerDescription",TrackerData);
+var arr = json_obj.description_tracker.split(',');
+        var text="Tracker Description: "+"\n"+arr[0]+"\n"+arr[1]+"\n"+arr[2]+"\n"+arr[3];
+
+       // navigator.notification.alert(text, null, "Tracker Info", "OK");//metodo para crear alertas personalizadas
    //alert("texto"+text);
 
+console.log("FSDFSDFSDFDS"+text);
+   window.localStorage.setItem("infoTracker",text);
+
     });
-*/
+
+
 
 var loc_business=$('#loc_business').text();
 var loc_pos=$('#loc_pos').text();
@@ -964,7 +972,8 @@ console.log(loc_business+loc_pos);
 var tableElement=document.getElementById('tbody').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
        
        var tableString=tableHead+tableElement;
-
+var  trackerInfo=window.localStorage.getItem("infoTracker");
+console.log("pokemon "+trackerInfo);
     console.log(tableHead+tableElement)
     var email = prompt("Please introduce the recipent email for the report", "");//correo al que se enviara la tabla
     var isValidEmail=validateEmail(email);
@@ -986,7 +995,7 @@ var tableElement=document.getElementById('tbody').outerHTML;//ESTO CONVIERTE EL 
             mm='0'+mm;
         } 
         today = dd+'/'+mm+'/'+yyyy+' Hour '+hours+":"+minutes;
-        $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableString,correo:email,pumpData:pump,fecha:today,cc:CCemail})
+        $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableString,correo:email,pumpData:pump,fecha:today,cc:CCemail,trackerInfo:trackerInfo})
         .done(function( data ) {
         navigator.notification.alert("Your report has been sent", null, "Send report", "OK");
         //var data = $.parseJSON(data);
