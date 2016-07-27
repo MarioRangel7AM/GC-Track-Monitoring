@@ -127,7 +127,7 @@
             </thead>
         </table>
         <table class="table" id="tblog">  
-            <tbody>
+            <tbody id="tbody">
             </tbody>
         </table>
     </div>
@@ -892,10 +892,12 @@ var arr = json_obj.description_tracker;
     });
 
 
-    var tableHead=document.getElementById('tbheader').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
-var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
+    var tableHead="<style>"+".table,td{border:1px solid black;border-radius:2px;}</style>"+"<table class='table' id='blog'>"+"<thead id='tbheader'><table>"+  "<tr><td id='dHeader'>Date</td>"+"<td id='sHeader'>Pump status</td>"+"<td id='pHeader'>PSI</td>"
+          
+//ESTO CONVIERTE EL HTML A UN STRING
+var tableElement=document.getElementById('tbody').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
        
-       var tableString=tableHead+tableElement 
+       var tableString=tableHead+tableElement;
 
     console.log(tableHead+tableElement)
     var email = prompt("Please introduce the recipent email for the report", "");//correo al que se enviara la tabla
