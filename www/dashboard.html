@@ -866,7 +866,7 @@ $('#sendReport').click(function() {
 var currentTracker=window.localStorage.getItem("trackerId");
 console.log(currentTracker);
 
- $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
+/* $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
    
 
     .done(function( data ) {
@@ -878,7 +878,14 @@ var arr = json_obj.description_tracker;
    //alert("texto"+text);
 
     });
+*/
 
+var loc_business=$('#loc_business').text();
+var loc_pos=$('#loc_pos').text();
+
+
+
+console.log(loc_business+loc_pos);
 
     var tableHead="<style>"+".table,td{border:1px solid black;border-radius:2px;}</style>"+"<table class='table' id='blog'>"+"<thead id='tbheader'><table>"+  "<tr><td id='dHeader'>Date</td>"+"<td id='sHeader'>Pump status</td>"+"<td id='pHeader'>PSI</td>"
           
@@ -893,7 +900,7 @@ var tableElement=document.getElementById('tbody').outerHTML;//ESTO CONVIERTE EL 
     var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla
     var isValidCCEmail=validateCCEmail(CCemail); 
     if(isValidEmail&&isValidCCEmail){ 
-        var TrackerDescription=window.localStorage.getItem("TrackerDescription")
+        var TrackerDescription=loc_business+" "+loc_pos;
         var pump=TrackerDescription+" "+currentPumpstatus;
         var today = new Date();
         var dd = today.getDate();
