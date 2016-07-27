@@ -19,177 +19,177 @@
 	<title>GC Track</title>
 </head>
 <body>
-    <div id="floattopheader">
-        <div class="container-fluid">
-            <img id="logologin" class="img-responsive" src="images/dash_logo.png">
-            <hr width=100% align="center" class="division">
-        </div> 
-        <div id="demo">
-            <div id="owl-demo" class="owl-carousel" style="display: none">
-                <div class="item" id="refreshPage"><img src="img/iconorefreshgctrack55x55.png" style="margin-top:-15px;"class="img-cintillo"></div><!--Refresh-->
-                <div class="item" id="contact"><img src="img/iconosupportgctrack55x55-2.png" style="margin-top:-15px;" class="img-cintillo"></div><!--Support-->
-                <div class="item" id="sendReport"><img src="img/iconosendinfogctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--send report-->
-                <div class="item" id="infoTracker"><img src="img/info55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--info-->
-                <div class="item" id="goback"><img src="img/iconogoback55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--go back-->
-                <div class="item" id="logout"><img src="img/iconologout55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--logout-->
-                <div class="item" ><a href="miPerfil.html"><img src="img/iconomiperfil55x55.png" style="margin-top:-15px;" class="img-cintillo"></a></div><!--myprofile-->
-            </div>
-        </div> 
-    </div>
-    <div id="fixedcontainer">
-        <div id="view_tracker_status" style="display:none;">
-            <div id="tracker_location">
-                <div onclick="viewLocations()" class="locationmark" rel="2">
-                    <h1 id="loc_business"></h1>
-                    <p id="loc_pos"></p>
-                </div>
-            </div>
-            <div id="list_trackers">
-                <div class="row" ><div class="locationmark"><h2>Loading...</h2></div></div>
-            </div> 
-            <div id="pumpstatuscont">
-                <div id="listmoretracks" style="display:none;">
-                </div>
-                <div class="container dashmarg">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-3">
-                            <img id="pumptypeicon" class="iconlist"  src="images/icono-pumpressure.png">
-                        </div>
-                        <div class="col-md-9 col-xs-9">
-                            <div class="row statsbg statsText">
-                                <span id="pumptypename">type</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container dashmarg">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-3">
-                            <img class="iconlist"   src="images/icono-pumpressure.png">
-                        </div>
-                        <div class="col-md-9 col-xs-9">
-                            <div class="row statsbg statsText">
-                                Pressure: 
-                                <span id="presiondata">0</span> PSI
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="statusnormal" style="display:none" class="container dashmarg">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-3">
-                            <img  id="pumpstatusicon" class="iconlist" src="images/dash_status.png">
-                        </div>
-                        <div class="col-md-9 col-xs-9">
-                            <div id="pumpstatus" class="row statsbg statsText">
-                                Status: 
-                                <span id="pump_status">Normal</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="statuserror" style="display:none" class="container dashmarg">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-3">
-                            <img class="iconlist" id="img_status_res" src="images/dash_status.png">
-                        </div>
-                        <div class="col-md-9 col-xs-9">
-                            <div id="" class="row statserror statsText" onClick="dismissBadge()">
-                                Status: 
-                                <span id="pump_status_res">Error</span><!--LOS IDS SON UNICOS NO PONGAS OTRAS COSAS O HABRA ERRORES-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div  class="container dashmarg">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-3">
-                            <img class="iconlist" id="statimage" src="images/dash_stadistics.png">
-                        </div>
-                        <div class="col-md-9 col-xs-9">
-                            <div class="row statsbg" style="height:34px;">
-                                <a  href="#inline" data-lity><p id="dashstats" style="color:white;">Data Logged</p></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="datalogged" style="display:none;">
-        <table class="table" id="tblogheader">  
-            <thead id="tbheader">
-                <tr>
-                    <td id="dHeader">Date</td>
-                    <td id="sHeader">Pump status</td>
-                    <td id="pHeader">PSI</td>
-                </tr>
-            </thead>
-        </table>
-        <table class="table" id="tblog">  
-            <tbody id="tbody">
-            </tbody>
-        </table>
-    </div>
-    <div id="offlinediag" style="display:none;">
-        <h2>No connection...</h2>
-    </div>
-    <div id="loadingdiag" style="display:none;">
-        <h2>Loading...</h2>
-    </div>
+	<div id="floattopheader">
+		<div class="container-fluid">
+			<img id="logologin" class="img-responsive" src="images/dash_logo.png">
+			<hr width=100% align="center" class="division">
+		</div> 
+		<div id="demo">
+			<div id="owl-demo" class="owl-carousel" style="display: none">
+				<div class="item" id="refreshPage"><img src="img/iconorefreshgctrack55x55.png" style="margin-top:-15px;"class="img-cintillo"></div><!--Refresh-->
+				<div class="item" id="contact"><img src="img/iconosupportgctrack55x55-2.png" style="margin-top:-15px;" class="img-cintillo"></div><!--Support-->
+				<div class="item" id="sendReport"><img src="img/iconosendinfogctrack55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--send report-->
+				<div class="item" id="infoTracker"><img src="img/info55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--info-->
+				<div class="item" id="goback"><img src="img/iconogoback55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--go back-->
+				<div class="item" id="logout"><img src="img/iconologout55x55.png" style="margin-top:-15px;" class="img-cintillo"></div><!--logout-->
+				<div class="item" ><a href="miPerfil.html"><img src="img/iconomiperfil55x55.png" style="margin-top:-15px;" class="img-cintillo"></a></div><!--myprofile-->
+			</div>
+		</div> 
+	</div>
+	<div id="fixedcontainer">
+		<div id="view_tracker_status" style="display:none;">
+			<div id="tracker_location">
+				<div onclick="viewLocations()" class="locationmark" rel="2">
+					<h1 id="loc_business"></h1>
+					<p id="loc_pos"></p>
+				</div>
+			</div>
+			<div id="list_trackers">
+				<div class="row" ><div class="locationmark"><h2>Loading...</h2></div></div>
+			</div> 
+			<div id="pumpstatuscont">
+				<div id="listmoretracks" style="display:none;">
+				</div>
+				<div class="container dashmarg">
+					<div class="row">
+						<div class="col-md-3 col-xs-3">
+							<img id="pumptypeicon" class="iconlist"  src="images/icono-pumpressure.png">
+						</div>
+						<div class="col-md-9 col-xs-9">
+							<div class="row statsbg statsText">
+								<span id="pumptypename">type</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container dashmarg">
+					<div class="row">
+						<div class="col-md-3 col-xs-3">
+							<img class="iconlist"   src="images/icono-pumpressure.png">
+						</div>
+						<div class="col-md-9 col-xs-9">
+							<div class="row statsbg statsText">
+								Pressure: 
+								<span id="presiondata">0</span> PSI
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="statusnormal" style="display:none" class="container dashmarg">
+					<div class="row">
+						<div class="col-md-3 col-xs-3">
+							<img  id="pumpstatusicon" class="iconlist" src="images/dash_status.png">
+						</div>
+						<div class="col-md-9 col-xs-9">
+							<div id="pumpstatus" class="row statsbg statsText">
+								Status: 
+								<span id="pump_status">Normal</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="statuserror" style="display:none" class="container dashmarg">
+					<div class="row">
+						<div class="col-md-3 col-xs-3">
+							<img class="iconlist" id="img_status_res" src="images/dash_status.png">
+						</div>
+						<div class="col-md-9 col-xs-9">
+							<div id="" class="row statserror statsText" onClick="dismissBadge()">
+								Status: 
+								<span id="pump_status_res">Error</span><!--LOS IDS SON UNICOS NO PONGAS OTRAS COSAS O HABRA ERRORES-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div  class="container dashmarg">
+					<div class="row">
+						<div class="col-md-3 col-xs-3">
+							<img class="iconlist" id="statimage" src="images/dash_stadistics.png">
+						</div>
+						<div class="col-md-9 col-xs-9">
+							<div class="row statsbg" style="height:34px;">
+								<a  href="#inline" data-lity><p id="dashstats" style="color:white;">Data Logged</p></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="datalogged" style="display:none;">
+		<table class="table" id="tblogheader">  
+			<thead id="tbheader">
+				<tr>
+					<td id="dHeader">Date</td>
+					<td id="sHeader">Pump status</td>
+					<td id="pHeader">PSI</td>
+				</tr>
+			</thead>
+		</table>
+		<table class="table" id="tblog">  
+			<tbody id="tbody">
+			</tbody>
+		</table>
+	</div>
+	<div id="offlinediag" style="display:none;">
+		<h2>No connection...</h2>
+	</div>
+	<div id="loadingdiag" style="display:none;">
+		<h2>Loading...</h2>
+	</div>
 
-    <div id="inline" style="overflow:auto;background:#FFF;padding:30px;width:600px;max-width:100%;border-radius:6px" class="lity-hide">
-    	<ul style="list-style:none">
-    		<li>
-    			<label for="input"><h2>Choose a filter</h2></label><br>
-    			<label for="input"><h3>Date</h3></label><br>
-    			<label for="input">From: </label><br>
-    			<input type="date" style="text-align: center;" required name="name" id="dateinput"><br> 
-    			<label for="input">To: </label><br>
-    			<input type="date" style="text-align: center;" required name="name" id="dateinput2"><br>
-    		</li>
-    		<li>
-    			<label for="input"><h3>Status</h3></label><br>
-    			<select id="SelectStatus" style="width:50%">
-    				<option value="All">All</option>
+	<div id="inline" style="overflow:auto;background:#FFF;padding:30px;width:600px;max-width:100%;border-radius:6px" class="lity-hide">
+		<ul style="list-style:none">
+			<li>
+				<label for="input"><h2>Choose a filter</h2></label><br>
+				<label for="input"><h3>Date</h3></label><br>
+				<label for="input">From: </label><br>
+				<input type="date" style="text-align: center;" required name="name" id="dateinput"><br> 
+				<label for="input">To: </label><br>
+				<input type="date" style="text-align: center;" required name="name" id="dateinput2"><br>
+			</li>
+			<li>
+				<label for="input"><h3>Status</h3></label><br>
+				<select id="SelectStatus" style="width:50%">
+					<option value="All">All</option>
 
-    				<option value="EngRun">Diesel Engine Running</option>
-    				<option value="Nam">Diesel Non Auto Mode</option>
-    				<option value="PumpTrbl">Diesel Pump trouble, Please verify on site</option>
-    				<option value="PumpOp">Electric Pump Operating</option>
-    				<option value="FieldRvw">Electric Field Review, phase failure or possible loss of principal power in the controller</option>
-    				<option value="ReversedPhase"> Electric Field Review, reversed phase</option>
-    				<option value="GeneralAlarm">Electric Field Review, General Alarm on</option>
-    				<option value="auto">Jockey Automatic mode on</option>
-    				<option value="jckpumpop">Jockey Pump Operating</option>
-    			</select>
+					<option value="EngRun">Diesel Engine Running</option>
+					<option value="Nam">Diesel Non Auto Mode</option>
+					<option value="PumpTrbl">Diesel Pump trouble, Please verify on site</option>
+					<option value="PumpOp">Electric Pump Operating</option>
+					<option value="FieldRvw">Electric Field Review, phase failure or possible loss of principal power in the controller</option>
+					<option value="ReversedPhase"> Electric Field Review, reversed phase</option>
+					<option value="GeneralAlarm">Electric Field Review, General Alarm on</option>
+					<option value="auto">Jockey Automatic mode on</option>
+					<option value="jckpumpop">Jockey Pump Operating</option>
+				</select>
 
-    		</li>
-    		<br><br>
-    		<button style="float:right;
-    		background-color: #D20222;
-		    border: none;
-		    color: white;
-		    padding: 10px 15px;
-		    text-align: center;
-		    text-decoration: none;
-		    display: inline-block;
-		    font-size: 16px;" name ="showlog" data-lity-close>Send</button>
-    	</ul>
-    </div>
-  </div>
+			</li>
+			<br><br>
+			<button style="float:right;
+			background-color: #D20222;
+			border: none;
+			color: white;
+			padding: 10px 15px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;" name ="showlog" data-lity-close>Send</button>
+		</ul>
+	</div>
+</div>
 
 
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-		<script src="dist/lity.js"></script>
-		<script src="responsivelightbox/prism.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="dist/lity.js"></script>
+<script src="responsivelightbox/prism.js"></script>
 
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Owl Carousel Assets -->
-    <link href="owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link href="owl-carousel/owl.theme.css" rel="stylesheet">
-    <script src="owl-carousel/owl.carousel.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- Owl Carousel Assets -->
+<link href="owl-carousel/owl.carousel.css" rel="stylesheet">
+<link href="owl-carousel/owl.theme.css" rel="stylesheet">
+<script src="owl-carousel/owl.carousel.js"></script>
 
 <!-- 
 Función principal de JavaScript para el manejo de los eventos 
@@ -431,7 +431,7 @@ $( document ).ready(function() {
                     }
                   }
                   if(filtered_data_found===true){
-		                $('#owl-demo').css('margin-left','0%');
+                  	$('#owl-demo').css('margin-left','0%');
 		                //Ocultamos el botón del menú principal que permite ver la página web
 		                //Mostramos los botones sendReport y goBack del menú principal             
 		                $('#loadingdiag').fadeOut();
@@ -441,14 +441,14 @@ $( document ).ready(function() {
 		                $('#sendReport').fadeIn();
 		                $('#datalogged').fadeIn();
 		              } else{
-                	// navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
-                    	alert("No incident filtered logs found!");
+                	navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
+                	//alert("No incident filtered logs found!");
                 }
               }else{
                 //Si no existen alertas para mostrar emitimos una alerta indicando que no se han sucitado incidentes.
                 $('#loadingdiag').fadeOut();
-                // navigator.notification.alert("No incident logs found!", null, "Warning", "OK");
-                alert("No incident logs found!");
+                navigator.notification.alert("No incident logs found!", null, "Warning", "OK");
+                //alert("No incident logs found!");
               }
         });//Fin de la consulta a Bluemix para obtener la bitácora de incidentes.
     });//Fin del método para la acción de presionar #showlog
@@ -456,19 +456,19 @@ $( document ).ready(function() {
     $('#goback').click(function(){
         //Si se presiona goBack devuelve a la pantalla principal
         
-         $('#list_trackers').fadeOut();
-            $('#tracker_location').fadeIn();
-            $('#view_tracker_status').fadeIn();
-            $('#pumpstatuscont').fadeIn();
-            $('#loadingdiag').fadeOut();
-                $("#datalogged").fadeOut();
-         $("#goback").fadeOut();
- $("#sendReport").fadeOut();
+        $('#list_trackers').fadeOut();
+        $('#tracker_location').fadeIn();
+        $('#view_tracker_status').fadeIn();
+        $('#pumpstatuscont').fadeIn();
+        $('#loadingdiag').fadeOut();
+        $("#datalogged").fadeOut();
+        $("#goback").fadeOut();
+        $("#sendReport").fadeOut();
 
-$('#owl-demo').css('margin-left','10%');
- 
-           
-    });
+        $('#owl-demo').css('margin-left','8%');
+
+
+      });
 
     //Método para la acción del botón #refreshPage
     $('#refreshPage').click(function(){
@@ -779,14 +779,14 @@ function checkPump() {
                 // navigator.notification.alert("Sudden Change in Pressure", null, "Warning", "OK");
                 alert("Sudden Change in pressure");
                 window.localStorage.setItem("isPressureNotified","1");
-            }
+              }
 
             if(listDevices[i].status!='0') {//Si la variable status de la bomba es diferente de cero Tenemos un problema 
 
 
-                 $('#locationTitle'+i).css('color','red');
- $('#locationTitle'+i).css('text-decoration','underline');
-window.localStorage.setItem("currentPosition",i);
+            	$('#locationTitle'+i).css('color','red');
+            	$('#locationTitle'+i).css('text-decoration','underline');
+            	window.localStorage.setItem("currentPosition",i);
 
             if(listDevices[i].status!='0') {//Si la variable status de la bomba es diferente de cero Tenemos un problema Houston.
             	$('#locationTitle'+i).css('color','red');
@@ -838,31 +838,32 @@ window.localStorage.setItem("currentPosition",i);
         	if(resultpump==1 && generalres===0){
                 //signfica que se encontro problemas y registramos el marcador global
                 generalres = 1;
-                                                  
-            }else{
-                if(resultpump===0 && generalres===1){
+
+              }else{
+              	if(resultpump===0 && generalres===1){
                     //signfica que ya no se encontro problemas y volvemos a la normalidad
                     generalres = 0;
                     isNotified = 0;
                     navigator.vibrate(500);
-                                                        
-var lastPosition=window.localStorage.getItem("currentPosition");
-  $('#locationTitle'+lastPosition).css('color','black');
- $('#locationTitle'+lastPosition).css('text-decoration','none');
+
+                    var lastPosition=window.localStorage.getItem("currentPosition");
+                    $('#locationTitle'+lastPosition).css('color','black');
+                    $('#locationTitle'+lastPosition).css('text-decoration','none');
 
                     dismissAlarms("Systems ready");//callas las alarmas
                     window.localStorage.setItem("isPressureNotified","0");
                   } 
                 }
-              } 
-            });
+              }
+            } 
+        });
 } 
 //Función para la acción de presionar el botón #sendReport
 $('#sendReport').click(function() {
     // var tableElement=document.getElementById('tblog').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
-   
-var currentTracker=window.localStorage.getItem("trackerId");
-console.log(currentTracker);
+
+    var currentTracker=window.localStorage.getItem("trackerId");
+    console.log(currentTracker);
 
 /* $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
    
@@ -876,32 +877,32 @@ var arr = json_obj.description_tracker;
    //alert("texto"+text);
 
     });
-*/
+    */
 
-var loc_business=$('#loc_business').text();
-var loc_pos=$('#loc_pos').text();
+    var loc_business=$('#loc_business').text();
+    var loc_pos=$('#loc_pos').text();
 
 
 
-console.log(loc_business+loc_pos);
+    console.log(loc_business+loc_pos);
 
     var tableHead="<style>"+".table,td{border:1px solid black;border-radius:2px;}</style>"+"<table class='table' id='blog'>"+"<thead id='tbheader'><table>"+  "<tr><td id='dHeader'>Date</td>"+"<td id='sHeader'>Pump status</td>"+"<td id='pHeader'>PSI</td>"
-          
+
 //ESTO CONVIERTE EL HTML A UN STRING
 var tableElement=document.getElementById('tbody').outerHTML;//ESTO CONVIERTE EL HTML A UN STRING
-       
-       var tableString=tableHead+tableElement;
 
-    console.log(tableHead+tableElement)
+var tableString=tableHead+tableElement;
+
+console.log(tableHead+tableElement)
     var email = prompt("Please introduce the recipent email for the report", "");//correo al que se enviara la tabla
     var isValidEmail=validateEmail(email);
     var CCemail = prompt("If you want to add a CC please write the email address, otherwise write cancel or leave the field blank", "");//correo al que se enviara la tabla
     var isValidCCEmail=validateCCEmail(CCemail); 
     if(isValidEmail&&isValidCCEmail){ 
-        var TrackerDescription=loc_business+"\n "+loc_pos;
-        var pump=TrackerDescription+" \n"+currentPumpstatus;
-        var today = new Date();
-        var dd = today.getDate();
+    	var TrackerDescription=loc_business+"\n "+loc_pos;
+    	var pump=TrackerDescription+" \n"+currentPumpstatus;
+    	var today = new Date();
+    	var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!
         var hours=today.getHours();
         var minutes=today.getMinutes();
