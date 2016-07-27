@@ -196,13 +196,6 @@ $( document ).ready(function() {
                 navigator.notification.alert("Version 1.5.3  ", null, "About GC-Track", "OK");
 
            });
-
- 
-<<<<<<< HEAD
-$('#contact').click(function(){
-           	       var subject=document.getElementById('asunto').value;
-           	       var message=document.getElementById('description').value;
-=======
   $('#contact').click(function(){
     var subject=document.getElementById('asunto').value;
     var message=document.getElementById('description').value;
@@ -211,9 +204,8 @@ $('#contact').click(function(){
     div.animate({color: '#E04359', opacity: '0.4'}, "slow");
     div.animate({color: '#FFF', opacity: '1.0'}, "normal");
     $('#loadingdiag').fadeIn();
->>>>>>> GCTrack-Debug
 				   
-var idTracker= localStorage.getItem("idTrackerToContactSupport"); 
+var idUser= localStorage.getItem("idUserToContactSupport"); 
 
 var contactEmail=window.localStorage.getItem("contact_email");
 console.log("CORRREOooooooooooo"+contactEmail);
@@ -223,25 +215,12 @@ var div = $("#contact");
     $('#loadingdiag').fadeIn();
 
 if(validateUserData(subject,message)){
-
-	console.log('ID trackeerr '+idTracker);	  
-<<<<<<< HEAD
-		  $.post( "http://gct-dev.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker,contact_email:contactEmail})
-=======
-		  $.post( "http://gct-dev.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, tracker:idTracker,contact_email:email})
->>>>>>> GCTrack-Debug
-             
+		  $.post( "http://gct-dev.mybluemix.net/contactsupport.php",{asunto:subject, mensaje:message, id_user:idUser,contact_email:contactEmail})
 			 
 			 .done(function( data ) {
        console.log(data);
 	$('#loadingdiag').fadeOut();
     navigator.notification.alert("You request has been sent", null, "Contact Support", "OK");//metodo para crear alertas personalizadas
-<<<<<<< HEAD
-=======
-    
-
-
->>>>>>> GCTrack-Debug
 
 	   //var data = $.parseJSON(data);
               
@@ -249,14 +228,8 @@ if(validateUserData(subject,message)){
           
 		  }
 else{
-<<<<<<< HEAD
-    $('#loadingdiag').fadeOut();
-	navigator.notification.alert("Please check all the fields", null, "Error", "OK");//metodo para crear alertas personalizadas
-
-=======
 	navigator.notification.alert("Please check your email address", null, "Error", "OK");//metodo para crear alertas personalizadas
     $('#sendingdiag').fadeOut();
->>>>>>> GCTrack-Debug
 }		  
 		   
         });
