@@ -3,7 +3,7 @@
   <description>Software para el control de equipo industriales, Ver. iOS</description>
   <author href="http://www.tecsolutionsmx.com" email="rodrigo01@gmail.com">TecsolutionsMX</author>
   <content src="index.html"/>
-  <preference name="phonegap-version" value="cli-6.3.0" />
+  <preference name="phonegap-version" value="cli-5.1.1" />
   <preference name="DisallowOverscroll" value="true" />
   <preference name="exit-on-suspend" value="false" />
 <preference name="keepRunning" value="true" />
