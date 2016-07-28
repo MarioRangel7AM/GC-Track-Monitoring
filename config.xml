@@ -4,6 +4,8 @@
   <author href="http://www.tecsolutionsmx.com" email="rodrigo01@gmail.com">TecsolutionsMX</author>
   <content src="index.html"/>
   <preference name="DisallowOverscroll" value="true" />
+  <preference name="exit-on-suspend" value="false" />
+<preference name="keepRunning" value="true" />
   <preference name="orientation" value="portrait" />
   <preference name="target-device" value="handset" />
   <preference name="fullscreen" value="false"/>
@@ -19,8 +21,7 @@
   <preference name="disable-cursor" value="false"/>
   <preference name="android-minSdkVersion" value="14"/>
   <preference name="android-installLocation" value="auto"/>
-  <gap:plugin name="org.apache.cordova.media" />
-  <gap:plugin name="org.apache.cordova.battery-status"/>
+   <gap:plugin name="org.apache.cordova.battery-status"/>
   <gap:plugin name="org.apache.cordova.camera"/>
   <gap:plugin name="org.apache.cordova.media-capture"/>
   <gap:plugin name="org.apache.cordova.console"/>
@@ -38,7 +39,6 @@
   <gap:plugin name="org.apache.cordova.network-information"/>
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
-  <gap:plugin name="com.badrit.backgroundjs" spec="0.1.0" source="pgb" />
   <icon src="icon.png" gap:platform="ios" width="57" height="57"/>
   <icon src="iconx72.png" gap:platform="ios" width="72" height="72"/>
   <icon src="www/res/icon/android/iconoappgctrack-36.png" gap:platform="android" gap:qualifier="ldpi"/>
@@ -57,7 +57,7 @@
   <gap:splash src="www/res/screen/android/screen-ldpi-portrait.png" gap:platform="android" gap:qualifier="port-ldpi"/>
   <gap:splash src="www/res/screen/android/screen-mdpi-portrait.png" gap:platform="android" gap:qualifier="port-mdpi"/>
   <gap:splash src="www/res/screen/android/screen-hdpi-portrait.png" gap:platform="android" gap:qualifier="port-hdpi"/>
-  <gap:splash src="www/res/screen/android/screen-xhdpi-portrait.png" gap:platform="android" gap:qualifier="port-xhdpi"/>
+<gap:splash src="www/res/screen/android/screen-xhdpi-portrait.png" gap:platform="android" gap:qualifier="port-xhdpi"/>
   <gap:splash src="Default.png" gap:platform="ios" width="320" height="480"/>
   <gap:splash src="Default@2x.png" gap:platform="ios" width="640" height="960"/>
   <gap:splash src="Default-568h@2x.png" gap:platform="ios" width="640" height="1136"/>
@@ -75,12 +75,17 @@
   <platform name="android">
     <allow-intent href="market:*"/>
   </platform>
+  <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
+    <false/>
+  </gap:config-file>
+
   <platform name="ios">
     <allow-intent href="itms:*"/>
     <allow-intent href="itms-apps:*"/>
   </platform>
 
   <preference name="android-build-tool" value="gradle" />
-  <plugin name="de.appplant.cordova.plugin.local-notification" />
+  <plugin name="de.appplant.cordova.plugin.local-notification"/>
   <plugin name="cordova-plugin-badge" spec="0.7.2" source="npm" />
-</widget>
+<plugin name="com.phonegap.plugins.pushplugin"  source="pgb" />
+  </widget>
