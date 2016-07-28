@@ -247,7 +247,7 @@ $( document ).ready(function() {
 
 $('#logologin').click(function(){
         
-                navigator.notification.alert("Version 1.5.3  ", null, "About GC-Track", "OK");
+                navigator.notification.alert("Version 1.0.0  ", null, "About GC-Track", "OK");
 
            });
 
@@ -429,6 +429,7 @@ $('#logologin').click(function(){
                         $('#datalogged').fadeIn();
                       } else{
                     navigator.notification.alert("No incident filtered logs found!", null, "Warning", "OK");
+                    break;
                     //alert("No incident filtered logs found!");
                 }
               }else{
