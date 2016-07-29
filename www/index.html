@@ -60,32 +60,32 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //Función Javascript de carga del documento
 function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
    
-window.plugins.pushNotification.register(
-    function(token){
-        window.localStorage.setItem("token",token);
-    },
-    function(){alert('Error al registrarse en el servidor APNS');},
-    {
-        "badge":"true",
-        "sound": "true",
-        "alert": "true",
-        "ecb": "onNotificationAPN"
-    });
-}
-function onNotificationAPN (event) {
-    alert("entrando al apn");
-    if (event.alert) {
+// window.plugins.pushNotification.register(
+//     function(token){
+//         window.localStorage.setItem("token",token);
+//     },
+//     function(){alert('Error al registrarse en el servidor APNS');},
+//     {
+//         "badge":"true",
+//         "sound": "true",
+//         "alert": "true",
+//         "ecb": "onNotificationAPN"
+//     });
+// }
+// function onNotificationAPN (event) {
+//     alert("entrando al apn");
+//     if (event.alert) {
 
-       //alert(event.alert);
-    }
-    if (event.sound) {
-        //var snd = new Media(event.sound);
-        //snd.play();
-    }
-    if (event.badge) {
-        window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
-    }
-}
+//        //alert(event.alert);
+//     }
+//     if (event.sound) {
+//         //var snd = new Media(event.sound);
+//         //snd.play();
+//     }
+//     if (event.badge) {
+//         window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
+//     }
+// }
 
 
 
