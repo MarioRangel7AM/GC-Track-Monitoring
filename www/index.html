@@ -85,40 +85,39 @@ function onDeviceReady() { //Método que se ejecuta al iniciar la aplicación.
 //     if (event.badge) {
 //         window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
 //     }
-// }
+}
 
 
 
-    $('#dologin').click(function(){
-        var div = $("#dologin");
-        div.animate({color: '#E04359', opacity: '0.4'}, "normal");
-        div.animate({color: '#FFF', opacity: '1.0'}, "normal");
-            inemail = $('#inemail').val();
-            inpass = $('#inpass').val();
-var token=window.localStorage.getItem("token");
+$('#dologin').click(function(){
+    var div = $("#dologin");
+    div.animate({color: '#E04359', opacity: '0.4'}, "normal");
+    div.animate({color: '#FFF', opacity: '1.0'}, "normal");
+    inemail = $('#inemail').val();
+    inpass = $('#inpass').val();
+    var token=window.localStorage.getItem("token");
 
-            $.post( "http://gct-production.mybluemix.net/auth.php", { email: inemail, pass: inpass,tokenDevice:token })
-             .done(function( data ) {
-                var data=$.parseJSON(data);
-				console.log(data);
-                if(data.resp=='Correcto'){
- window.localStorage.setItem("iduser", data.iduser);  
- window.localStorage.setItem("username",inemail);
-window.localStorage.setItem("sucess","true"); 
-  
-
-
-				   location.href='dashboard.html';
-                   navigator.notification.alert("GC-Track will monitor your system on the background. Please, do not force this app to terminate or completely close it.", null, "Reminder", "OK");
-                }else{
-	navigator.notification.alert("Please check you email address and password", null, "Error", "OK");//metodo para crear alertas personalizadas
-
-                }
-             });
+    $.post( "http://gct-production.mybluemix.net/auth.php", { email: inemail, pass: inpass,tokenDevice:token })
+    .done(function( data ) {
+        var data=$.parseJSON(data);
+        console.log(data);
+        if(data.resp=='Correcto'){
+            window.localStorage.setItem("iduser", data.iduser);  
+            window.localStorage.setItem("username",inemail);
+            window.localStorage.setItem("sucess","true"); 
 
 
 
-        });
+            location.href='dashboard.html';
+            navigator.notification.alert("GC-Track will monitor your system on the background. Please, do not force this app to terminate or completely close it.", null, "Reminder", "OK");
+        }else{
+            navigator.notification.alert("Please check you email address and password", null, "Error", "OK");//metodo para crear alertas personalizadas
+        }
+    });
+
+
+
+});
         
 		
 		
