@@ -45,14 +45,13 @@
     </div>
     
     <div id="version" style="position:relative;color:white;float:right;padding-right:10%;padding-top:2%;margin-bottom:10%">
-        <h5>Version 1.5.3</h5>
+        <h5>Version 1.0.0</h5>
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="//cdn.pubnub.com/pubnub-3.7.4.min.js"></script>
-
+<script type="text/javascript" charset="utf-8" src="js/PushNotification.js"></script>
     <script type="text/javascript">
 
   var pushNotification;
@@ -98,12 +97,13 @@ function onNotificationAPN (event) {
             inpass = $('#inpass').val();
 var token=window.localStorage.getItem("token");
 
-            $.post( "http://gct-dev.mybluemix.net/auth.php", { email: inemail, pass: inpass,tokenDevice:token })
+            $.post( "http://gct-production.mybluemix.net/auth.php", { email: inemail, pass: inpass,tokenDevice:token })
              .done(function( data ) {
                 var data=$.parseJSON(data);
 				console.log(data);
                 if(data.resp=='Correcto'){
  window.localStorage.setItem("iduser", data.iduser);  
+ window.localStorage.setItem("username",inemail);
 window.localStorage.setItem("sucess","true"); 
   
 
@@ -131,7 +131,7 @@ window.localStorage.setItem("sucess","true");
 		});
 		$( document ).ready(function() {
             
-            $.post( "http://gct-dev.mybluemix.net/auth.php", { loging: "Show" })
+            $.post( "http://gct-production.mybluemix.net/auth.php", { loging: "Show" })
              .done(function( data ) {
                var data=$.parseJSON(data);
 			   if(window.localStorage.getItem("sucess")=="true"){
