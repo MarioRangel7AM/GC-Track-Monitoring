@@ -338,7 +338,7 @@ $('#logologin').click(function(){
     //Función para cualquiera de los dos botones del mensaje de confirmación de logout
     function onConfirm(buttonIndex) {
         if(buttonIndex==1){ //El botón OK ha sido presionado
-            $.post( "http://gct-production.mybluemix.net/session_close.php",{loging: "Show", id_user:currentIdUser})
+            $.post( "http://gct-dev.mybluemix.net/session_close.php",{loging: "Show", id_user:currentIdUser})
             .done(function( data ) {
                        cordova.plugins.notification.badge.set(0);
 
@@ -391,7 +391,7 @@ $('#logologin').click(function(){
        // console.log(fecha);
        $('#datalogged').css("padding-top",relleno);
         //Hacemos una llamada a Bluemix para consultar la bitácora para ver alertas de los trackers
-        $.post( "http://gct-production.mybluemix.net/getlog.php", {id_tracker: ontracker})
+        $.post( "http://gct-dev.mybluemix.net/getlog.php", {id_tracker: ontracker})
         .done(function( data ) {
             registros = [];
             var json_obj = $.parseJSON(data);
@@ -493,7 +493,7 @@ $('#owl-demo').css('margin-left','10%');
     });
  */
 $('#infoTracker').click(function(){
-    $.post( "http://gct-production.mybluemix.net/gettrackerdata.php", {id_tracker:ontracker})
+    $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:ontracker})
     .done(function( data ) {
             var json_obj = $.parseJSON(data);
 var arr = json_obj.description_tracker.split(',');
@@ -541,7 +541,7 @@ function getPumps() {
     $('#infoTracker').fadeIn();
     currentIdUser=userid;
     //Preguntamos a Bluemix cuales son los trackers a los que tiene acceso este usuario dependiendo de su compañia y si se encuentra activo.
-    $.post( "http://gct-production.mybluemix.net/getpumps.php", {id_user: userid})
+    $.post( "http://gct-dev.mybluemix.net/getpumps.php", {id_user: userid})
     .done(function( data ) {
         //Reservamos una variable para ver las ubicaciones de Trackers
         locaciones = [];
@@ -607,7 +607,7 @@ function viewTrackers (idlocation) {
 $("#goback").fadeOut();   
 
     //Preguntamos a Bluemix información de las bombas del Tracker
-    $.post( "http://gct-production.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
+    $.post( "http://gct-dev.mybluemix.net/gettrackerlocation.php", {id_location: idlocation})
     .done(function( data ) {
     
         var json_obj = $.parseJSON(data);
@@ -634,7 +634,7 @@ $("#goback").fadeOut();
 }
 
 function isAlarmActive(idTracker,currentIdUser){
-    $.post( "http://gct-production.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: idTracker, id_user : currentIdUser})
+    $.post( "http://gct-dev.mybluemix.net/checkIfAlarmIsActive.php", {id_tracker: idTracker, id_user : currentIdUser})
     .done(function( data ) {
         data=$.parseJSON(data);
         if(data.answer=="YES"){
@@ -659,7 +659,7 @@ function getTracker(idTracker) {
     //Seteamos el Tracker actual a la variable de la memoria del dispositivo
     window.localStorage.setItem("trackerId",ontracker);
     //Preguntamos a Bluemix la información del Tracker
-    $.post( "http://gct-production.mybluemix.net/gettracker.php", {id_tracker: idTracker})
+    $.post( "http://gct-dev.mybluemix.net/gettracker.php", {id_tracker: idTracker})
     .done(function( data ) {
         var json_obj = $.parseJSON(data);
         if(json_obj.numresult>0){ //Si obtenemos respuesta de Bluemix con la info
@@ -735,7 +735,7 @@ function getTracker(idTracker) {
 function checkPump() {
     // console.log("Checking Pump---");
     var data="";
-    $.post( "http://gct-production.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
+    $.post( "http://gct-dev.mybluemix.net/checkpump.php", {id_user: userid,notified:isNotified})
     .done(function( data ) {
         listDevices = []; //Reutilizamos la variable listDevices cada que se manda a llamar
         var json_obj = $.parseJSON(data);
@@ -972,7 +972,7 @@ console.log(currentTracker);
 
 
 
- $.post( "http://gct-production.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
+ $.post( "http://gct-dev.mybluemix.net/gettrackerdata.php", {id_tracker:currentTracker})
    
     .done(function( data ) {
             var json_obj = $.parseJSON(data);
@@ -1026,7 +1026,7 @@ console.log("pokemon "+trackerInfo);
             mm='0'+mm;
         } 
         today = dd+'/'+mm+'/'+yyyy+' Hour '+hours+":"+minutes;
-        $.post( "http://gct-production.mybluemix.net/sendEmail.php",{tableString:tableString,correo:email,pumpData:pump,fecha:today,cc:CCemail,trackerInfo:trackerInfo,currentUser:currentUser})
+        $.post( "http://gct-dev.mybluemix.net/sendEmail.php",{tableString:tableString,correo:email,pumpData:pump,fecha:today,cc:CCemail,trackerInfo:trackerInfo,currentUser:currentUser})
         .done(function( data ) {
         navigator.notification.alert("Your report has been sent", null, "Send report", "OK");
         //var data = $.parseJSON(data);
@@ -1112,7 +1112,7 @@ function dismissAlarms(alertar) {
 
 
 
-    $.post( "http://gct-production.mybluemix.net/restorebadge.php", {id_user:currentIdUser})
+    $.post( "http://gct-dev.mybluemix.net/restorebadge.php", {id_user:currentIdUser})
    
 
     .done(function( data ) {
@@ -1130,7 +1130,7 @@ function dismissAlarms(alertar) {
 function dismissBadge(){
    cordova.plugins.notification.badge.set(0);
     numale=0;
-    $.post("http://gct-production.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
+    $.post("http://gct-dev.mybluemix.net/dismissAlarm.php", {id_tracker: ontracker, id_user : currentIdUser})
         .done(function( data ) {
             //var json_obj = $.parseJSON(data);
             //console.log(json_obj);
